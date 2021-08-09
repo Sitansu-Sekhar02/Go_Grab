@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/BaseColor">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/main_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/activity_gutter_margin_half"
+                        android:layout_marginRight="@dimen/activity_gutter_margin_half"
+                        android:orientation="vertical">
+
+                        <com.sa.gograb.view.AppTextView
+                            android:layout_width="@dimen/_208sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/activity_gutter_margin"
+                            android:text="@string/please_enter_mobile_no"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/LargeText"
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_gutter_margin"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:text="@string/enter_mobile_number"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallestSizeText"
+                            android:textColor="@color/semi_color" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_gutter_margin"
+                            android:layout_marginRight="@dimen/activity_gutter_margin"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                            android:layout_marginBottom="@dimen/activity_gutter_margin_half_slightly_increased">
+                            <com.hbb20.CountryCodePicker
+                                android:id="@+id/country_code_picker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:gravity="center"
+                                app:ccp_autoDetectCountry="true"
+                                app:ccp_autoDetectLanguage="true"
+                                app:ccp_contentColor="@color/semi_color"
+                                app:ccp_textSize="@dimen/_12sdp" />
+
+                            <com.sa.gograb.view.AppEditTextView
+                                android:id="@+id/phone_number_etv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:inputType="number"
+                                android:padding="@dimen/_15sdp"
+                                android:textAppearance="@style/MediumText"
+                                android:textColor="@color/app_fontBlackColor" />
+                        </LinearLayout>
+
+                        <com.sa.gograb.view.AppButton
+                            android:id="@+id/btn_continue"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_48sdp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="@dimen/activity_gutter_margin"
+                            android:background="@drawable/bg_button_color_accent_curved_filled"
+                            android:gravity="center"
+                            android:padding="@dimen/activity_gutter_margin_half_slightly_increased"
+                            android:text="@string/continu"
+                            android:textAppearance="@style/SmallMediumSizeText"
+                            android:textColor="@color/white" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <com.leo.simplearcloader.SimpleArcLoader
+        android:id="@+id/progress_dialog_loader"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        custom:arc_colors="@array/loader_colors"
+        custom:arc_margin="3dp"
+        custom:arc_speed="medium"
+        custom:arc_style="complete_arc" />
+
+    <ImageView
+        android:id="@+id/progress_dialog_logo"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_circle_white"
+        android:padding="@dimen/_12sdp"
+        android:src="@drawable/app_icon" />
+
+    <com.sa.gograb.view.AppTextView_Title
+        android:id="@+id/progress_dialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progress_dialog_loader"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_20sdp"
+        android:paddingTop="20dp"
+        android:text="@string/loading"
+        android:textAppearance="@style/SmallText"
+        android:textColor="@color/app_fontColor_dark" />
+</RelativeLayout>
+
+    <!-- <ProgressBar
+            android:id="@+id/progress_dialog_loader"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:progressTint="@color/white"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            /> -->

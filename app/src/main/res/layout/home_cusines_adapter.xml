@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:background="@color/BaseColor">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/_8sdp"
+        android:orientation="horizontal">
+
+        <com.sa.gograb.view.AppTextView_SubTitle
+            android:id="@+id/tv_cusine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/burger"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textAppearance="@style/SmallerSizeText"
+            android:textColor="@color/semi_color" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

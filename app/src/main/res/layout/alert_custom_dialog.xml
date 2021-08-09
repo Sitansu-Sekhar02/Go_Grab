@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/alert_custom_dialog_title_image"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/activity_gutter_margin_half"
+            android:src="@drawable/app_icon" />
+
+        <com.sa.gograb.view.AppTextView_Title
+            android:id="@+id/alert_custom_dialog_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:padding="@dimen/activity_gutter_margin_half"
+            android:text=""
+            android:textAppearance="@style/SmallText"
+            android:textColor="@color/ColorPrimary"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/alert_custom_dialog_description_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_gutter_margin_quarter"
+        android:layout_marginTop="@dimen/activity_gutter_margin"
+        android:layout_marginRight="@dimen/activity_gutter_margin_quarter"
+        android:layout_marginBottom="@dimen/activity_gutter_margin"
+        android:gravity="left"
+        android:padding="@dimen/activity_gutter_margin_quarter"
+        android:text=""
+        android:textAppearance="@style/SmallMediumText"
+        android:textColor="@color/app_fontBlackColor"
+        android:textStyle="normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <com.sa.gograb.view.AppButton
+            android:id="@+id/alert_custom_dialog_neutralButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/transparent"
+            android:padding="@dimen/activity_gutter_margin_half"
+            android:text="neutral"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/ColorPrimary" />
+
+        <com.sa.gograb.view.AppButton
+            android:id="@+id/alert_custom_dialog_cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/transparent"
+            android:padding="10dp"
+            android:text="cancel"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/ColorPrimary" />
+
+        <com.sa.gograb.view.AppButton
+            android:id="@+id/alert_custom_dialog_okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/transparent"
+            android:padding="@dimen/activity_gutter_margin_half"
+            android:text="Yes"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/ColorPrimary" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:progressActivity="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/tool_bar"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:orientation="vertical">
+
+    <com.vlonjatg.progressactivity.ProgressLinearLayout
+        android:id="@+id/details_progressActivity"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@color/BaseColor"
+        app:emptyTitleTextColor="@color/red_color"
+        app:errorContentTextColor="@color/app_fontColor"
+        app:errorTitleTextColor="@color/app_fontColor"
+        progressActivity:emptyBackgroundColor="@color/transparent"
+        progressActivity:errorBackgroundColor="@color/transparent"
+        progressActivity:loadingBackgroundColor="@color/transparent"
+        progressActivity:loadingProgressBarColor="@color/red_color">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filter_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.vlonjatg.progressactivity.ProgressLinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view_main"
+        android:layout_below="@+id/tool_bar"
+        android:layout_margin="@dimen/_8sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cat_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sub_category_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin_quarter"
+                    android:layout_marginRight="@dimen/activity_gutter_margin_quarter"
+                    android:scrollbars="none"
+                    android:visibility="visible" />
+
+                <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                    android:id="@+id/priceRangeSeekbar_sb"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin_half"
+                    android:layout_marginRight="@dimen/activity_gutter_margin_half"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:bar_color="@color/ColorAccent"
+                    app:bar_highlight_color="@color/ColorAccent"
+                    app:data_type="_integer"/>
+
+                <LinearLayout
+                    android:id="@+id/minmax_price_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView
+                        android:id="@+id/minPrice_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_gutter_margin_half"
+                        android:layout_marginRight="@dimen/activity_gutter_margin_half"
+                        android:gravity="left"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/app_fontColor"
+                        android:textStyle="normal" />
+
+                    <com.sa.gograb.view.AppTextView
+                        android:id="@+id/maxPrice_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_gutter_margin_half"
+                        android:layout_marginRight="@dimen/activity_gutter_margin_half"
+                        android:gravity="right"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/app_fontColor"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_main"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp"
+        android:layout_above="@+id/ln_apply_filter"
+        android:background="@color/grey" />
+    <LinearLayout
+        android:id="@+id/ln_apply_filter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2"
+        android:elevation="30dp">
+        <com.sa.gograb.view.AppTextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/close"
+            android:textColor="@color/semi_color"
+            android:textAppearance="@style/SmallMediumText"
+            android:gravity="center"/>
+
+        <com.sa.gograb.view.AppTextView
+            android:id="@+id/tv_apply_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/apply"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/button_red"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</RelativeLayout>

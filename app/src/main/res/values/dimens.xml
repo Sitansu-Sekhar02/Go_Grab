@@ -1,0 +1,91 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!--Text sizes start-->
+
+    <!--Text sizes end-->
+
+
+    <dimen name="navigation_header_banner_size">@dimen/_140sdp</dimen>
+
+    <dimen name="profile_pic_size_increased">@dimen/_100sdp</dimen>
+    <dimen name="profile_pic_size_reduced">@dimen/_80sdp</dimen>
+    <dimen name="profile_pic_size">@dimen/_90sdp</dimen>
+    <dimen name="profile_pic_size_smoothly_reduced">@dimen/_70sdp</dimen>
+    <dimen name="profile_pic_size_gently_reduced">@dimen/_60sdp</dimen>
+    <dimen name="sub_category_image_height">@dimen/_50sdp</dimen>
+
+    <dimen name="two_way_view_height_increased_more">@dimen/_130sdp</dimen>
+    <dimen name="service_view_width">@dimen/_180sdp</dimen>
+
+    <dimen name="custom_map_height">@dimen/_150sdp</dimen>
+
+    <dimen name="app_logo_height">@dimen/_160sdp</dimen>
+    <dimen name="app_logo_height_reduced">@dimen/_140sdp</dimen>
+    <dimen name="slider_height">@dimen/_140sdp</dimen>
+    <dimen name="slider_height_large">@dimen/_200sdp</dimen>
+
+    <dimen name="font_size_large">@dimen/_22sdp</dimen>
+    <dimen name="font_size_medium">@dimen/_14sdp</dimen>
+    <dimen name="font_size_small">@dimen/_14sdp</dimen>
+    <dimen name="font_size_smallMedium">@dimen/_12sdp</dimen>
+    <dimen name="font_size_smaller">@dimen/_10sdp</dimen>
+    <dimen name="font_size_smallest">@dimen/_12sdp</dimen>
+
+    <dimen name="action_icon_width">@dimen/_40sdp</dimen>
+    <dimen name="action_icon_count_margin">@dimen/_2sdp</dimen>
+    <dimen name="action_badge_text">@dimen/_16sdp</dimen>
+
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="navigation_header_height">@dimen/_160sdp</dimen>
+
+    <dimen name="input_field_height">@dimen/_45sdp</dimen>
+
+    <dimen name="activity_gutter_margin">@dimen/_16sdp</dimen>
+    <dimen name="activity_gutter_margin_double">@dimen/_32sdp</dimen>
+    <dimen name="activity_gutter_margin_triple">@dimen/_48sdp</dimen>
+    <dimen name="activity_gutter_margin_half">@dimen/_8sdp</dimen>
+    <dimen name="activity_gutter_margin_half_slightly_increased">@dimen/_10sdp</dimen>
+    <dimen name="activity_gutter_margin_half_increased">@dimen/_12sdp</dimen>
+    <dimen name="activity_gutter_margin_quarter">@dimen/_4sdp</dimen>
+    <dimen name="activity_gutter_margin_slightly_increased">@dimen/_20sdp</dimen>
+    <dimen name="activity_gutter_margin_increased">@dimen/_25sdp</dimen>
+    <dimen name="logo_height">@dimen/_40sdp</dimen>
+
+    <dimen name="home_category_icon_height_reduced">@dimen/_40sdp</dimen>
+
+    <dimen name="activity_gutter_margin_quarter_increased">@dimen/_6sdp</dimen>
+    <dimen name="search_bar_height">40dp</dimen>
+    <dimen name="search_bar_loading_height">20dp</dimen>
+
+    <dimen name="navigation_logo_height">@dimen/_60sdp</dimen>
+
+    <dimen name="menu_logo_height">@dimen/_45sdp</dimen>
+
+    <!--Login Dimens-->
+
+    <!--List Loader Color-->
+    <dimen name="loadingProgressBarWidth">@dimen/_50sdp</dimen>
+    <dimen name="loadingProgressBarHeight">@dimen/_50sdp</dimen>
+
+    <dimen name="emptyTitleTextSize">7sp</dimen>
+    <dimen name="emptyContentTextSize">6sp</dimen>
+    <dimen name="emptyImageHeight">@dimen/_100sdp</dimen>
+    <dimen name="emptyImageWidth">@dimen/_150sdp</dimen>
+
+    <dimen name="errorTitleTextSize">8sp</dimen>
+    <dimen name="errorContentTextSize">6sp</dimen>
+    <dimen name="errorImageHeight">@dimen/_100sdp</dimen>
+    <dimen name="errorImageWidth">@dimen/_150sdp</dimen>
+
+    <dimen name="progressLoaderLogoSize">@dimen/_40sdp</dimen>
+    <dimen name="progressLoaderSize">@dimen/_70sdp</dimen>
+
+    <dimen name="rating_bar_size_small">@dimen/_10sdp</dimen>
+    <dimen name="rating_bar_size_medium">@dimen/_16sdp</dimen>
+    <dimen name="rating_bar_size">@dimen/_32sdp</dimen>
+
+</resources>

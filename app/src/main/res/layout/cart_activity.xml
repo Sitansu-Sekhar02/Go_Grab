@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/tool_bar"
+    android:scrollbars="none">
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/rl_cart_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_billing_main"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:visibility="visible"
+                android:id="@+id/ln_menu_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_menu_main"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_grp" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:orientation="vertical">
+
+                    <com.sa.gograb.view.AppTextView
+                        android:id="@+id/tv_item_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="The soup saga"
+                        android:textAppearance="@style/MediumSizeText"
+                        android:textColor="@color/main_text" />
+
+                    <LinearLayout
+                        android:id="@+id/ln_rating_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ln_prepare_time"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/bg_button_color_primary_dark_curved_filled">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <com.sa.gograb.view.AppTextView_SubTitle
+                                android:id="@+id/tv_ratings"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/_10sdp"
+                                android:text="4.5"
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/main_text" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_star" />
+
+                            <com.sa.gograb.view.AppTextView_SubTitle
+                                android:id="@+id/tv_rating_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/_10sdp"
+                                android:text="(15+)"
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/semi_color" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/_2sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:background="@color/grey_lighter" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <com.sa.gograb.view.AppTextView_SubTitle
+                                android:id="@+id/tv_distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_path_location"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/kms"
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/semi_color" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ln_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_below="@+id/ln_menu_details">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cart_list_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:id="@+id/view_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@color/BaseColor"
+                android:layout_below="@+id/ln_recycler" />
+            <LinearLayout
+                android:id="@+id/ln_add_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_one"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="vertical">
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:singleLine="false"
+                    android:text="@string/add_instruction"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/comments_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:gravity="left"
+                    android:inputType="textMultiLine"
+                    android:lineSpacingMultiplier="1.2"
+                    android:hint="@string/enter_instruction"
+                    android:maxLines="6"
+                    android:minLines="4"
+                    android:padding="@dimen/activity_gutter_margin_half_increased"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/app_fontColor" />
+            </LinearLayout>
+            <View
+                android:id="@+id/view_two"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp"
+                android:background="@color/BaseColor"
+                android:layout_below="@+id/ln_add_instruction" />
+            <LinearLayout
+                android:id="@+id/ln_apply_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_two"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="vertical">
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:singleLine="false"
+                    android:text="@string/apply_coupon"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled">
+
+                    <com.sa.gograb.view.AppEditTextView
+                        android:id="@+id/etv_apply_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:gravity="left"
+                        android:hint="@string/enter_coupon_code"
+                        android:inputType="textMultiLine"
+                        android:lineSpacingMultiplier="1.2"
+                        android:minLines="4"
+                        android:padding="@dimen/activity_gutter_margin_half_increased"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/app_fontBlackColor"
+                        android:textColorHint="@color/app_fontColor" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_apply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/main_text"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:text="@string/apply"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_gutter_margin_half_increased"
+                android:background="@color/BaseColor"
+                android:layout_below="@+id/ln_apply_coupon"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin_half"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/bill_details"
+                        android:layout_marginLeft="@dimen/_4sdp"
+
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/main_text" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/main_text" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vat_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/item_price"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="@dimen/_4sdp"
+
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/item_price_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/packing_charges"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="@dimen/_4sdp"
+
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/packaging_charges_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_lighter" />
+
+
+                <LinearLayout
+                    android:id="@+id/discount_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/sub_total"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:layout_marginLeft="@dimen/_4sdp"
+
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/sub_total_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/discount_onBill_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:text="@string/coupon"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/discount_onBill_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/text_green" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/vat"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/vat_amount_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_view_cart"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/rl_billing_main"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_height="@dimen/_58sdp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:orientation="vertical">
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/semi_color"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:text="@string/total"/>
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_sar_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/main_text"
+                    android:text="SAR 300"/>
+
+            </LinearLayout>
+
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/tv_checkout"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg_button_color_accent_curved_filled"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:text="@string/checkout"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ln_empty_cart"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/_156sdp"
+            android:layout_height="@dimen/_156sdp"
+            android:src="@drawable/ic_emprty_cart"/>
+        <com.sa.gograb.view.AppTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MediumSizeText"
+            android:text="@string/emprty_cart"
+            android:textColor="@color/main_text"/>
+        <com.sa.gograb.view.AppTextView_SubTitle
+            android:layout_width="@dimen/_194sdp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/SmallMediumText"
+            android:text="@string/emprty_cart_message"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:textColor="@color/semi_color"/>
+        <com.sa.gograb.view.AppButton
+            android:id="@+id/btn_view_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/activity_gutter_margin"
+            android:layout_marginRight="@dimen/activity_gutter_margin"
+            android:layout_marginBottom="@dimen/activity_gutter_margin_double"
+            android:background="@drawable/bg_button_color_accent_curved_filled"
+            android:gravity="center"
+            android:padding="@dimen/activity_gutter_margin_half_slightly_increased"
+            android:text="@string/view_nearby_restaurants"
+            android:textAppearance="@style/SmallMediumSizeText"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,225 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "28.0.3"
+    useLibrary 'org.apache.http.legacy'
+
+
+    defaultConfig {
+        applicationId "com.sa.gograb"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+
+       // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        mavenCentral()
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation 'com.google.firebase:firebase-core:18.0.3'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+    implementation 'com.google.firebase:firebase-dynamic-links:19.1.1'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
+    implementation 'com.google.firebase:firebase-auth:20.0.4'
+
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+
+    implementation 'com.google.android.gms:play-services-wallet:18.1.2'
+
+
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'org.jsoup:jsoup:1.7.3'
+    implementation 'com.github.Innovattic:range-seek-bar:v1.0.1'
+    implementation('com.facebook.android:facebook-android-sdk:4.7.0') {
+        exclude group: 'com.parse.bolts', module: 'bolts-tasks'
+    }
+
+
+    /*AWS libraries*/
+    implementation 'com.amazonaws:aws-android-sdk-core:2.+'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.+'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.+'
+    implementation 'com.amazonaws:aws-android-sdk-ddb:2.+'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation('org.lucasr.twowayview:twowayview:0.1.4') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+
+    implementation 'com.github.vlonjatg:progress-activity:2.0.5'
+    implementation 'at.blogc:expandabletextview:1.0.5'
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation('com.github.justzak:dilatingdotsprogressbar:1.0.1') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+    implementation 'com.crystal:crystalrangeseekbar:1.1.3'
+    implementation('com.nineoldandroids:library:2.4.0') {
+        exclude module: 'commons-io'
+    }
+    implementation('com.daimajia.slider:library:1.1.5@aar') {
+        exclude module: 'commons-io'
+    }
+    implementation('org.lucasr.twowayview:twowayview:0.1.4') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+    implementation 'com.edmodo:rangebar:1.0.0'
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.asksira.android:bsimagepicker:1.2.2'
+    implementation 'com.hbb20:ccp:2.4.0'
+    implementation 'com.github.abumoallim:Android-Multi-Select-Dialog:v1.9'
+    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
+    implementation('com.facebook.fresco:fresco:1.9.0') {
+        exclude group: 'com.parse.bolts', module: 'bolts-tasks'
+    }
+    implementation('com.github.vlonjatg:progress-activity:v1.0.3') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation('com.twotoasters.jazzylistview:library:1.2.1') {
+        exclude module: 'commons-io'
+    }
+    implementation('com.etsy.android.grid:library:1.0.5') {
+        exclude module: 'commons-io'
+    }
+    implementation('org.lucasr.twowayview:twowayview:0.1.4') {
+        exclude module: 'commons-io'
+    }
+    implementation('com.davemorrissey.labs:subsampling-scale-image-view:3.4.1') {
+        exclude module: 'commons-io'
+    }
+    /* implementation('com.github.JakeWharton:ViewPagerIndicator:2.4.1@aar') {
+         exclude group: 'commons-io', module: 'commons-io'
+     }*/
+    implementation('com.leo.simplearcloader:simplearcloader:1.0.+') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+    implementation('com.toptoche.searchablespinner:searchablespinnerlibrary:+') {
+        exclude group: 'commons-io', module: 'commons-io'
+    }
+
+    implementation 'com.github.yesterselga:country-picker-android:1.0'
+    implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
+
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'androidx.room:room-runtime:2.3.0'
+    testImplementation 'org.testng:testng:6.9.6'
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    implementation 'com.google.android:flexbox:2.0.1'
+
+    implementation 'net.alhazmy13.MediaPicker:libary:2.4.4'
+    implementation 'bg.devlabs.fullscreenvideoview:library:1.1.6'
+    implementation 'com.kbeanie:multipicker:1.6@aar'
+
+    // MultiDex
+    implementation 'com.android.support:multidex:1.0.3'
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+
+    // OKHttp
+    implementation "com.squareup.okhttp3:logging-interceptor:3.4.1"
+
+    implementation "com.github.thekhaeng:recycler-margin:1.2.1"
+
+    implementation 'com.github.sarweshkumar47:Curve-Fit:version_1_1_1'
+
+    implementation 'com.github.bumptech.glide:annotations:4.11.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
+        exclude group: 'glide-parent'
+    }
+    implementation 'androidx.browser:browser:1.3.0'
+    implementation "com.karumi:dexter:5.0.0"
+    implementation 'com.github.yalantis:ucrop:2.2.6'
+    implementation 'cn.pedant.sweetalert:library:1.3'
+    implementation 'com.github.GrenderG:Toasty:1.5.0'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0'
+    //color generator
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    //like button
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    implementation 'com.github.prabhat1707:EasyWayLocation:2.2'
+}
+apply plugin: 'com.google.gms.google-services'

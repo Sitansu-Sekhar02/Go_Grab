@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BaseColor">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/_156sdp"
+            android:layout_height="@dimen/_156sdp"
+            android:src="@drawable/ic_emprty_cart"/>
+        <com.sa.gograb.view.AppTextView_Title
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MediumSizeText"
+            android:text="@string/emprty_cart"
+            android:textColor="@color/main_text"/>
+        <com.sa.gograb.view.AppTextView_SubTitle
+            android:layout_width="@dimen/_194sdp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/SmallMediumText"
+            android:text="@string/emprty_cart_message"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:textColor="@color/semi_color"/>
+        <com.sa.gograb.view.AppButton
+            android:id="@+id/btn_view_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/activity_gutter_margin"
+            android:layout_marginRight="@dimen/activity_gutter_margin"
+            android:layout_marginBottom="@dimen/activity_gutter_margin_double"
+            android:background="@drawable/bg_button_color_accent_curved_filled"
+            android:gravity="center"
+            android:padding="@dimen/activity_gutter_margin_half_slightly_increased"
+            android:text="@string/view_nearby_restaurants"
+            android:textAppearance="@style/SmallMediumSizeText"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

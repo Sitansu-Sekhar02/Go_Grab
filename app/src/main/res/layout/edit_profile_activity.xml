@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_16sdp"
+    android:background="@color/BaseColor"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tool_bar"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:background="@color/BaseColor"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center">
+                <RelativeLayout
+                    android:layout_width="@dimen/_112sdp"
+                    android:layout_height="@dimen/_112sdp"
+                    android:layout_centerInParent="true">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile_image"
+                        android:background="@drawable/image_grp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true" />
+
+                    <ImageView
+                        android:id="@+id/iv_edit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_80sdp"
+                        android:src="@drawable/ic_edit_profile" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:text="@string/full_name"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/etv_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:hint="@string/enter_full_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/border_color" />
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:text="@string/mobile_no"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/etv_mobile_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/border_color"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:text="@string/email_id"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/email_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:hint="@string/enter_emailId_edit"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:text="@string/vehicle_no"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/etv_vehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:hint="@string/vehicle_no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.gograb.view.AppTextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_vehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:drawableRight="@drawable/ic_select_drop_down"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:text="RY 52 AS 3891"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/main_text"
+                    android:textStyle="normal" />
+
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:text="@string/gender"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.gograb.view.AppEditTextView
+                    android:id="@+id/etv_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:hint="@string/gender"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.gograb.view.AppButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_double"
+                    android:background="@drawable/bg_button_color_accent_curved_filled"
+                    android:gravity="center"
+                    android:padding="@dimen/activity_gutter_margin_half_slightly_increased"
+                    android:text="@string/save"
+                    android:textAppearance="@style/SmallMediumSizeText"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

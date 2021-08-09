@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/google_placesearch_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="0dp"
+        android:gravity="center"
+        android:visibility="visible"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="false"
+        tools:ignore="MissingConstraints">
+        <com.sa.gograb.view.AppTextView_SubTitle
+            android:id="@+id/search_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:drawableRight="@drawable/ic_add_location"
+            android:drawablePadding="@dimen/_5sdp"
+            android:gravity="left|center"
+            android:padding="@dimen/_15sdp"
+            android:hint="@string/search_restaurant_by_location"
+            android:textAllCaps="false"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/app_fontBlackColor"
+            android:textColorHint="@color/sub_color"/>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/category_grey"
+            android:orientation="horizontal"
+
+            android:weightSum="10">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible"
+                app:endIconMode="clear_text"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:drawableRight="@drawable/ic_add_location"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:hint="@string/search_restaurant_by_location"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:padding="@dimen/_15sdp"
+                    android:text=""
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/sub_color" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <fragment
+        android:id="@+id/g_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</RelativeLayout>

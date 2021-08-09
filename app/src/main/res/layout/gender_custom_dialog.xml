@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_gutter_margin_double"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/back_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_gutter_margin"
+        android:drawableLeft="@drawable/iv_back"
+        android:drawablePadding="@dimen/activity_gutter_margin_half"
+        android:gravity="center"
+        android:padding="@dimen/activity_gutter_margin_quarter"
+        android:text="@string/select_your_gender"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/red_color"
+        android:textStyle="normal" />
+
+    <View
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_gutter_margin_half"
+        android:background="@color/border_color" />
+
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/none_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_8sdp"
+        android:gravity="center"
+        android:padding="@dimen/_4sdp"
+        android:text="@string/none"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/app_fontBlackColor"
+        android:textStyle="normal" />
+
+    <View
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:background="@color/app_primary" />
+
+
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/male_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_8sdp"
+        android:gravity="center"
+        android:padding="@dimen/activity_gutter_margin_quarter"
+        android:text="@string/male"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/app_fontBlackColor"
+        android:textStyle="normal" />
+
+    <View
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="@color/border_color" />
+
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/female_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_8sdp"
+        android:gravity="center"
+        android:padding="@dimen/activity_gutter_margin_quarter"
+        android:text="@string/female"
+        android:textAllCaps="false"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/app_fontBlackColor"
+        android:textStyle="normal" />
+
+    <View
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/activity_gutter_margin"
+        android:background="@color/border_color" />
+
+</LinearLayout>
+
+

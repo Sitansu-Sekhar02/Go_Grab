@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_gutter_margin"
+                android:padding="@dimen/activity_gutter_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/app_icon" />
+
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/alert_dialog_message_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:padding="@dimen/activity_gutter_margin_half"
+                android:text="@string/app_name"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/app_fontColor_hint_light"
+                android:textStyle="normal" />
+
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/alert_dialog_positive_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_gutter_margin"
+                android:background="@drawable/bg_button_color_accent_horizontal_gradient"
+                android:gravity="center"
+                android:paddingLeft="@dimen/activity_gutter_margin_double"
+                android:paddingTop="@dimen/activity_gutter_margin_half"
+                android:paddingRight="@dimen/activity_gutter_margin_double"
+                android:paddingBottom="@dimen/activity_gutter_margin_half"
+                android:text="@string/ok"
+                android:textAppearance="@style/SmallMediumSizeText"
+                android:textColor="@color/white"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_map_transparent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:orientation="vertical"
+        android:paddingBottom="0dp"
+        android:weightSum="7.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_5sdp">
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:background="@color/white"
+                card_view:cardCornerRadius="@dimen/_2sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/iv_search_path"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:src="@drawable/search_path" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_toRightOf="@+id/iv_search_path"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.sa.gograb.view.AppEditTextView
+                            android:id="@+id/etv_current_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@color/BaseColor"
+                            android:hint="@string/yourlocation"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:padding="@dimen/_8sdp"
+                            android:paddingLeft="@dimen/_15sdp"
+                            android:selectAllOnFocus="true"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallMediumText" />
+
+
+                        <com.sa.gograb.view.AppEditTextView
+                            android:id="@+id/etv_destination_location"
+                            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/etv_current_location"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@color/BaseColor"
+                            android:hint="@string/yourdestination"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:padding="@dimen/_8sdp"
+                            android:selectAllOnFocus="true"
+                            android:textAppearance="@style/SmallMediumText" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+

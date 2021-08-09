@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ln_category_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:background="@drawable/circle_bg_grey">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_home_category"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_29sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_all_category" />
+            </RelativeLayout>
+
+
+
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/tv_category_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/all"
+                android:textColor="@color/semi_color"
+                android:textAppearance="@style/SmallMediumSizeText"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ln_category_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:visibility="visible"
+            android:layout_toRightOf="@+id/ln_category_all"
+            android:gravity="center"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:background="@drawable/circle_bg_grey">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_category_sub"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_seravefast" />
+            </RelativeLayout>
+
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/tv_category_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:gravity="center"
+                android:text="@string/server_fast"
+                android:textColor="@color/semi_color"
+                android:textAppearance="@style/SmallMediumSizeText"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

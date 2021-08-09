@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+   <!-- <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />-->
+
+    <com.vlonjatg.progressactivity.ProgressLinearLayout
+        android:id="@+id/details_progressActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        progressActivity:emptyBackgroundColor="@color/app_color_background"
+        progressActivity:errorBackgroundColor="@color/app_color_background"
+        progressActivity:loadingBackgroundColor="@color/app_color_background">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/orders_list_fragment_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:choiceMode="singleChoice"
+                android:divider="@color/grey"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+
+            <com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar
+                android:id="@+id/extraProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:color="@color/colorPrimaryDark"
+                android:radius="5dp"
+                android:visibility="gone"
+                app:dd_animationDuration="500"
+                app:dd_horizontalSpacing="4dp"
+                app:dd_numDots="5"
+                app:dd_scaleMultiplier="1.5" />
+
+        </RelativeLayout>
+    </com.vlonjatg.progressactivity.ProgressLinearLayout>
+</LinearLayout>

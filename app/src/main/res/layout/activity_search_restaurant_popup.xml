@@ -1,0 +1,210 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_trans">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/dialog_bg">
+
+
+                <LinearLayout
+                    android:id="@+id/ln_restro_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_product_image"
+                            android:layout_width="@dimen/_76sdp"
+                            android:layout_height="@dimen/_76sdp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image_grp" />
+
+                    <com.sa.gograb.view.AppTextView
+                        android:id="@+id/tv_item_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="The soup saga"
+                        android:textAppearance="@style/MediumSizeText"
+                        android:textColor="@color/main_text" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/rl_food_titles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ln_restro_main"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_category_first_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/BaseColor"
+                        android:padding="@dimen/_5sdp"
+                        android:text="Burger"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_category_second_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:background="@color/BaseColor"
+                        android:padding="@dimen/_5sdp"
+                        android:text="Burger"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_category_third_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:background="@color/BaseColor"
+                        android:padding="@dimen/_5sdp"
+                        android:text="Burger"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_prepare_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_food_titles"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/preparation_time"
+                        android:textAppearance="@style/MediumSizeText"
+                        android:textColor="@color/text_green" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_preparation_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="20 mins"
+                        android:textAppearance="@style/MediumSizeText"
+                        android:textColor="@color/text_green" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ln_rating_details"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/ln_prepare_time"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_35sdp"
+                    android:layout_marginRight="@dimen/_35sdp"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_ratings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:text="4.5"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/main_text"/>
+                    <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/ic_star"
+                        android:layout_gravity="center" />
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_rating_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:text="(15+)"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color"/>
+                </LinearLayout>
+                    <View
+                        android:layout_width="@dimen/_2sdp"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_lighter"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center">
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/tv_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_path_location"
+                            android:drawablePadding="@dimen/_8sdp"
+                            android:textAppearance="@style/SmallMediumText"
+                            android:textColor="@color/semi_color"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/kms"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+                <com.sa.gograb.view.AppButton
+                    android:id="@+id/btn_view_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_below="@+id/ln_rating_details"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/bg_button_color_accent_curved_filled"
+                    android:gravity="center"
+                    android:text="@string/view_menu"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/MediumSizeText"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

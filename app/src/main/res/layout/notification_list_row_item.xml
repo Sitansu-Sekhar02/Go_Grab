@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <com.sa.gograb.view.AppTextView
+        android:id="@+id/orders_list_row_item_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:text="Single Handle Basin Mixer"
+        android:textAppearance="@style/MediumText"
+        android:textColor="@color/app_fontColor" />
+
+    <com.sa.gograb.view.AppTextView
+        android:id="@+id/orders_list_row_item_message_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="5dp"
+        android:text="Single Handle Basin Mixer"
+        android:textAppearance="@style/SmallText"
+        android:textColor="@color/app_fontColor" />
+
+</LinearLayout>

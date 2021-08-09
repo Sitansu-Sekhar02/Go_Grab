@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_location" />
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:layout_below="@+id/tool_bar"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:id="@+id/ln_menu_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/dialog_bg">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_menu_item"
+                            android:layout_width="@dimen/_48sdp"
+                            android:scaleType="centerCrop"
+                            android:layout_height="@dimen/_48sdp"
+                            android:src="@drawable/image_grp"/>
+
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/rl_order_confirmation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:orientation="vertical">
+                        <com.sa.gograb.view.AppTextView
+                            android:id="@+id/tv_item_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/order_confirmed"
+                            android:textAppearance="@style/MediumSizeText"
+                            android:textColor="@color/main_text" />
+
+                        <LinearLayout
+                            android:id="@+id/ln_prepare_time"
+                            android:layout_width="@dimen/_176sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_item_title"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:orientation="horizontal">
+
+                            <com.sa.gograb.view.AppTextView_SubTitle
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/preparation_time"
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/text_green" />
+
+                            <com.sa.gograb.view.AppTextView_SubTitle
+                                android:id="@+id/tv_preparation_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="20 mins"
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/text_green" />
+
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_call"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_call"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_165sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:orientation="horizontal">
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/order_number"
+                            android:textAppearance="@style/SmallMediumText"
+                            android:textColor="@color/main_text" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/tv_order_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="#516"
+                            android:textAppearance="@style/SmallMediumText"
+                            android:textColor="@color/main_text" />
+
+                    </LinearLayout>
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_chat_with_restro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chat_with_restaurant"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:textColor="@color/icon_color"
+                        android:textAppearance="@style/SmallMediumText"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

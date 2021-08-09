@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/marker_view_incl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".map.MapActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_location" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/googleplacesearch_cv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:elevation="0dp"
+        android:gravity="center"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="false">
+
+        <AutoCompleteTextView
+            android:id="@+id/googleplacesearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tool_bar"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_location_pin"
+            android:drawableRight="@color/transparent"
+            android:drawablePadding="@dimen/activity_gutter_margin"
+            android:hint="@string/search"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:padding="@dimen/activity_gutter_margin_half"
+            android:textColorHint="@color/app_black"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.sa.gograb.map.CustomMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/marker_icon_view"
+                android:layout_width="@dimen/activity_gutter_margin_triple"
+                android:layout_height="@dimen/activity_gutter_margin_triple"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_location_pin" />
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
