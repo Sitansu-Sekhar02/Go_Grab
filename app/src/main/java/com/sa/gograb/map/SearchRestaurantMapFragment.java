@@ -1,6 +1,7 @@
 package com.sa.gograb.map;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,11 +18,14 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,16 +54,31 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sa.gograb.R;
+import com.sa.gograb.global.GlobalFunctions;
+import com.sa.gograb.menus.MenuListActivity;
+import com.sa.gograb.restaurant.RestaurantListActivity;
+import com.sa.gograb.services.ServerResponseInterface;
+import com.sa.gograb.services.ServicesMethodsManager;
+import com.sa.gograb.services.model.RestaurantListMainModel;
+import com.sa.gograb.services.model.RestaurantListModel;
+import com.sa.gograb.services.model.RestaurantModel;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,GoogleMap.OnMarkerClickListener {
 
     public static String TAG = "SearchRestaurantMapFragment";
     public static final String BUNDLE_MAIN_NOTIFICATION_MODEL = "BundleMainModelNotificationModel";
@@ -73,11 +92,20 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
 
+    View mainView;
+
+    String restaurant_id=null;
+
 
     Window mainWindow = null;
     FragmentManager mainActivityFM = null;
 
     private CardView googleplacesearch_cv;
+
+    RestaurantModel restaurantModel=new RestaurantModel();
+    List<RestaurantModel> list = new ArrayList<RestaurantModel>();
+    Map<Marker, Integer> markerMap = new HashMap<>();
+    private LayoutInflater layoutInflater;
 
 
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -92,6 +120,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
         context = getActivity();
 
         googleplacesearch_cv=view.findViewById(R.id.google_placesearch_cv);
+        this.layoutInflater = activity.getLayoutInflater();
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -110,29 +139,100 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
                // replaceFragment(searchPlaceOnMapFragment, SearchPlaceOnMapFragment.TAG, "", 0, 0);
             }
         });
+        mainView=googleplacesearch_cv;
 
 
         mapFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.g_map);
         mapFrag.getMapAsync(this);
 
+        restaurantModel.setDistance(String.valueOf(50000));
+
+        getRestaurantList();
 
         return view;
     }
 
-    private void replaceFragment(@Nullable Fragment allFragment, @Nullable String tag, @Nullable String title, int titleImageID, @Nullable int bgResID) {
-        if (allFragment != null && mainActivityFM != null) {
-            Fragment tempFrag = mainActivityFM.findFragmentByTag( tag );
-            if (tempFrag != null) {
-//                mainActivityFM.beginTransaction().remove(tempFrag).commitAllowingStateLoss();
-                mainActivityFM.beginTransaction().remove( tempFrag ).commit();
+    private void getRestaurantList() {
+        GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getAllHomeSubCategoryList(context,restaurantModel, new ServerResponseInterface() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+
+                RestaurantListMainModel restaurantListMainModel = (RestaurantListMainModel) arg0;
+                if (restaurantListMainModel!=null && restaurantListMainModel.getRestaurantListModel()!=null){
+                    RestaurantListModel restaurantListModel = restaurantListMainModel.getRestaurantListModel();
+                    setThisPage(restaurantListModel);
+                }
+
             }
-            // setTitle( title, titleImageID, bgResID );
-            FragmentTransaction ft = mainActivityFM.beginTransaction();
-            // ft.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-            //ft.setCustomAnimations(R.anim.slide_out_left, R.anim.slide_out_right);
-            ft.replace( R.id.container, allFragment, tag ).addToBackStack( tag ).commitAllowingStateLoss();
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+
+
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Store List");
+    }
+
+    private void setThisPage(RestaurantListModel restaurantListModel) {
+
+        if (restaurantListModel != null && list != null) {
+            list.clear();
+            markerMap.clear();
+            list.addAll(restaurantListModel.getRestaurantModels());
+            int listSize = 0;
+
+            if (list != null) {
+                listSize = list.size();
+            }
+
+            if (listSize > 0) {
+                for (int i = 0; i < listSize; i++) {
+                    final RestaurantModel mStoreLocationModel = list.get(i);
+                    if (mStoreLocationModel != null) {
+                        double latitude = 0.0;
+                        double longitude = 0.0;
+                        try {
+                            latitude = Double.parseDouble(mStoreLocationModel.getLatitude());
+                            longitude = Double.parseDouble(mStoreLocationModel.getLongitude());
+                        } catch (Exception e) {
+                            latitude = 0.0;
+                            longitude = 0.0;
+                        }
+                        LatLng latLong = new LatLng(latitude, longitude);
+
+                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_point)));
+//                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromBitmap(GlobalFunctions.getBitmapFromURL(mStoreLocationModel.getImage()))));
+                        markerMap.put(marker, i);
+
+                        if (i==0){
+                            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 11));
+                        }
+
+                    }
+                }
+            }
+//            LatLng latLong = new LatLng(24.71, 46.67);
+//            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(li, 11));
         }
     }
+
     @Override
     public void onResume() {
 //        MainActivity.setNavigationBottomIcon(TAG);
@@ -192,6 +292,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap=googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mGoogleMap.setOnMarkerClickListener(this);
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -301,12 +402,12 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        mLastLocation = location;
+        /*mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-
-        //Place current location marker
+*/
+        /*//Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
@@ -320,7 +421,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
                         != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Location locations = locationManager.getLastKnownLocation(provider);
+       *//* Location locations = locationManager.getLastKnownLocation(provider);
         List<String> providerList = locationManager.getAllProviders();
         if (null != locations && null != providerList && providerList.size() > 0) {
             double longitude = locations.getLongitude();
@@ -340,7 +441,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*//*
 
         markerOptions.icon(bitmapDescriptorFromVector(activity, R.drawable.ic_location_in)).title("Your Location");
         //dialog.cancel();
@@ -367,11 +468,80 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
                     this);
-        }
+        }*/
 
        /* mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
         //move map camera
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));*/
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        if (marker != null) {
+            int position = markerMap.get(marker);
+            setBranchData(list.get(position));
+        }
+        return true;
+    }
+
+    private void setBranchData(final RestaurantModel mStoreLocationModel) {
+
+        if (mStoreLocationModel != null) {
+
+            View view = layoutInflater.inflate(R.layout.activity_search_restaurant_popup, null, false);
+            final BottomSheetDialog alertView = new BottomSheetDialog(activity);
+            alertView.setContentView(view);
+            alertView.setCancelable(true);
+
+            CircleImageView iv_product_image = alertView.findViewById(R.id.iv_product_image);
+            TextView tv_item_name = alertView.findViewById(R.id.tv_item_name);
+            TextView tv_preparation_time = alertView.findViewById(R.id.tv_preparation_time);
+            TextView tv_ratings = alertView.findViewById(R.id.tv_ratings);
+            TextView tv_rating_count = alertView.findViewById(R.id.tv_rating_count);
+            TextView tv_distance = alertView.findViewById(R.id.tv_distance);
+            Button btn_view_menu = alertView.findViewById(R.id.btn_view_menu);
+
+
+
+
+            if (mStoreLocationModel.getId() != null) {
+                restaurant_id=mStoreLocationModel.getId();
+
+            }
+
+            if (mStoreLocationModel.getName() != null) {
+                tv_item_name.setText(mStoreLocationModel.getName());
+            }
+
+            if (mStoreLocationModel.getPreparation_time() != null) {
+                tv_preparation_time.setText(mStoreLocationModel.getPreparation_time()+" "+activity.getString(R.string.mins));
+            }
+            if (mStoreLocationModel.getRating() != null) {
+                tv_ratings.setText(mStoreLocationModel.getRating());
+            }
+            if (mStoreLocationModel.getDistance() != null) {
+                tv_distance.setText(mStoreLocationModel.getDistance());
+            }
+            if (mStoreLocationModel.getRating_count() != null) {
+                tv_rating_count.setText("("+mStoreLocationModel.getRating_count()+"+)");
+            }
+
+            if (GlobalFunctions.isNotNullValue(mStoreLocationModel.getImage())) {
+                Picasso.with(activity).load(mStoreLocationModel.getImage()).placeholder(R.drawable.app_icon).into(iv_product_image);
+            }
+
+            btn_view_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = MenuListActivity.newInstance( activity, mStoreLocationModel);
+                    activity.startActivity( intent );
+                }
+            });
+
+            alertView.show();
+
+        }
     }
 }

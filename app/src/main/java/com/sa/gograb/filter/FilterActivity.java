@@ -169,9 +169,9 @@ public class FilterActivity extends AppCompatActivity implements OnFilterItemCli
 
     }
     private void setFilterModel() {
-        String selectedDistanceIds = GlobalFunctions.getSelectedIdsFromList(filterDistanceModels);
-        String selectedCusineIds = GlobalFunctions.getSelectedIdsFromList(filterCusinesModels);
-        String selectedPrepareIds = GlobalFunctions.getSelectedIdsFromList(filterPrepareModels);
+        String selectedDistanceIds = GlobalFunctions.getSelectedIdsFromList(filterDistanceModels,"0");
+        String selectedCusineIds = GlobalFunctions.getSelectedIdsFromList(filterCusinesModels,"1");
+        String selectedPrepareIds = GlobalFunctions.getSelectedIdsFromList(filterPrepareModels,"2");
 
         if (restaurantModel == null) {
             restaurantModel = new RestaurantModel();
@@ -278,10 +278,10 @@ public class FilterActivity extends AppCompatActivity implements OnFilterItemCli
         cat_recycler_view.setAdapter(filterTitleAdapter);
     }
 
-    private void subCatSectionCatInitRecycler(List<FilterDistanceModel> filterDistanceModels) {
+    private void subCatSectionCatInitRecycler(List<FilterDistanceModel> filterDistanceModels,FilterModel model) {
         sub_category_recycler_view.setLayoutManager(filter_sub_linear);
         sub_category_recycler_view.setHasFixedSize(true);
-        FilterCheckBoxAdapter = new FilterCheckBoxAdapter(activity, filterDistanceModels);
+        FilterCheckBoxAdapter = new FilterCheckBoxAdapter(activity, filterDistanceModels,restaurantModel, model);
         sub_category_recycler_view.setAdapter(FilterCheckBoxAdapter);
     }
 
@@ -373,19 +373,19 @@ public class FilterActivity extends AppCompatActivity implements OnFilterItemCli
         if (model.getType().equalsIgnoreCase("0")){
 
             if (filterDistanceModels.size()>0){
-                subCatSectionCatInitRecycler(filterDistanceModels);
+                subCatSectionCatInitRecycler(filterDistanceModels,model);
             }
 
         }else if (model.getType().equalsIgnoreCase("1")){
 
             if (filterCusinesModels.size()>0){
-                subCatSectionCatInitRecycler(filterCusinesModels);
+                subCatSectionCatInitRecycler(filterCusinesModels,model);
             }
 
         }else if (model.getType().equalsIgnoreCase("2")){
 
             if (filterPrepareModels.size()>0){
-                subCatSectionCatInitRecycler(filterPrepareModels);
+                subCatSectionCatInitRecycler(filterPrepareModels,model);
             }
 
         }

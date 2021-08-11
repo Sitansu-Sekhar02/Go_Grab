@@ -38,9 +38,15 @@ import com.example.easywaylocation.Listener;
 import com.example.easywaylocation.LocationData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.sa.gograb.cart.CartActivity;
@@ -53,6 +59,11 @@ import com.sa.gograb.map.SearchRestaurantMapFragment;
 import com.sa.gograb.profile.ProfileFragment;
 import com.sa.gograb.services.model.NotificationModel;
 import com.sa.gograb.view.AlertDialog;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static com.example.easywaylocation.EasyWayLocation.LOCATION_SETTING_REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener , Listener, LocationData.AddressCallBack{
@@ -198,6 +209,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             }
         });
 
+        Places.initialize(AppController.getInstance().getApplicationContext(), activity.getString(R.string.GoogleAPIKey));
+
+        header_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Place.Field> placefield = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
+                Intent i = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placefield).build(MainActivity.this);
+                startActivityForResult(i, AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
+
 
         bottom_nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -239,6 +261,31 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         replaceFragment( homeFragment, HomeFragment.TAG, getString( R.string.app_name ), 0, 0 );
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+
+        if (requestCode == LOCATION_SETTING_REQUEST_CODE) {
+            easyWayLocation.onActivityResult(resultCode);
+        }
+
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                toolbar_title.setText(place.getAddress());
+                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId());
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
 
     public boolean permissionIsGranted() {

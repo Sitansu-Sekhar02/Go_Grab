@@ -10,7 +10,7 @@ public class SearchResponseModel implements Serializable{
     private final String TAG = "SearchResponseModel";
     private final String
             ID                    = "id",
-            NAME                  = "name",
+            NAME                  = "full_name",
             VARIATION             = "id_variation",
             EXTRA                 = "type",
             LATITUDE              = "latitude",

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:background="#F5F5F5"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    app:contentInsetStart="0dp"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/search_fragment_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/iv_back" />
+
+        <com.sa.gograb.view.AppEditTextView
+            android:id="@+id/search_fragment_etv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/search_fragment_search_button"
+            android:layout_toRightOf="@+id/search_fragment_back"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="left"
+            android:background="@null"
+            android:hint="@string/start_typing"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingRight="@dimen/_25sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="@color/app_fontColor" />
+
+        <ImageButton
+            android:id="@+id/search_fragment_search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_8sdp"
+            android:background="@color/BaseColor"
+            android:src="@drawable/ic_search" />
+
+        <ProgressBar
+            android:id="@+id/search_fragment_progressBar"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/search_fragment_search_button"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>

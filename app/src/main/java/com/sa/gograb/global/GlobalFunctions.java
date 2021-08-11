@@ -1588,7 +1588,7 @@ public class GlobalFunctions {
 
         return resultvariantModel;
     }
-    public static String getSelectedIdsFromList(List<FilterDistanceModel> list) {
+    public static String getSelectedIdsFromList(List<FilterDistanceModel> list,String type) {
         String idList = "";
         List<FilterDistanceModel> updatedList=new ArrayList<>();
         updatedList.clear();
@@ -1607,10 +1607,24 @@ public class GlobalFunctions {
                 FilterDistanceModel subCategoryModel = updatedList.get(i);
                 if (i == updatedList.size() - 1) {
                     if (isNotNullValue(subCategoryModel.getSelected()) && subCategoryModel.getSelected().equalsIgnoreCase("1")) {
-                        idList += subCategoryModel.getId();
+                        if (type.equalsIgnoreCase("0")){
+                            idList += subCategoryModel.getDistance();
+                        }else if (type.equalsIgnoreCase("1")){
+                            idList += subCategoryModel.getId();
+                        }else if (type.equalsIgnoreCase("2")){
+                            idList += subCategoryModel.getPreTime();
+                        }
+//                        idList += subCategoryModel.getId();
                     }
                 } else {
-                    idList += subCategoryModel.getId() + ",";
+                    if (type.equalsIgnoreCase("0")){
+                        idList += subCategoryModel.getDistance() + ",";
+                    }else if (type.equalsIgnoreCase("1")){
+                        idList += subCategoryModel.getId() + ",";
+                    }else if (type.equalsIgnoreCase("2")){
+                        idList += subCategoryModel.getPreTime() + ",";
+                    }
+//                    idList += subCategoryModel.getId() + ",";
                 }
             }
         }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/search_activity_tool_bar" />
+
+    <LinearLayout
+        android:id="@+id/search_fragment_no_result_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.sa.gograb.view.AppTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/_4sdp"
+            android:text="@string/no_search_found"
+            android:textAppearance="@style/MediumText"
+            android:textColor="@color/colorPrimary" />
+
+        <com.sa.gograb.view.AppTextView
+            android:id="@+id/search_fragment_no_result_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MediumText"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+
+    <com.vlonjatg.progressactivity.ProgressRelativeLayout
+        android:id="@+id/details_progressActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="@dimen/_10sdp"
+        progressActivity:emptyBackgroundColor="@color/colorPrimary"
+        progressActivity:emptyContentTextColor="@color/colorPrimary"
+        progressActivity:emptyContentTextSize="@dimen/_6sdp"
+        progressActivity:emptyImageHeight="@dimen/_100sdp"
+        progressActivity:emptyImageWidth="@dimen/_150sdp"
+        progressActivity:emptyTitleTextColor="@color/colorPrimary"
+        progressActivity:emptyTitleTextSize="@dimen/_8sdp"
+        progressActivity:errorBackgroundColor="@color/colorPrimary"
+        progressActivity:errorContentTextColor="@color/colorPrimary"
+        progressActivity:errorContentTextSize="@dimen/_6sdp"
+        progressActivity:errorImageHeight="@dimen/_100sdp"
+        progressActivity:errorImageWidth="@dimen/_150sdp"
+        progressActivity:errorTitleTextColor="@color/colorPrimary"
+        progressActivity:errorTitleTextSize="@dimen/_8sdp"
+        progressActivity:loadingBackgroundColor="@color/colorPrimary"
+        progressActivity:loadingProgressBarColor="@color/colorPrimary"
+        progressActivity:loadingProgressBarHeight="@dimen/_50sdp"
+        progressActivity:loadingProgressBarWidth="@dimen/_50sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent" />
+
+    </com.vlonjatg.progressactivity.ProgressRelativeLayout>
+</LinearLayout>

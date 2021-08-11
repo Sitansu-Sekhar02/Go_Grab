@@ -64,10 +64,15 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.sa.gograb.MainActivity;
 import com.sa.gograb.R;
 import com.sa.gograb.extra.DirectionFinder;
 import com.sa.gograb.extra.DirectionFinderListener;
 import com.sa.gograb.extra.Route;
+import com.sa.gograb.global.GlobalVariables;
+import com.sa.gograb.search.SearchActivity;
+import com.sa.gograb.services.model.SearchModel;
+import com.sa.gograb.services.model.SearchResponseModel;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -115,7 +120,7 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
     static int mResourceID;
     static int titleResourseID;
     static TextView toolbar_title;
-    static EditText etv_current_location,etv_destination_location;
+    static TextView tv_current_location,tv_destination_location;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -165,20 +170,19 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
             window.setStatusBarColor(ContextCompat.getColor(activity, R.color.ColorStatusBar));
         }
 
-        etv_current_location=findViewById(R.id.etv_current_location);
-        etv_destination_location=findViewById(R.id.etv_destination_location);
+        tv_current_location=findViewById(R.id.tv_current_location);
+        tv_destination_location=findViewById(R.id.tv_destination_location);
 
-
-       // Bundle extras = getIntent().getExtras();
-      //  String value=extras.getString("key");
-       // String value = getIntent().getExtras().getString("key");
-       // etv_current_location.setText(value);
 
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
 
 
+        tv_current_location.setText(MainActivity.header_tv.getText());
+        originAddress = tv_current_location.getText().toString();
+        //get current address from latlong
+        getLatlngFromAddress(context,originAddress);
 
 
         // Initialize Places.
@@ -186,109 +190,77 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
             Places.initialize(activity, getString(R.string.GoogleAPIKey));
         }
 
-        etv_current_location.setOnClickListener(new View.OnClickListener() {
+       /* tv_current_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<Place.Field> placefield = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
                 Intent i = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placefield).build(activity);
                 startActivityForResult(i, AUTOCOMPLETE_REQUEST_CODE_CURRENT_LOCATION);
             }
-        });
-        etv_destination_location.setOnClickListener(new View.OnClickListener() {
+        });*/
+        tv_destination_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
+                Intent intent = new Intent(activity, SearchActivity.class);
+                startActivityForResult(intent, GlobalVariables.REQUEST_CODE_FOR_SEARCH);
+               /* List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
                 Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fieldList).build(activity);
                 startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE_DESTINATION_LOCATION);
-
+*/
             }
         });
 
 
-
-        // setSupportActionBar(toolbar);
-       // actionBar = getSupportActionBar();
-       // setTitle(getString(R.string.edit_profile), 0, 0);
-
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE_CURRENT_LOCATION) {
-            if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-                etv_current_location.setText(place.getAddress());
-                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId());
-                originAddress = etv_current_location.getText().toString();
-                Log.e("locat","loc"+ originAddress);
-                getCurrentLocLatlngFromAddress(originAddress);
+    private LatLng getLatlngFromAddress(Context context,String originAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
 
 
-
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-            return;
-        } else if (requestCode == AUTOCOMPLETE_REQUEST_CODE_DESTINATION_LOCATION) {
-
-            if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-                //ride_now.setVisibility(View.VISIBLE);
-                //pickLocation.clearComposingText();
-                etv_destination_location.setText(place.getAddress());
-                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId());
-                destAddress = etv_destination_location.getText().toString();
-                getDestLocLatlngFromAddress(destAddress);
-
-                //for draw route between two location
-                sendRequest();
-
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-            return;
-
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
-
-    private void sendRequest() {
-
-     /*   String origin = etv_current_location.getText().toString();
-        Log.e("locat","loc"+ origin);
-
-        getCurrentLocLatlngFromAddress(origin);
-
-        String destination = etv_destination_location.getText().toString();
-        getDestLocLatlngFromAddress(destination);
-
-        if (origin.isEmpty()) {
-            Toast.makeText(activity, activity.getString(R.string.enter_origin_address), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (destination.isEmpty()) {
-            Toast.makeText(activity, activity.getString(R.string.enter_dest_address), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Log.e("locationssss","locationssss"+ getCurrentLocLatlngFromAddress(origin));
-*/
         try {
-            new DirectionFinder(this, originAddress, destAddress).execute();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            // May throw an IOException
+            address = coder.getFromLocationName(originAddress, 5);
+            if (address == null ) {
+                return p1;
+            }
+
+            Address location = address.get(0);
+            latitude=location.getLatitude();
+            longitude=location.getLongitude();
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            Log.e("originsssss", "" + p1);
+
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
         }
+
+        return p1;
     }
+
+
+
+    private String getAddressFromLatLng(double latitude, double longitude) {
+        StringBuilder result = new StringBuilder();
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                result.append(address.getLocality()).append("\n");
+                result.append(address.getCountryName());
+                destAddress= String.valueOf(address);
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+
+        return result.toString();
+    }
+
 
     @Override
     public void onStop () {
@@ -488,57 +460,37 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
         super.onResume();
     }
 
-    private LatLng getCurrentLocLatlngFromAddress(String curentLoc) {
-        Geocoder coder = new Geocoder(activity, Locale.getDefault());
-        List<Address> address;
-        LatLng p1 = null;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+
+        if (resultCode == activity.RESULT_OK) {
+
+            if (requestCode == GlobalVariables.REQUEST_CODE_FOR_SEARCH) {
+                SearchResponseModel searchResponseModel = (SearchResponseModel) data.getExtras().getSerializable(SearchActivity.BUNDLE_SEARCH_RESPONSE_MODEL);
+                if (searchResponseModel != null) {
+                    lat= Double.valueOf(searchResponseModel.getLatitude());
+                    lng= Double.valueOf(searchResponseModel.getLongitude());
+                    getAddressFromLatLng(lat,lng);
+
+                    tv_destination_location.setText(searchResponseModel.getName());
+
+
+                    //for draw route between two location
+                    sendRequest();
+                }
+            }
+        }
+    }
+    private void sendRequest() {
 
         try {
-            // May throw an IOException
-            address = coder.getFromLocationName(curentLoc, 5);
-            if (address == null ) {
-                return p1;
-            }
-
-            Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-            latitude=location.getLatitude();
-            longitude=location.getLongitude();
-            Log.e("latitude",""+latitude);
-
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
+            new DirectionFinder(this, originAddress, destAddress).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-
-        return p1;
     }
-    private LatLng getDestLocLatlngFromAddress(String destAddress) {
-        Geocoder coder = new Geocoder(activity, Locale.getDefault());
-        List<Address> address;
-        LatLng p1 = null;
 
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(destAddress, 5);
-            if (address == null ) {
-                return p1;
-            }
-
-            Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-            lat=location.getLatitude();
-            lng=location.getLongitude();
-            Log.e("lng",""+lat);
-
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
-        }
-
-        return p1;
-    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -668,8 +620,6 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
 
         for (Route routes : route) {
             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(routes.startLocation, 16));
-            //((TextView) findViewById(R.id.tvDuration)).setText(routes.duration.text);
-            //((TextView) findViewById(R.id.tvDistance)).setText(routes.distance.text);
 
             originMarkers.add(gMap.addMarker(new MarkerOptions()
                     .icon(bitmapDescriptorFromVector(activity, R.drawable.ic_start_point))
@@ -694,7 +644,6 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             LatLng origin = new LatLng(latitude, longitude);
             LatLng dest = new LatLng(lat, lng);
-            Log.e("dest", "" + dest);
             builder.include(origin);
             builder.include(dest);
             LatLngBounds bounds = builder.build();
@@ -708,6 +657,5 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
 
         }
     }
-
 
 }

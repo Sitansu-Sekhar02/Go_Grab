@@ -148,6 +148,8 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
 
+        mainView=sub_category_recyclerview;
+
         restaurantModel.setSize(size+"");
         restaurantModel.setIndex(index+"");
 

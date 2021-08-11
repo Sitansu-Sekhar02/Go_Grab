@@ -66,14 +66,16 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.sa.gograb.view.AppEditTextView
-                            android:id="@+id/etv_current_location"
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/tv_current_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@color/BaseColor"
                             android:hint="@string/yourlocation"
                             android:maxLines="1"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:singleLine="true"
                             android:padding="@dimen/_8sdp"
                             android:paddingLeft="@dimen/_15sdp"
@@ -82,12 +84,12 @@
                             android:textAppearance="@style/SmallMediumText" />
 
 
-                        <com.sa.gograb.view.AppEditTextView
-                            android:id="@+id/etv_destination_location"
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/tv_destination_location"
                             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/etv_current_location"
+                            android:layout_below="@+id/tv_current_location"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@color/BaseColor"

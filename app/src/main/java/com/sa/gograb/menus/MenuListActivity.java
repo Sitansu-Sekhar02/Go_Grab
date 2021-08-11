@@ -58,7 +58,8 @@ public class MenuListActivity extends AppCompatActivity {
              BUNDLE_HOME_SUB_CATEGORY = "HomeSubCategoryModel",
              BUNDLE_HOME_TOP_CATEGORY = "HomeTopCategoryModel",
              BUNDLE_WISHLIST = "WishListModel",
-             BUNDLE_POPULAR_RESTAURANT_NEAREST = "PopularNearestRestro";
+             BUNDLE_POPULAR_RESTAURANT_NEAREST = "PopularNearestRestro",
+             BUNDLE_SEAR_PLACE_MENU = "MenuFromSearchPlace";
     Context context;
     private static Activity activity;
     View mainView;
@@ -104,6 +105,7 @@ public class MenuListActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, MenuListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_MENU_LIST,restaurantModel);
+        bundle.putSerializable(BUNDLE_SEAR_PLACE_MENU,restaurantModel);
         intent.putExtras(bundle);
         return intent;
     }
@@ -130,6 +132,14 @@ public class MenuListActivity extends AppCompatActivity {
         return intent;
     }
 
+   /* public static Intent newInstance(Activity activity, RestaurantModel restaurantModel) {
+        Intent intent = new Intent(activity, MenuListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_SEAR_PLACE_MENU,restaurantModel);
+        intent.putExtras(bundle);
+        return intent;
+    }
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +199,14 @@ public class MenuListActivity extends AppCompatActivity {
                 restaurant_id = restaurantModel.getId();
             }
         }
+
+        //Menu  list
+        if (getIntent().hasExtra(BUNDLE_SEAR_PLACE_MENU)) {
+
+            restaurantModel = (RestaurantModel) getIntent().getSerializableExtra(BUNDLE_SEAR_PLACE_MENU);
+        } else {
+            restaurantModel = null;
+        }
         //for Home Top Category
         if (getIntent().hasExtra(BUNDLE_HOME_TOP_CATEGORY)) {
 
@@ -230,13 +248,15 @@ public class MenuListActivity extends AppCompatActivity {
             }
         }
 
+
+
+
+
         tv_view_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(activity, CartActivity.class);
                 startActivity(intent);
-                // Fragment searchPlaceOnMapFragment = new CartFragment();
-               // replaceFragment(searchPlaceOnMapFragment, CartFragment.TAG, "", 0, 0);
             }
         });
 
@@ -392,7 +412,7 @@ public class MenuListActivity extends AppCompatActivity {
                 tv_distance.setText(menuModel.getDistance());
             }
             if (GlobalFunctions.isNotNullValue(menuModel.getPreparation_time())) {
-                tv_preparation_time.setText(menuModel.getPreparation_time());
+                tv_preparation_time.setText(menuModel.getPreparation_time()+" "+activity.getString(R.string.mins));
             }
             if (GlobalFunctions.isNotNullValue(menuModel.getRating())) {
                 tv_ratings.setText(menuModel.getRating());

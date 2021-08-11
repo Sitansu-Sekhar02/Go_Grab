@@ -1,6 +1,7 @@
 package com.sa.gograb.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.sa.gograb.R;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.services.model.FilterDistanceModel;
 import com.sa.gograb.services.model.FilterModel;
+import com.sa.gograb.services.model.RestaurantModel;
 
 import java.util.List;
 
@@ -24,11 +26,15 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
 
     private final List<FilterDistanceModel> list;
     private final Activity activity;
+    RestaurantModel restaurantModel;
+    FilterModel filterModel;
 
 
-    public FilterCheckBoxAdapter(Activity activity, List<FilterDistanceModel> list) {
+    public FilterCheckBoxAdapter(Activity activity, List<FilterDistanceModel> list, RestaurantModel restaurantModel,FilterModel filterModel) {
         this.list = list;
         this.activity = activity;
+        this.restaurantModel = restaurantModel;
+        this.filterModel = filterModel;
 
     }
 
@@ -51,6 +57,33 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
                 holder.filter_check.setText(model.getDistance());
             }else if (GlobalFunctions.isNotNullValue(model.getPreTime())) {
                 holder.filter_check.setText(model.getPreTime());
+            }
+
+            if (filterModel.getType().equalsIgnoreCase("0")){
+
+
+                if (restaurantModel!=null && restaurantModel.getDistance()!=null && restaurantModel.getDistance().equalsIgnoreCase(model.getDistance())){
+                    holder.filter_check.setChecked(true);
+                }else {
+                    holder.filter_check.setChecked(false);
+                }
+
+            }else if (filterModel.getType().equalsIgnoreCase("1")){
+
+                if (restaurantModel!=null && restaurantModel.getCuisine_id()!=null && restaurantModel.getCuisine_id().equalsIgnoreCase(model.getId())){
+                    holder.filter_check.setChecked(true);
+                }else {
+                    holder.filter_check.setChecked(false);
+                }
+
+            }else if (filterModel.getType().equalsIgnoreCase("2")){
+
+                if (restaurantModel!=null && restaurantModel.getPreparation_time()!=null && restaurantModel.getPreparation_time().equalsIgnoreCase(model.getPreTime())){
+                    holder.filter_check.setChecked(true);
+                }else {
+                    holder.filter_check.setChecked(false);
+                }
+
             }
 
             holder.filter_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -4,7 +4,6 @@
     <string name="splash_text">Food is just a click away</string>
 
     <!--Google API Keys-->
-    //quickfix id
     <string name="GoogleAPIKey">AIzaSyAoZxkqzaoC2ZiyK1K7GypTMYO41M_svWk</string>
 
     <string name="location">Location</string>
@@ -198,6 +197,10 @@
     <string name="finding_direction">Finding direction..!</string>
     <string name="enter_origin_address">Please enter origin address</string>
     <string name="enter_dest_address">Please enter destination address</string>
+    <string name="mins">Mins</string>
+    <string name="start_typing">Start Typing...</string>
+    <string name="search_phrase_missing">Type something to search</string>
+    <string name="no_search_found">No Search Found</string>
 
 
 </resources>
