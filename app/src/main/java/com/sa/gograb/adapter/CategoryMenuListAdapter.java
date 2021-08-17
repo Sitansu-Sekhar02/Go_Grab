@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.gograb.AppController;
 import com.sa.gograb.R;
+import com.sa.gograb.adapter.interfaces.CartClickListener;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.services.model.CategoryMenuModel;
 import com.sa.gograb.services.model.MenuCatModel;
@@ -23,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuListAdapter.ViewHolder> {
+public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuListAdapter.ViewHolder>   {
 
     public static final String TAG = "CategoryMenuListAdapter";
 
@@ -31,10 +32,12 @@ public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuLi
     private final Activity activity;
     GlobalFunctions globalFunctions;
     CategoryMenuSubListAdapter adapter;
+    CartClickListener listener;
 
-    public CategoryMenuListAdapter(Activity activity, List<CategoryMenuModel> list) {
+    public CategoryMenuListAdapter(Activity activity, List<CategoryMenuModel> list,CartClickListener listener) {
         this.list = list;
         this.activity = activity;
+        this.listener = listener;
         globalFunctions = AppController.getInstance().getGlobalFunctions();
 
     }
@@ -64,7 +67,7 @@ public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuLi
         }
 
         if (productList.size() > 0) {
-            adapter = new CategoryMenuSubListAdapter(activity, productList);
+            adapter = new CategoryMenuSubListAdapter(activity, productList,listener);
             holder.recycler_sub_menu_item.setLayoutManager(layoutManager);
             holder.recycler_sub_menu_item.setAdapter(adapter);
 
@@ -93,7 +96,6 @@ public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuLi
                 }
 
                 notifyDataSetChanged();
-
             }
         });
 
@@ -104,6 +106,8 @@ public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuLi
     public int getItemCount() {
         return list.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView product_iv,minus_iv,add_iv,iv_menu_food_type,iv_category_dropDown;
@@ -127,7 +131,6 @@ public class CategoryMenuListAdapter extends RecyclerView.Adapter<CategoryMenuLi
             tv_menu_type = itemView.findViewById(R.id.tv_menu_type);
             recycler_sub_menu_item = itemView.findViewById(R.id.recycler_sub_menu_item);
             rl_menu_title = itemView.findViewById(R.id.rl_menu_title);
-
 
         }
     }

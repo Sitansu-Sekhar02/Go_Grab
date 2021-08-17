@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.sa.gograb.view.AppTextView_SubTitle
+        android:id="@+id/tv_item_name"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:text="The chicken jumbo burger X1, Cheese sandwich X2"
+        android:maxLines="2"
+        android:textColor="@color/semi_color"
+        android:textAppearance="@style/SmallerText" />
+
+    <RelativeLayout
+        android:id="@+id/ln_prepare_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_below="@+id/tv_item_name"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/tv_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="SAR"
+                android:textAppearance="@style/SmallMediumText"
+                android:textColor="@color/semi_color" />
+            <com.sa.gograb.view.AppTextView_SubTitle
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:gravity="center"
+                android:text="300"
+                android:textAppearance="@style/SmallMediumText"
+                android:textColor="@color/semi_color" />
+        </LinearLayout>
+
+
+
+        <com.sa.gograb.view.AppTextView
+            android:id="@+id/tv_reorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:text="@string/re_order"
+            android:textAppearance="@style/SmallMediumText"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:textColor="@color/icon_color" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+</RelativeLayout>

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -30,7 +31,6 @@ import com.sa.gograb.filter.FilterActivity;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
-import com.sa.gograb.services.model.HomeFilterCategoryModel;
 import com.sa.gograb.services.model.RestaurantListMainModel;
 import com.sa.gograb.services.model.RestaurantListModel;
 import com.sa.gograb.services.model.RestaurantModel;
@@ -41,25 +41,22 @@ import com.vlonjatg.progressactivity.ProgressLinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantListActivity extends AppCompatActivity implements WishListClickListener {
+public class RestaurantSecondListActivity extends AppCompatActivity implements WishListClickListener {
     private static final String TAG = "RestaurantListActivity",
 
-    BUNDLE_POPULAR_CATEGORY = "PopularCategoryList",
-            BUNDLE_PREPARE_TIME = "PrepareTime",
-            BUNDLE_POPULAR_RESTAURANT_NEAREST = "PopularNearestRestro";
+                                BUNDLE_POPULAR_CATEGORY = "PopularCategoryList",
+                                BUNDLE_POPULAR_RESTAURANT_NEAREST = "PopularNearestRestro";
     Context context;
     private static Activity activity;
     View mainView;
 
-    String sort = null;
-    int index = 0;
-    int size = 100;
-    HomeFilterCategoryModel homeFilterCategoryModel = null;
+    String sort=null;
+    int index=0;
+    int size=100;
 
-    String restaurant_id = null;
-    String prepare_time = null;
-    String filter = null;
-    boolean isWishlisted = false;
+    String restaurant_id=null;
+    boolean isWishlisted=false;
+
 
 
     static Toolbar toolbar;
@@ -68,13 +65,14 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     static int mResourceID;
     static int titleResourseID;
     static TextView toolbar_title;
-    static ImageView toolbar_logo, tool_bar_back_icon, iv_filter, ic_filter_resturant, iv_filter_rest;
+    static ImageView toolbar_logo, tool_bar_back_icon,iv_filter,ic_filter_resturant,iv_filter_rest;
 
 
     RestaurantListAdapter restaurantListAdapter;
     RestaurantSecondListAdapter restaurantSecondListAdapter;
     List<RestaurantModel> restaurantModels = new ArrayList<>();
     GridLayoutManager gridLayoutManager;
+    LinearLayoutManager linearLayoutManager;
     ProgressLinearLayout details_progressActivity;
     RecyclerView sub_category_recyclerview;
     SwipeRefreshLayout swipe_container;
@@ -86,23 +84,16 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     RecyclerView vendor_store_list_recyclerview;
     SwipeRefreshLayout review_swipe_container;*/
 
-    RestaurantModel restaurantModel = new RestaurantModel();
+    RestaurantModel restaurantModel=new RestaurantModel();
 
     public static Intent newInstance(Activity activity, String sort) {
-        Intent intent = new Intent(activity, RestaurantListActivity.class);
+        Intent intent = new Intent(activity, RestaurantSecondListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_POPULAR_CATEGORY, sort);
         intent.putExtras(bundle);
         return intent;
     }
 
-    public static Intent newInstance(Activity activity, HomeFilterCategoryModel homeFilterCategoryModel) {
-        Intent intent = new Intent(activity, RestaurantListActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_PREPARE_TIME, homeFilterCategoryModel);
-        intent.putExtras(bundle);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +108,11 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
         toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         tool_bar_back_icon = (ImageView) toolbar.findViewById(R.id.toolbar_icon);
         iv_filter = (ImageView) toolbar.findViewById(R.id.iv_filter);
-        ic_filter_resturant = (ImageView) toolbar.findViewById(R.id.iv_filter_rest);
+        ic_filter_resturant = (ImageView) toolbar.findViewById(R.id.iv_filter_rest_second);
+        iv_filter_rest = (ImageView) toolbar.findViewById(R.id.iv_filter_rest);
+        iv_filter_rest.setVisibility(View.GONE);
+        ic_filter_resturant.setVisibility(View.VISIBLE);
+
 
         tool_bar_back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,48 +123,40 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
         ic_filter_resturant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, RestaurantSecondListActivity.class);
+                Intent intent=new Intent(activity,RestaurantListActivity.class);
                 startActivity(intent);
             }
         });
         iv_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = FilterActivity.newInstance(activity, restaurantModel);
-                startActivityForResult(intent, 100);
+                Intent intent=FilterActivity.newInstance(activity,restaurantModel);
+                startActivityForResult(intent,100);
             }
         });
 
-        sub_category_recyclerview = findViewById(R.id.sub_category_recyclerview);
-        gridLayoutManager = new GridLayoutManager(activity, 2);
+        sub_category_recyclerview =findViewById(R.id.sub_category_recyclerview);
+        gridLayoutManager = new GridLayoutManager(activity,2);
+        linearLayoutManager=new LinearLayoutManager(activity);
         swipe_container = findViewById(R.id.swipe_container);
         details_progressActivity = findViewById(R.id.details_progressActivity);
+
 
 
         if (getIntent().hasExtra(BUNDLE_POPULAR_CATEGORY)) {
 
             sort = (String) getIntent().getStringExtra(BUNDLE_POPULAR_CATEGORY);
-            prepare_time=(String) getIntent().getStringExtra(BUNDLE_POPULAR_CATEGORY);
         } else {
-            sort = null;
-            prepare_time=null;
+            sort= null;
         }
 
-        if (getIntent().hasExtra(BUNDLE_PREPARE_TIME)) {
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("All");
 
-            homeFilterCategoryModel = (HomeFilterCategoryModel) getIntent().getSerializableExtra(BUNDLE_PREPARE_TIME);
-        } else {
-            homeFilterCategoryModel = null;
-        }
-        if (homeFilterCategoryModel != null) {
-           /* if (GlobalFunctions.isNotNullValue(homeFilterCategoryModel.getPreparation())) {
-                prepare_time = homeFilterCategoryModel.getPreparation();
-            }*/
-            if (GlobalFunctions.isNotNullValue(homeFilterCategoryModel.getId())) {
-                filter = homeFilterCategoryModel.getId();
-            }
-        }
-
+       /* home_category_recyclerview.setLayoutManager(homeCategory_linear);
+        home_category_recyclerview.setHasFixedSize(true);
+        homeCategoryAdapter = new HomeSubSectionListAdapter(activity,animalNames);
+        home_category_recyclerview.setAdapter(homeCategoryAdapter);*/
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -178,21 +165,19 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
 
-        mainView = sub_category_recyclerview;
+        mainView=sub_category_recyclerview;
 
-        restaurantModel.setSize(size + "");
-        restaurantModel.setIndex(index + "");
-        restaurantModel.setPreparation_time(prepare_time);
-        restaurantModel.setFilter(filter);
+        restaurantModel.setSize(size+"");
+        restaurantModel.setIndex(index+"");
 
         getRestaurantList();
 
-        swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipe_container.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getRestaurantList();
             }
-        });
+        } );
 
 
         setSupportActionBar(toolbar);
@@ -204,18 +189,18 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     private void getRestaurantList() {
         GlobalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getRestaurantList(context, restaurantModel, new ServerResponseInterface() {
+        servicesMethodsManager.getRestaurantList(context,restaurantModel, new ServerResponseInterface() {
             @SuppressLint("LongLogTag")
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 GlobalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
-                    swipe_container.setRefreshing(false);
+                    swipe_container.setRefreshing( false );
                 }
                 Log.d(TAG, "Response : " + arg0.toString());
 
                 RestaurantListMainModel restaurantListMainModel = (RestaurantListMainModel) arg0;
-                if (restaurantListMainModel != null && restaurantListMainModel.getRestaurantListModel() != null) {
+                if (restaurantListMainModel!=null && restaurantListMainModel.getRestaurantListModel()!=null){
                     RestaurantListModel restaurantListModel = restaurantListMainModel.getRestaurantListModel();
                     setThisPage(restaurantListModel);
                 }
@@ -227,7 +212,7 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
             public void OnFailureFromServer(String msg) {
                 GlobalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
-                    swipe_container.setRefreshing(false);
+                    swipe_container.setRefreshing( false );
                 }
 
                 Log.d(TAG, "Failure : " + msg);
@@ -239,7 +224,7 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
             public void OnError(String msg) {
                 GlobalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
-                    swipe_container.setRefreshing(false);
+                    swipe_container.setRefreshing( false );
                 }
                 Log.d(TAG, "Error : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
@@ -250,10 +235,10 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     private void setThisPage(RestaurantListModel restaurantListModel) {
         if (restaurantListModel != null && restaurantModels != null) {
             restaurantModels.clear();
-            restaurantModels.addAll(restaurantListModel.getRestaurantModels());
-            if (restaurantListAdapter != null) {
-                synchronized (restaurantListAdapter) {
-                    restaurantListAdapter.notifyDataSetChanged();
+            restaurantModels.addAll( restaurantListModel.getRestaurantModels() );
+            if (restaurantSecondListAdapter != null) {
+                synchronized (restaurantSecondListAdapter) {
+                    restaurantSecondListAdapter.notifyDataSetChanged();
                 }
             }
             if (restaurantModels.size() <= 0) {
@@ -273,10 +258,10 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     }
 
     private void offerRecyclerView() {
-        sub_category_recyclerview.setLayoutManager(gridLayoutManager);
+        sub_category_recyclerview.setLayoutManager(linearLayoutManager);
         sub_category_recyclerview.setHasFixedSize(true);
-        restaurantListAdapter = new RestaurantListAdapter(activity, restaurantModels, this::OnRestaurantClickInvoke);
-        sub_category_recyclerview.setAdapter(restaurantListAdapter);
+        restaurantSecondListAdapter = new RestaurantSecondListAdapter(activity,restaurantModels,this::OnRestaurantClickInvoke);
+        sub_category_recyclerview.setAdapter(restaurantSecondListAdapter);
     }
 
     private void showOfferContent() {
@@ -286,11 +271,11 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     }
 
     @Override
-    public void onStop() {
+    public void onStop () {
         super.onStop();
     }
 
-    public static void setTitle(String title, int titleImageID, int backgroundResourceID) {
+    public static void setTitle (String title,int titleImageID, int backgroundResourceID){
         mTitle = title;
         if (backgroundResourceID != 0) {
             mResourceID = backgroundResourceID;
@@ -306,7 +291,7 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     }
 
     @SuppressLint("LongLogTag")
-    private static void restoreToolbar() {
+    private static void restoreToolbar () {
         //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         Log.d(TAG, "Restore Tool Bar");
         if (actionBar != null) {
@@ -320,28 +305,27 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
 
     }
 
-    public void onBackPressed() {
+    public void onBackPressed () {
 
         closeThisActivity();
         super.onBackPressed();
     }
 
-    public static void closeThisActivity() {
+    public static void closeThisActivity () {
         if (activity != null) {
             activity.finish();
             //activity.overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
         }
     }
-
     @Override
-    public void onPause() {
+    public void onPause () {
         super.onPause();
         if (getFragmentManager().findFragmentByTag(TAG) != null)
             getFragmentManager().findFragmentByTag(TAG).setRetainInstance(true);
     }
 
     @Override
-    public void onStart() {
+    public void onStart () {
 
        /* if(hint != null) {
             hint.launchAutomaticHintForCall(activity.findViewById(R.id.action_call));
@@ -351,21 +335,21 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
     }
 
     @Override
     public void OnRestaurantClickInvoke(int position, RestaurantModel restaurantModel) {
-        if (GlobalFunctions.isNotNullValue(restaurantModel.getId())) {
-            restaurant_id = restaurantModel.getId();
+        if (GlobalFunctions.isNotNullValue(restaurantModel.getId())){
+            restaurant_id= restaurantModel.getId();
         }
         checkWishlist(restaurant_id);
     }
 
     private void checkWishlist(String restaurant_id) {
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getCheckWishList(context, restaurant_id, new ServerResponseInterface() {
+        servicesMethodsManager.getCheckWishList(context,restaurant_id, new ServerResponseInterface() {
             @SuppressLint("LongLogTag")
             @Override
             public void OnSuccessFromServer(Object arg0) {
@@ -394,22 +378,21 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
             }
         }, "Register_User");
     }
-
-    private void validateOutputAfterWishList(Object arg0) {
+    private void validateOutputAfterWishList( Object arg0) {
         if (arg0 instanceof StatusMainModel) {
             StatusMainModel statusMainModel = (StatusMainModel) arg0;
             StatusModel statusModel = statusMainModel.getStatusModel();
             // globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
             if (statusMainModel.isStatusLogin()) {
-                if (isWishlisted) {
+                if (isWishlisted){
                     //not wishlist icon
 
                     //iv_favourite.setImageResource(R.drawable.ic_favourite_grey);
-                    isWishlisted = false;
+                    isWishlisted=false;
 
-                } else {
+                }else {
                     //wishlist icon
-                    isWishlisted = true;
+                    isWishlisted=true;
                     //iv_favourite.setImageResource(R.drawable.ic_favourite_grey);
 
                 }
@@ -425,7 +408,7 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
         if (resultCode == activity.RESULT_OK) {
 
             if (requestCode == 100) {
-                restaurantModel = (RestaurantModel) data.getExtras().getSerializable(FilterActivity.BUNDLE_PRODUCT_POST_MODEL);
+                 restaurantModel = (RestaurantModel) data.getExtras().getSerializable(FilterActivity.BUNDLE_PRODUCT_POST_MODEL);
                 if (restaurantModel != null) {
                     getRestaurantList();
                 }

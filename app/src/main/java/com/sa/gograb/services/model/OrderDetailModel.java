@@ -10,6 +10,7 @@ public class OrderDetailModel implements Serializable {
     private final String TAG = "OrderDetailModel";
     private final String
             ID            = "id",
+            MENU_ID       = "menu_id",
             PRODUCT_ID    = "product_id",
             NAME          = "name",
             IMAGE         = "image",
@@ -20,12 +21,13 @@ public class OrderDetailModel implements Serializable {
 
     String
             id           = null,
+            menu_id      = null,
             product_id   = null,
             name         = null,
             currency     = null,
-            image        = null;
-    private double price =0.0;
-    private int quantity =0;
+            image        = null,
+            quantity     = null,
+            price        =null;
 
 
     public OrderDetailModel(){}
@@ -37,6 +39,14 @@ public class OrderDetailModel implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMenu_id() {
+        return menu_id;
+    }
+
+    public void setMenu_id(String menu_id) {
+        this.menu_id = menu_id;
     }
 
     public String getProduct_id() {
@@ -63,22 +73,21 @@ public class OrderDetailModel implements Serializable {
         this.image = image;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
-
 
     public String getCurrency() {
         return currency;
@@ -92,21 +101,14 @@ public class OrderDetailModel implements Serializable {
         try{
             JSONObject json = new JSONObject(jsonObject);
             this.id = json.getString(ID);
+            if(json.has(MENU_ID))this.menu_id = json.getString(MENU_ID);
             if(json.has(PRODUCT_ID))this.product_id = json.getString(PRODUCT_ID);
             if(json.has(NAME))this.name = json.getString(NAME);
             if(json.has(CURRENCY))this.currency = json.getString(CURRENCY);
             if(json.has(IMAGE))this.image = json.getString(IMAGE);
-            if(json.has(QUANTITY)){
-                try {
-                    this.quantity = json.getInt(QUANTITY);
-                }catch (Exception e){this.quantity =0;}
-            }
+            if(json.has(PRICE))this.price = json.getString(PRICE);
+            if(json.has(QUANTITY))this.quantity = json.getString(QUANTITY);
 
-            if(json.has(PRICE)){
-                try {
-                    this.price = json.getDouble(PRICE);
-                }catch (Exception e){this.price =0.0;}
-            }
 
             return true;
         }catch(Exception ex){
@@ -120,6 +122,7 @@ public class OrderDetailModel implements Serializable {
         try{
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(ID, this.id);
+            jsonMain.put(MENU_ID, this.menu_id);
             jsonMain.put(PRODUCT_ID, this.product_id);
             jsonMain.put(NAME, this.name);
             jsonMain.put(CURRENCY, this.currency);

@@ -25,15 +25,6 @@ public class OrderSubmitModel implements Serializable {
     GlobalVariables.CAR_SERVICE_TYPE carServiceType = GlobalVariables.CAR_SERVICE_TYPE.SINGLE_CAR;
 
 
-    /*public ApartmentModel getApartmentModel() {
-        return apartmentModel;
-    }
-
-    public void setApartmentModel(ApartmentModel apartmentModel) {
-        this.apartmentModel = apartmentModel;
-    }*/
-
-
 
     public GlobalVariables.CAR_SERVICE_TYPE getCarServiceType() {
         return carServiceType;

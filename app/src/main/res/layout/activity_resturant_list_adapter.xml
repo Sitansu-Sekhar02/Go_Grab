@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_restro_main"
-        android:layout_width="@dimen/_160sdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_4sdp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_8sdp"
         app:cardElevation="@dimen/_3sdp">
@@ -23,12 +22,12 @@
 
             <RelativeLayout
                 android:id="@+id/rl_imageview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_128sdp"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_125sdp"
                     app:cardCornerRadius="@dimen/_8sdp">
 
                     <ImageView
@@ -37,6 +36,7 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:src="@drawable/image" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,58 +93,65 @@
 
 
             </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/rl_restaurant"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_imageview"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:orientation="vertical">
-
-                <com.sa.gograb.view.AppTextView
-                    android:id="@+id/tv_category_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:text="@string/mc_Donalds"
-                    android:maxLines="1"
-                    android:textAppearance="@style/SmallestSizeText"
-                    android:textColor="@color/main_text" />
-
-                <com.sa.gograb.view.AppTextView_SubTitle
-                    android:id="@+id/tv_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:drawableLeft="@drawable/ic_path_location"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:text="@string/kms"
-                    android:textAppearance="@style/SmallMediumText"
-                    android:textColor="@color/semi_color" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_restaurant"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_sub_cusine_rv"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_toRightOf="@+id/rl_imageview">
+                <LinearLayout
+                    android:id="@+id/rl_restaurant"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:orientation="vertical">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <com.sa.gograb.view.AppTextView
+                        android:id="@+id/tv_category_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="@string/mc_Donalds"
+                        android:maxLines="2"
+                        android:textAppearance="@style/SmallestSizeText"
+                        android:textColor="@color/main_text" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:drawableLeft="@drawable/ic_path_location"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:text="@string/kms"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_restaurant"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:orientation="horizontal">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_sub_cusine_rv"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
 
 
 
-            </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 

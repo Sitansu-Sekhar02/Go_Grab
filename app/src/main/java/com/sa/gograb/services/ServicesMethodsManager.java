@@ -644,7 +644,14 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof CartMainModel || obj instanceof UpdateCartPostModel) {
+        } else if (obj instanceof UpdateCartPostModel) {
+            CartMainModel model = new CartMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }else if (obj instanceof CartMainModel) {
             CartMainModel model = new CartMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -677,7 +684,14 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof UtilityMainModel) {
+        } else if (obj instanceof CartModel) {
+            CartModel model = new CartModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }else if (obj instanceof UtilityMainModel) {
             UtilityMainModel model = new UtilityMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -758,6 +772,13 @@ public class ServicesMethodsManager {
             HomeSubCategoryModel homeSubCategoryModel = new HomeSubCategoryModel();
             if (homeSubCategoryModel.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(homeSubCategoryModel);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        } else if (obj instanceof HomeFilterCategoryModel) {
+            HomeFilterCategoryModel homeFilterCategoryModel = new HomeFilterCategoryModel();
+            if (homeFilterCategoryModel.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(homeFilterCategoryModel);
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
@@ -1065,7 +1086,7 @@ public class ServicesMethodsManager {
 
         getData(context, new WishListMainModel(), ServerConstants.URL_Wishlist, query, TAG);
     }
-    public void getAllHomeSubCategoryList(Context context, RestaurantModel restaurantModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void getRestaurantList(Context context, RestaurantModel restaurantModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
         postData(context, restaurantModel, ServerConstants.URL_Restaurant_list, query, TAG);
@@ -1105,18 +1126,12 @@ public class ServicesMethodsManager {
     }
 
 
-
-
-
     public void getVendorProduct(Context context, ProductPostModel productPostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
        // postData(context, productPostModel, ServerConstants.URL_VendorProduct, TAG);
     }
 
-    public void insertCart(Context context, CartPostModel cartPostModel, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        //postData(context, cartPostModel, ServerConstants.URL_InsertCart, TAG);
-    }
+
 
     public void getWishList(Context context, ProductPostModel productPostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
@@ -1143,21 +1158,21 @@ public class ServicesMethodsManager {
 
 
 
-    public void getOrderList(Context context, ProductPostModel productPostModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void getOrderList(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        if (productPostModel != null) {
+       /* if (productPostModel != null) {
             query = query != null ? query + "&index=" + productPostModel.getIndex() : "index=" + productPostModel.getIndex();
             query = query != null ? query + "&size=" + productPostModel.getSize() : "size=" + productPostModel.getSize();
-        }
-       // getData(context, new OrderListMainModel(), ServerConstants.URL_OrderList, query, TAG);
+        }*/
+        getData(context,new OrderMainModel(), ServerConstants.URL_GetOrderList, query, TAG);
     }
 
 
     public void getCart(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-      //  getData(context, new CartMainModel(), ServerConstants.URL_GetCart, query, TAG);
+        getData(context, new CartMainModel(), ServerConstants.URL_GetCartList, query, TAG);
     }
 
     public void getRelatedProducts(Context context, String productId, ServerResponseInterface mCallInterface, String TAG) {
@@ -1167,9 +1182,17 @@ public class ServicesMethodsManager {
        // getData(context, new RelatedProductsListModel(), ServerConstants.URL_RelatedProduct, query, TAG);
     }
 
+    public void insertCart(Context context, CartPostModel cartPostModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        postData(context, cartPostModel, ServerConstants.URL_Insert_Cart, TAG);
+    }
+    public void removeCart(Context context, CartPostModel cartPostModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        postData(context, cartPostModel, ServerConstants.URL_Remove_Cart, TAG);
+    }
     public void updateCart(Context context, CartPostModel cartPostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-       // postData(context, cartPostModel, ServerConstants.URL_UpdateCart, TAG);
+        postData(context, cartPostModel, ServerConstants.URL_Update_cart, TAG);
     }
 
     public void removeWishList(Context context, WishlistPostModel wishlistPostModel, ServerResponseInterface mCallInterface, String TAG) {
@@ -1192,7 +1215,7 @@ public class ServicesMethodsManager {
 
     public void addCouponCode(Context context, CouponCodePostModel couponCodePostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        //postData(context, couponCodePostModel, ServerConstants.URL_AddCouponCOde, TAG);
+        postData(context, couponCodePostModel, ServerConstants.URL_AddCouponCOde, TAG);
     }
 
     public void addUserAddress(Context context, UserAddressModel userAddressModel, ServerResponseInterface mCallInterface, String TAG) {
@@ -1228,9 +1251,9 @@ public class ServicesMethodsManager {
        // getData(context, new UserAddressListModel(), url, query, TAG);
     }
 
-    public void submitOrder(Context context, OrderSubmitModel orderSubmitModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void submitOrder(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        //postData(context, orderSubmitModel, ServerConstants.URL_OrderSubmit, TAG);
+        postData(context,new OrderSubmitModel(), ServerConstants.URL_SubmitOrder, TAG);
     }
 
     public void search(Context context, @NonNull SearchModel model, ServerResponseInterface mCallInterface, String TAG) {
@@ -1251,16 +1274,10 @@ public class ServicesMethodsManager {
     public void getOrderDetails(Context context, String orderId, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        query = query != null ? query + "&order_id=" + orderId : "order_id=" + orderId;
-        //getData(context, new OrderDetailsMainModel(), ServerConstants.URL_OrderDetails, query, TAG);
+        //query = query != null ? query + "&order_id=" + orderId : "order_id=" + orderId;
+        getData(context, new OrderDetailsMainModel(), ServerConstants.URL_GetOrderList, query, TAG);
     }
 
-    public void getTicketDetails(Context context, String ticketId, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&id=" + ticketId : "id=" + ticketId;
-        //getData(context, new TicketsDetailModel(), ServerConstants.URL_TicketDetails, query, TAG);
-    }
 
 
 
@@ -1276,7 +1293,7 @@ public class ServicesMethodsManager {
 
     public void changePassword(Context context, ChangePasswordModel changePasswordModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-       // postData(context, changePasswordModel, ServerConstants.URL_ForgotMyPassword, TAG);
+        postData(context, changePasswordModel, ServerConstants.URL_ChangePassword, TAG);
     }
 
     public void forgotPassword(Context context, LoginModel loginModel, ServerResponseInterface mCallInterface, String TAG) {

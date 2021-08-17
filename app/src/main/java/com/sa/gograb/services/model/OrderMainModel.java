@@ -11,8 +11,8 @@ public class OrderMainModel implements Serializable {
     private final String TAG = "OrderMainModel";
     private final String
             RESPONSE            = "response",
-            STATUS              = "status_bool",
-            MESSAGE             = "status";
+            STATUS              = "status",
+            MESSAGE             = "message";
 
     OrderListModel
             orderListModel      = null;

@@ -230,7 +230,7 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
             latitude=location.getLatitude();
             longitude=location.getLongitude();
             p1 = new LatLng(location.getLatitude(), location.getLongitude());
-            Log.e("originsssss", "" + p1);
+            //Log.e("originsssss", "" + p1);
 
 
         } catch (IOException ex) {
@@ -475,7 +475,6 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
 
                     tv_destination_location.setText(searchResponseModel.getName());
 
-
                     //for draw route between two location
                     sendRequest();
                 }
@@ -626,7 +625,7 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
                     .title(routes.startAddress)
                     .position(routes.startLocation)));
             destinationMarkers.add(gMap.addMarker(new MarkerOptions()
-                    .icon(bitmapDescriptorFromVector(activity, R.drawable.ic_destination_pin))
+                    .icon(bitmapDescriptorFromVector(activity, R.drawable.ic_location_in))
                     .title(routes.endAddress)
                     .position(routes.endLocation)));
 

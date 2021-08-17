@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.asksira.bsimagepicker.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.sa.gograb.AppController;
 import com.sa.gograb.MainActivity;
@@ -62,10 +63,16 @@ import com.sa.gograb.view.ProgressDialog;
 
 import org.jsoup.Jsoup;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -84,6 +91,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.util.regex.Pattern;
+
+import static android.os.FileUtils.copy;
 
 /*import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
@@ -1188,12 +1197,33 @@ public class GlobalFunctions {
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
+            Bitmap scaled=Bitmap.createScaledBitmap(myBitmap,100,100,true);
+            return scaled;
         } catch (IOException e) {
             // Log exception
             return null;
         }
     }
+
+    public static Bitmap getBitmapFromLink(String link) {
+        try {
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            try {
+                connection.connect();
+            } catch (Exception e) {
+                Log.v("asfwqeds", e.getMessage());
+            }
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            Log.v("asfwqeds", e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public static void logoutApplication(Context context, boolean isSessionExpired) {
         //remove saved details.

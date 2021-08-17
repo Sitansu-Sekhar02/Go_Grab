@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:progressActivity="http://schemas.android.com/tools"
     android:background="@color/BaseColor">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -288,20 +289,36 @@
                         android:textAppearance="@style/SmallerText"/>
 
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ln_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_previous_order"
-                    android:background="@color/white">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recent_order_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:id="@+id/ln_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_previous_order"
+                        android:background="@color/white">
+                        <com.vlonjatg.progressactivity.ProgressLinearLayout
+                            android:id="@+id/details_progressActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:emptyTitleTextColor="@color/red_color"
+                            app:errorContentTextColor="@color/app_fontColor"
+                            app:errorTitleTextColor="@color/app_fontColor"
+                            progressActivity:emptyBackgroundColor="@color/transparent"
+                            progressActivity:errorBackgroundColor="@color/transparent"
+                            progressActivity:loadingBackgroundColor="@color/transparent"
+                            progressActivity:loadingProgressBarColor="@color/red_color">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recent_order_recyclerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                        </com.vlonjatg.progressactivity.ProgressLinearLayout>
 
                 </LinearLayout>
+
 
             </RelativeLayout>
             <com.sa.gograb.view.AppTextView_SubTitle
@@ -331,6 +348,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/icon_color"
                 android:textAppearance="@style/SmallMediumSizeText"/>
+
 
         </RelativeLayout>
 

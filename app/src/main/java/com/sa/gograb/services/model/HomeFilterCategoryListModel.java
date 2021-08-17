@@ -1,5 +1,6 @@
 package com.sa.gograb.services.model;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,82 +10,101 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderListModel implements Serializable {
+public class HomeFilterCategoryListModel implements Serializable {
 
-    private final String TAG = "OrderListModel";
+    private final String TAG = "HomeFilterCategoryListModel";
 
-    private final String RESPONSE = "response";
+    private  String RESPONSE = "popular_rest";
 
-    List<OrderModel> orderModels = new ArrayList<OrderModel>();
+    List<HomeFilterCategoryModel> homeFilterCategoryModels = new ArrayList<HomeFilterCategoryModel>();
 
-    public OrderListModel(){}
+    public HomeFilterCategoryListModel(){}
 
-    public List<OrderModel> getOrderModels() {
-        return orderModels;
+    public String getRESPONSE() {
+        return RESPONSE;
     }
 
-    public void setOrderModelList(List<OrderModel> orderModelList) {
-        this.orderModels = orderModelList;
+    public void setRESPONSE(String RESPONSE) {
+        this.RESPONSE = RESPONSE;
     }
 
+    public List<HomeFilterCategoryModel> getHomeFilterCategoryModels() {
+        return homeFilterCategoryModels;
+    }
+
+    public void setHomeFilterCategoryModels(List<HomeFilterCategoryModel> homeFilterCategoryModels) {
+        this.homeFilterCategoryModels = homeFilterCategoryModels;
+    }
+
+    public List<String> getNames(){
+        List<String> list = new ArrayList<String>();
+        for(int i = 0; i<this.homeFilterCategoryModels.size(); i++){
+           // list.add(categoryList.get(i).getTitle());
+        }
+        return list;
+    }
+
+    @SuppressLint("LongLogTag")
     public boolean toObject(String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);
             JSONArray array = json.getJSONArray(RESPONSE);
-            List<OrderModel> list = new ArrayList<OrderModel>();
+            List<HomeFilterCategoryModel> list = new ArrayList<HomeFilterCategoryModel>();
             for (int i=0;i<array.length();i++){
                 JSONObject jsonObject = array.getJSONObject(i);
-                OrderModel keyValueModel = new OrderModel();
+                HomeFilterCategoryModel keyValueModel = new HomeFilterCategoryModel();
                 keyValueModel.toObject(jsonObject.toString());
                 list.add(keyValueModel);
             }
-            this.orderModels = list;
+            this.homeFilterCategoryModels = list;
             return true;
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);}
         return false;
     }
 
+    @SuppressLint("LongLogTag")
     public boolean toObject(JSONArray jsonArray){
         try{
-            List<OrderModel> list = new ArrayList<OrderModel>();
+            List<HomeFilterCategoryModel> list = new ArrayList<HomeFilterCategoryModel>();
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                OrderModel keyValueModel = new OrderModel();
+                HomeFilterCategoryModel keyValueModel = new HomeFilterCategoryModel();
                 keyValueModel.toObject(jsonObject.toString());
                 list.add(keyValueModel);
             }
-            this.orderModels = list;
+            this.homeFilterCategoryModels = list;
             return true;
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);}
         return false;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public String toString(){
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            List<OrderModel> list = this.orderModels;
+            List<HomeFilterCategoryModel> list = this.homeFilterCategoryModels;
             for(int i=0;i<list.size();i++){
                 jsonArray.put(new JSONObject(list.get(i).toString()));
             }
             jsonMain.put(RESPONSE, jsonArray);
             returnString = jsonMain.toString();
         }
-        catch (Exception ex){
-            Log.d(TAG," To String Exception : "+ex);}
+        catch (Exception ex){Log.d(TAG," To String Exception : "+ex);}
         return returnString;
     }
 
+    @SuppressLint("LongLogTag")
     public String toString(boolean isArray){
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            List<OrderModel> list = this.orderModels;
+            List<HomeFilterCategoryModel> list = this.homeFilterCategoryModels;
             for(int i=0;i<list.size();i++){
                 jsonArray.put(new JSONObject(list.get(i).toString()));
             }
@@ -96,8 +116,7 @@ public class OrderListModel implements Serializable {
             }
 
         }
-        catch (Exception ex){
-            Log.d(TAG," To String Exception : "+ex);}
+        catch (Exception ex){Log.d(TAG," To String Exception : "+ex);}
         return returnString;
     }
 }

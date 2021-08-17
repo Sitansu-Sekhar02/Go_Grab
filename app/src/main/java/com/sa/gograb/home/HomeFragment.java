@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -36,21 +37,27 @@ import com.sa.gograb.adapter.HomeCategoryAdapter;
 import com.sa.gograb.adapter.HomeTopCategoryListAdapter;
 import com.sa.gograb.adapter.HomeSubCategoryListAdapter;
 import com.sa.gograb.adapter.interfaces.OnWishlistClickInvoke;
+import com.sa.gograb.menus.MenuListActivity;
 import com.sa.gograb.restaurant.RestaurantListActivity;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.global.GlobalVariables;
 import com.sa.gograb.location_service.LocationMonitoringService;
+import com.sa.gograb.search.SearchActivity;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
 import com.sa.gograb.services.model.CusineListModel;
 import com.sa.gograb.services.model.CusineModel;
 import com.sa.gograb.services.model.HomeCategoryModel;
+import com.sa.gograb.services.model.HomeFilterCategoryListModel;
+import com.sa.gograb.services.model.HomeFilterCategoryModel;
 import com.sa.gograb.services.model.HomePageMainModel;
 import com.sa.gograb.services.model.HomePageModel;
 import com.sa.gograb.services.model.HomeSubCategoryListModel;
 import com.sa.gograb.services.model.HomeSubCategoryModel;
 import com.sa.gograb.services.model.HomeTopCategoryListModel;
 import com.sa.gograb.services.model.HomeTopCategoryModel;
+import com.sa.gograb.services.model.MenuModel;
+import com.sa.gograb.services.model.SearchResponseModel;
 import com.sa.gograb.services.model.StatusMainModel;
 import com.sa.gograb.services.model.StatusModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
@@ -81,6 +88,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
     private boolean mAlreadyStartedService = false;
 
     private TextView view_all_category_tv, view_all_sub_category_tv;
+    CardView search_card_view;
+
 
     GlobalFunctions globalFunctions;
     GlobalVariables globalVariables;
@@ -90,7 +99,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
 
     //home main category
     HomeCategoryAdapter homeCategoryAdapter;
-    List<String> homeCategory = new ArrayList<>();
+    List<HomeFilterCategoryModel> homeFilterCategoryModels = new ArrayList<>();
     LinearLayoutManager homeCategory_linear;
     ProgressLinearLayout home_category_progress;
     RecyclerView home_category_recyclerview;
@@ -124,6 +133,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         globalVariables = AppController.getInstance().getGlobalVariables();
 
 
+        search_card_view=view.findViewById(R.id.search_card_view);
+
         //recyclerview id
         home_category_recyclerview = view.findViewById(R.id.home_category_recyclerview);
         home_top_category_recyclerview = view.findViewById(R.id.home_top_category_recyclerview);
@@ -140,7 +151,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         view_all_sub_category_tv = view.findViewById(R.id.view_all_sub_category_tv);
 
         //layout manager
-        homeCategory_linear = new LinearLayoutManager(activity);
+        homeCategory_linear = new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false);
         gridLayoutManager=new GridLayoutManager(activity,2,GridLayoutManager.HORIZONTAL, false);
         home_subCategory_linear = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
         home_subSectionCat_linear = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
@@ -159,15 +170,17 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             //mAlreadyStartedService = false;
         }
 
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("All");
-
+        search_card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SearchActivity.class);
+                startActivityForResult(intent,GlobalVariables.REQUEST_CODE_FOR_SEARCH);
+            }
+        });
 
 
         //home API's
-        homeCategoryRecyclerview(animalNames);
         homeSubCategoryData();
-        //homeSubSectionListData();
 
         view_all_category_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +188,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
 
                 Intent intent = RestaurantListActivity.newInstance( activity, "1" );
                 activity.startActivity( intent );
-
 
             }
         });
@@ -205,6 +217,11 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                     HomePageMainModel homePageMainModel=(HomePageMainModel) arg0;
                     HomePageModel homePageModel = homePageMainModel.getHomePageModel();
 
+
+                    if (homePageModel.getHomeFilterCategoryListModel()!= null) {
+                        HomeFilterCategoryListModel homeFilterCategoryListModel =homePageModel.getHomeFilterCategoryListModel();
+                        setUpCatFilterCatPage(homeFilterCategoryListModel);
+                    }
                     if (homePageModel.getTop_near_rest()!= null) {
                         HomeTopCategoryListModel homeTopCategoryListModel =homePageModel.getTop_near_rest();
                         setUpSubCatPage(homeTopCategoryListModel);
@@ -236,6 +253,29 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             }
         }, "Sub_Category");
 
+    }
+    private void setUpCatFilterCatPage(HomeFilterCategoryListModel homeTopCategoryListModel) {
+        if (homeTopCategoryListModel != null && homeFilterCategoryModels != null) {
+            homeFilterCategoryModels.clear();
+            homeFilterCategoryModels.addAll( homeTopCategoryListModel.getHomeFilterCategoryModels());
+
+            if (homeCategoryAdapter != null) {
+                synchronized (homeCategoryAdapter) {
+                    homeCategoryAdapter.notifyDataSetChanged();
+                }
+            }
+            if (homeFilterCategoryModels.size() > 0)
+            {
+               // showFilterCatContent();
+                subFilterCatInitRecycler();
+            }
+          /*  if (homeFilterCategoryModels.size() <= 0) {
+                showFilterCatEmptyPage();
+
+            } else {
+
+            }*/
+        }
     }
 
     private void setUpSubCatPage(HomeTopCategoryListModel homeTopCategoryListModel) {
@@ -287,10 +327,10 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         home_top_category_recyclerview.setAdapter(topCategoryListAdapter);
     }
 
-    private void homeCategoryRecyclerview(ArrayList<String> animalNames) {
+    private void subFilterCatInitRecycler() {
         home_category_recyclerview.setLayoutManager(homeCategory_linear);
         home_category_recyclerview.setHasFixedSize(true);
-        homeCategoryAdapter = new HomeCategoryAdapter(activity,animalNames);
+        homeCategoryAdapter = new HomeCategoryAdapter(activity,homeFilterCategoryModels);
         home_category_recyclerview.setAdapter(homeCategoryAdapter);
     }
 
@@ -301,9 +341,21 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         home_sub_category_recyclerview.setAdapter(homeSubCategoryListAdapter);
     }
 
+    private void showFilterCatContent() {
+        if (home_category_progress != null) {
+            home_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
+                    getString(R.string.not_available));
+        }
+    }
     private void showSubCatEmptyPage() {
         if (home_top_category_progress != null) {
             home_top_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
+                    getString(R.string.not_available));
+        }
+    }
+    private void showSubSectionCatEmptyPage() {
+        if (home_sub_category_progress != null) {
+            home_sub_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
                     getString(R.string.not_available));
         }
     }
@@ -312,6 +364,11 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             home_top_category_progress.showContent();
         }
     }
+     private void showFilterCatEmptyPage() {
+            if (home_category_progress != null) {
+                home_category_progress.showContent();
+            }
+        }
 
     private void showSubSectionCatContent() {
         if (home_sub_category_progress != null) {
@@ -319,12 +376,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         }
     }
 
-    private void showSubSectionCatEmptyPage() {
-        if (home_sub_category_progress != null) {
-            home_sub_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
-                    getString(R.string.not_available));
-        }
-    }
 
     private void startStep1() {
         //Check whether this user has installed Google play service which is being used by Location updates.
@@ -479,26 +530,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult( requestCode, resultCode, data );
-
-       /* if (resultCode == activity.RESULT_OK) {
-
-            if (requestCode == globalVariables.REQUEST_CODE_FOR_SEARCH) {
-                SearchResponseModel searchResponseModel = (SearchResponseModel) data.getExtras().getSerializable(SearchActivity.BUNDLE_SEARCH_RESPONSE_MODEL);
-                if (searchResponseModel != null) {
-                    if (searchResponseModel.getId() != null) {
-                        VendorStoreModel vendorStoreModel = new VendorStoreModel();
-                        vendorStoreModel.setId(searchResponseModel.getId());
-                        Intent intent = VendorListDetailsActivity.newInstance(activity, vendorStoreModel,new VendorModel());
-                        activity.startActivity(intent);
-                    }
-                }
-            }
-        }*/
-    }
-
-    @Override
     public void onResume() {
 //        MainActivity.setNavigationBottomIcon(TAG);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
@@ -599,6 +630,25 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
 
                 }
 
+            }
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+
+        if (resultCode == activity.RESULT_OK) {
+
+            if (requestCode == globalVariables.REQUEST_CODE_FOR_SEARCH) {
+                SearchResponseModel searchResponseModel = (SearchResponseModel) data.getExtras().getSerializable(SearchActivity.BUNDLE_SEARCH_RESPONSE_MODEL);
+                if (searchResponseModel != null) {
+                    if (searchResponseModel.getId() != null) {
+                        MenuModel menuModel = new MenuModel();
+                        menuModel.setId(searchResponseModel.getId());
+                        Intent intent = MenuListActivity.newInstance(activity, menuModel);
+                        activity.startActivity(intent);
+                    }
+                }
             }
         }
     }

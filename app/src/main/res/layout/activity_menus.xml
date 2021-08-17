@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
-        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:scrollbars="none">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -286,14 +286,26 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textAppearance="@style/SmallMediumText"
-                android:text="1 Items"/>
-            <com.sa.gograb.view.AppTextView_SubTitle
-                android:id="@+id/tv_sar_price"
+                android:text=""/>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/SmallMediumText"
-                android:textColor="@color/white"
-                android:text="SAR 300"/>
+                android:layout_height="wrap_content">
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/white"
+                    android:text=""/>
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_sub_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/white"
+                    android:text=""/>
+            </LinearLayout>
 
         </LinearLayout>
 

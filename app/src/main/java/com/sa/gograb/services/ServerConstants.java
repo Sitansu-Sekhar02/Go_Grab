@@ -38,6 +38,7 @@ public class ServerConstants {
     public static final String URL_insert_User_account                       = SERVER_URL + "insert_user_account.php";
     public static final String URL_insert_Recent_Coupon                      = SERVER_URL + "insert_recent_viewed.php";
     public static final String URL_insert_Coupon_list                        = SERVER_URL + "recent_views.php";
+    public static final String URL_AddCouponCOde                             = SERVER_URL + "coupon_offer.php";
     public static final String URL_Search                                    = SERVER_URL + "search.php";
     public static final String URL_Feedback_n_rating                         = SERVER_URL + "insert_rating.php";
     public static final String URL_Rating_list                               = SERVER_URL + "rating_list.php";
@@ -52,8 +53,8 @@ public class ServerConstants {
     public static final String URL_Restaurant_list                            = SERVER_URL + "restaurant_list.php";
     public static final String URL_Menu_list                                  = SERVER_URL + "menu_list.php";
 
-    public static final String URL_GetCityList          = BASE_URL + "city_list.php";
-    public static final String URL_GetNewsList          = BASE_URL + "news_list.php";
+    public static final String URL_GetCartList          = SERVER_URL + "cart.php";
+    public static final String URL_InsertCart           = SERVER_URL + "insert_cart.php";
     public static final String URL_Update_instruction   = SERVER_URL + "update_instruction.php";
     public static final String URL_GetMyCartsList       = SERVER_URL + "cart.php";
     public static final String URL_Insert_Cart          = SERVER_URL + "insert_cart.php";
@@ -69,8 +70,6 @@ public class ServerConstants {
     public static final String URL_CityDetails          = BASE_URL + "city_apartment_list.php";
     public static final String URL_SubmitOrder          = SERVER_URL + "order_submit.php";
     public static final String URL_Request              = BASE_URL + "request_fo_booking.php";
-    public static final String URL_DriverTaskList       = BASE_URL + "driver_task_list.php";
-    public static final String URL_DriverTaskUpdate       = BASE_URL + "driver_task_update.php";
 
     public static final String URL_GetNotifications     = BASE_URL + "get_notifications.php";
     public static final String URL_ForgotPassword       = BASE_URL + "forgot_password.php";

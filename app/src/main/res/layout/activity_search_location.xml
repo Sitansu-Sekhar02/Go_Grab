@@ -93,7 +93,7 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@color/BaseColor"
-                            android:hint="@string/yourdestination"
+                            android:hint="@string/search_resturant"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:padding="@dimen/_8sdp"

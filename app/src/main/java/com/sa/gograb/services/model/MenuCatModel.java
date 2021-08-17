@@ -20,6 +20,8 @@ public class MenuCatModel implements Serializable {
             PRICE                    = "price",
             CART_COUNT               = "cart_count",
             MENU                     = "menu",
+            CURRENCY                 = "currency",
+            OFFER_PRICE              = "offer_price",
             IMAGE                    = "image";
 
     private String
@@ -32,6 +34,8 @@ public class MenuCatModel implements Serializable {
             price                 = null,
             cart_count            = null,
             menu                  = null,
+            currency              = null,
+            offer_price           = null,
             image                 = null;
 
     public MenuCatModel(){}
@@ -119,6 +123,22 @@ public class MenuCatModel implements Serializable {
         this.image = image;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getOffer_price() {
+        return offer_price;
+    }
+
+    public void setOffer_price(String offer_price) {
+        this.offer_price = offer_price;
+    }
+
     public boolean toObject(String jsonObject){
         try{
 
@@ -131,6 +151,8 @@ public class MenuCatModel implements Serializable {
             if (json.has(FOOD_TYPE)) food_type = json.getString(FOOD_TYPE);
             if (json.has(TRENDING)) trending = json.getString(TRENDING);
             if (json.has(MENU_TYPE)) menu_type = json.getString(MENU_TYPE);
+            if (json.has(CURRENCY)) currency = json.getString(CURRENCY);
+            if (json.has(OFFER_PRICE)) offer_price = json.getString(OFFER_PRICE);
             if (json.has(CART_COUNT)) cart_count = json.getString(CART_COUNT);
 
             if(json.has(MENU)) {
@@ -161,7 +183,9 @@ public class MenuCatModel implements Serializable {
             jsonMain.put(FOOD_TYPE, food_type);
             jsonMain.put(TRENDING, trending);
             jsonMain.put(MENU_TYPE, menu_type);
+            jsonMain.put(CURRENCY, currency);
             jsonMain.put(CART_COUNT, cart_count);
+            jsonMain.put(OFFER_PRICE, offer_price);
             jsonMain.put(MENU, menuCatListModel!=null?new JSONArray(menuCatListModel.toString(true)):null);
 
             returnString = jsonMain.toString();

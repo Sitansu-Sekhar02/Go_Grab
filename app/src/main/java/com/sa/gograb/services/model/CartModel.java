@@ -12,20 +12,19 @@ public class CartModel implements Serializable {
     private final String TAG = "CartModel";
 
     private final String
-            EMPTY_CART       = "EMPTY_CART",
-            BOOKING_COUNT    = "booking_count",
-            SALES_COUNT      = "sales_count",
             ID               = "id",
-            ADDRESS_ID       = "address_id",
-            CITY_ID          = "city_id",
-            TYPE             = "type",
-            PRODUCT_ID       = "product_id",
+            RESTAURANT_ID    = "restaurant_id",
+            RESTAURANT_NAME  = "full_name",
             WALLET           = "existing_wallet",
             QUANTITY         = "quantity",
+            RATING           = "rating",
+            RATING_COUNT     = "rating_count",
+            DISTANCE         = "distance",
             PRODUCT_TITLE    = "product_title",
             UNIT_PRICE       = "unit_price",
             IMAGE            = "image",
             SUB_TOTAL        = "sub_total",
+            GRAND_TOTAL      = "grand_total",
             TOTAL_PRICE      = "total",
             DISCOUNT         = "discount",
             TOTAL_DISCOUNT   = "bill_discount",
@@ -33,9 +32,11 @@ public class CartModel implements Serializable {
             SHIPPING         = "shipping_charge",
             VAT_PERC         = "vat_percent",
             VAT              = "vat",
+            PACKING_CHARGE   = "packing_charges",
+            CART_COUNT       = "cart_count",
             COUPON           = "coupon_code",
             OFFER_ID         = "offer_id",
-            BRAND            = "brand",
+            DISCOUNT_PRICE   = "discount_price",
             CURRENCY         = "currency",
             CART_DETAILS     = "cart_detail";
 
@@ -45,6 +46,12 @@ public class CartModel implements Serializable {
             salesCount       = null,
             id               = null,
             addressId        = null,
+            restaurant_id    = null,
+            full_name        = null,
+            rating           = null,
+            rating_count     = null,
+            distance         = null,
+            discount_price   = null,
             cityId           = null,
             type             = null,
             wallet           = null,
@@ -64,6 +71,9 @@ public class CartModel implements Serializable {
             vatPerc          = null,
             offerId          = null,
             brand            = null,
+            cart_count       = null,
+            packing_charges  = null,
+            grand_total      = null,
             currency         = null;
 
     CartDetailsListModel
@@ -240,6 +250,78 @@ public class CartModel implements Serializable {
         this.subTotal = subTotal;
     }
 
+    public String getCart_count() {
+        return cart_count;
+    }
+
+    public void setCart_count(String cart_count) {
+        this.cart_count = cart_count;
+    }
+
+    public String getPacking_charges() {
+        return packing_charges;
+    }
+
+    public void setPacking_charges(String packing_charges) {
+        this.packing_charges = packing_charges;
+    }
+
+    public String getRestaurant_id() {
+        return restaurant_id;
+    }
+
+    public void setRestaurant_id(String restaurant_id) {
+        this.restaurant_id = restaurant_id;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getRating_count() {
+        return rating_count;
+    }
+
+    public void setRating_count(String rating_count) {
+        this.rating_count = rating_count;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getDiscount_price() {
+        return discount_price;
+    }
+
+    public void setDiscount_price(String discount_price) {
+        this.discount_price = discount_price;
+    }
+
+    public String getGrand_total() {
+        return grand_total;
+    }
+
+    public void setGrand_total(String grand_total) {
+        this.grand_total = grand_total;
+    }
+
     public String getProductDiscount() {
         return productDiscount;
     }
@@ -283,19 +365,19 @@ public class CartModel implements Serializable {
     public boolean toObject(String jsonObject) {
         try {
             JSONObject json = new JSONObject(jsonObject);
-            if (json.has(EMPTY_CART)) emptyCart = json.getString(EMPTY_CART);
-            if (json.has(BOOKING_COUNT)) bookingCount = json.getString(BOOKING_COUNT);
-            if (json.has(SALES_COUNT)) salesCount = json.getString(SALES_COUNT);
 
             if (json.has(ID)) id = json.getString(ID);
-            if (json.has(ADDRESS_ID)) addressId = json.getString(ADDRESS_ID);
-            if (json.has(CITY_ID)) cityId = json.getString(CITY_ID);
             if (json.has(WALLET)) wallet = json.getString(WALLET);
-            if (json.has(TYPE)) type = json.getString(TYPE);
             if (json.has(COUPON)) coupon = json.getString(COUPON);
             if (json.has(SUB_TOTAL)) subTotal = json.getString(SUB_TOTAL);
             if (json.has(QUANTITY)) quantity = json.getString(QUANTITY);
             if (json.has(IMAGE)) image = json.getString(IMAGE);
+            if (json.has(RESTAURANT_ID)) restaurant_id = json.getString(RESTAURANT_ID);
+            if (json.has(RESTAURANT_NAME)) full_name = json.getString(RESTAURANT_NAME);
+            if (json.has(RATING)) rating = json.getString(RATING);
+            if (json.has(RATING_COUNT)) rating_count = json.getString(RATING_COUNT);
+            if (json.has(DISCOUNT_PRICE)) discount_price = json.getString(DISCOUNT_PRICE);
+            if (json.has(DISTANCE)) distance = json.getString(DISTANCE);
             if (json.has(UNIT_PRICE)) unitPrice = json.getString(UNIT_PRICE);
             if (json.has(TOTAL_PRICE)) totalPrice = json.getString(TOTAL_PRICE);
             if (json.has(DISCOUNT)) discount = json.getString(DISCOUNT);
@@ -304,8 +386,10 @@ public class CartModel implements Serializable {
             if (json.has(VAT)) vat = json.getString(VAT);
             if (json.has(VAT_PERC)) vatPerc = json.getString(VAT_PERC);
             if (json.has(OFFER_ID)) offerId = json.getString(OFFER_ID);
-            if (json.has(BRAND)) brand = json.getString(BRAND);
             if (json.has(CURRENCY)) currency = json.getString(CURRENCY);
+            if (json.has(PACKING_CHARGE)) packing_charges = json.getString(PACKING_CHARGE);
+            if (json.has(CART_COUNT)) cart_count = json.getString(CART_COUNT);
+            if (json.has(GRAND_TOTAL)) grand_total = json.getString(GRAND_TOTAL);
             if (json.has(SHIPPING)) shipping = json.getString(SHIPPING);
 
             if(json.has(CART_DETAILS)) {
@@ -327,22 +411,18 @@ public class CartModel implements Serializable {
         String returnString = null;
         try {
             JSONObject jsonMain = new JSONObject();
-            jsonMain.put(EMPTY_CART, emptyCart);
-            jsonMain.put(BOOKING_COUNT, bookingCount);
-            jsonMain.put(SALES_COUNT, salesCount);
-
-            jsonMain.put(ID, id);
-            jsonMain.put(ADDRESS_ID, addressId);
-            jsonMain.put(CITY_ID, cityId);
             jsonMain.put(WALLET, wallet);
-            jsonMain.put(TYPE, type);
             jsonMain.put(COUPON, coupon);
-            jsonMain.put(PRODUCT_ID, productId);
             jsonMain.put(SUB_TOTAL, subTotal);
             jsonMain.put(PRODUCT_DISCOUNT, productDiscount);
             jsonMain.put(PRODUCT_TITLE, productTitle);
             jsonMain.put(QUANTITY, quantity);
             jsonMain.put(IMAGE, image);
+            jsonMain.put(RESTAURANT_ID, restaurant_id);
+            jsonMain.put(RESTAURANT_NAME, full_name);
+            jsonMain.put(RATING, rating);
+            jsonMain.put(RATING_COUNT, rating_count);
+            jsonMain.put(DISTANCE, distance);
             jsonMain.put(UNIT_PRICE, unitPrice);
             jsonMain.put(TOTAL_PRICE, totalPrice);
             jsonMain.put(DISCOUNT, discount);
@@ -350,8 +430,10 @@ public class CartModel implements Serializable {
             jsonMain.put(VAT_PERC, vatPerc);
             jsonMain.put(TOTAL_DISCOUNT, totalDiscount);
             jsonMain.put(OFFER_ID, offerId);
-            jsonMain.put(BRAND, brand);
             jsonMain.put(CURRENCY, currency);
+            jsonMain.put(GRAND_TOTAL, grand_total);
+            jsonMain.put(CART_COUNT, cart_count);
+            jsonMain.put(PACKING_CHARGE, packing_charges);
             jsonMain.put(SHIPPING, shipping);
             jsonMain.put(CART_DETAILS, cartDetailsListModel!=null?new JSONArray(cartDetailsListModel.toString(true)):null);
 

@@ -22,6 +22,7 @@
     <color name="circle_grey_color">#EBEBEB</color>
 
     <color name="black_little_transparent">#CC000000</color>
+    <color name="search_bg">#F5F5F5</color>
 
     <color name="Color_new_text">#FF2B34</color>
     <color name="Color_pending_order">#FACF48</color>

@@ -1,5 +1,6 @@
 package com.sa.gograb.profile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +33,18 @@ import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.global.GlobalVariables;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
+import com.sa.gograb.services.model.CategoryMenuListModel;
+import com.sa.gograb.services.model.MenuListMainModel;
+import com.sa.gograb.services.model.MenuModel;
+import com.sa.gograb.services.model.OrderDetailListModel;
+import com.sa.gograb.services.model.OrderDetailModel;
+import com.sa.gograb.services.model.OrderListMainModel;
+import com.sa.gograb.services.model.OrderListModel;
+import com.sa.gograb.services.model.OrderMainModel;
+import com.sa.gograb.services.model.OrderModel;
 import com.sa.gograb.services.model.ProfileModel;
 import com.sa.gograb.services.model.StatusModel;
+import com.sa.gograb.services.model.TrendingMenuListModel;
 import com.sa.gograb.services.model.UpdateLanguageModel;
 import com.sa.gograb.view.AlertDialog;
 import com.sa.gograb.wishlist.WishlistActivity;
@@ -54,22 +65,23 @@ public class ProfileFragment extends Fragment {
     public static final String BUNDLE_MAIN_NOTIFICATION_MODEL = "BundleMainModelNotificationModel";
     Context context;
     Activity activity;
+    View mainView;
     private static int SPLASH_TIME_OUT = 2000;
     int count = 0;
 
     private TextView tv_edit_profile;
-    private TextView tv_logout,tv_user_name,etv_mobile_no,etv_country_code;
+    private TextView tv_logout,tv_user_name,etv_mobile_no,etv_country_code,tv_order_date,tv_item_title,tv_ratings,tv_rating_count,tv_distance;
     private RelativeLayout rl_favorite_main,rl_setting_main;
-    private CircleImageView iv_profile;
+    private CircleImageView iv_profile,iv_restaurant;
 
 
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;
 
     MyOrderAdapter myOrderAdapter;
-    List<String> all_order = new ArrayList<>();
-    LinearLayoutManager homeCategory_linear;
-    ProgressLinearLayout progressActivity;
+    List<OrderModel> orderModels = new ArrayList<>();
+    LinearLayoutManager order_linear;
+    ProgressLinearLayout details_progressActivity;
     RecyclerView recent_order_recyclerview;
 
 
@@ -89,16 +101,19 @@ public class ProfileFragment extends Fragment {
         etv_country_code=view.findViewById(R.id.etv_country_code);
         tv_logout=view.findViewById(R.id.tv_logout);
         rl_setting_main=view.findViewById(R.id.rl_setting_main);
+        iv_restaurant =view.findViewById(R.id.iv_restaurant);
+        tv_item_title = view.findViewById(R.id.tv_item_title);
+        tv_order_date = view.findViewById(R.id.tv_order_date);
+        tv_ratings = view.findViewById(R.id.tv_ratings);
+        tv_rating_count = view.findViewById(R.id.tv_rating_count);
+        tv_distance = view.findViewById(R.id.tv_distance);
+
+
 
         recent_order_recyclerview = view.findViewById(R.id.recent_order_recyclerview);
-        homeCategory_linear = new LinearLayoutManager(activity);
-
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("The chicken jumbo burger X1, Cheese sandwich X2");
-
-
-        homeCategoryRecyclerview(animalNames);
-
+        details_progressActivity = view.findViewById(R.id.details_progressActivity);
+        order_linear = new LinearLayoutManager(activity);
+        mainView=tv_edit_profile;
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,6 +122,9 @@ public class ProfileFragment extends Fragment {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(activity, R.color.ColorStatusBar));
         }
+
+        getOrderList();
+
 
         tv_edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +162,103 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private void getOrderList() {
+        GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getOrderList(context, new ServerResponseInterface() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                OrderMainModel orderMainModel = (OrderMainModel) arg0;
+                OrderListModel orderListModel=orderMainModel.getOrderListModel();
+
+                if (orderListModel.getOrderModels()!= null) {
+                    setThisPage(orderListModel);
+                }
+                /*if (orderListModel.getOrderModels()!= null) {
+                    setOrderDetails(orderListModel);
+                }*/
+
+              /*  OrderModel orderModel=orderListModel.getOrderModels();
+                OrderDetailListModel orderDetailModel=orderModel.getOrder_details();
+
+                if (orderDetailModel.getOrderDetailModels()!= null) {
+                    setThisPage(orderDetailModel);
+                }*/
+
+
+
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Order List");
+    }
+
+    private void setThisPage(OrderListModel orderListModel) {
+        if (orderListModel != null && orderModels != null) {
+            orderModels.clear();
+            orderModels.addAll(orderListModel.getOrderModels());
+            if (myOrderAdapter != null) {
+                synchronized (myOrderAdapter) {
+                    myOrderAdapter.notifyDataSetChanged();
+                }
+            }
+            if (orderModels.size() <= 0) {
+                //showTrendingMenuEmptyPage();
+            } else {
+                showTrendingMenuContent();
+                orderInitRecyclerView();
+            }
+        }
+    }
+
+    private void setOrderDetails(OrderListModel orderListModel) {
+        if (orderListModel!=null){
+
+            /*if (GlobalFunctions.isNotNullValue(orderListModel.get())) {
+                holder.tv_item_name.setText(model.getName());
+            }
+            if (GlobalFunctions.isNotNullValue(model.getPrice())) {
+                holder.tv_total_price.setText(model.getPrice());
+            }
+            if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+                holder.tv_currency.setText(model.getCurrency());
+            }*/
+        }
+
+
+
+    }
+
+    private void showTrendingMenuContent() {
+        if (details_progressActivity != null) {
+            details_progressActivity.showContent();
+        }
+    }
+
+    private void orderInitRecyclerView() {
+        recent_order_recyclerview.setLayoutManager(order_linear);
+        recent_order_recyclerview.setHasFixedSize(true);
+        myOrderAdapter = new MyOrderAdapter(activity,orderModels);
+        recent_order_recyclerview.setAdapter(myOrderAdapter);
+    }
+
     private void getProfile() {
         ProfileModel profileModel = globalFunctions.getProfile( mainContext );
         if (profileModel != null && mainContext != null) {
@@ -178,12 +293,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void homeCategoryRecyclerview(ArrayList<String> animalNames) {
-        recent_order_recyclerview.setLayoutManager(homeCategory_linear);
-        recent_order_recyclerview.setHasFixedSize(true);
-        myOrderAdapter = new MyOrderAdapter(activity,animalNames);
-        recent_order_recyclerview.setAdapter(myOrderAdapter);
-    }
     private void logout() {
        // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
       //  drawer.closeDrawer(GravityCompat.START);

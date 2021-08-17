@@ -127,7 +127,7 @@
                     android:padding="@dimen/_15sdp"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:textAppearance="@style/SmallerText"
-                    android:textColor="@color/border_color"/>
+                    android:textColor="@color/app_fontBlackColor"/>
 
                 <com.sa.gograb.view.AppButton
                     android:id="@+id/btn_submit"

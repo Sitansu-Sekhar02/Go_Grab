@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.gograb.R;
@@ -17,9 +18,11 @@ import com.sa.gograb.adapter.interfaces.FavouriteListClickListener;
 import com.sa.gograb.adapter.interfaces.OnWishlistClickInvoke;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.menus.MenuListActivity;
+import com.sa.gograb.services.model.CusineModel;
 import com.sa.gograb.services.model.WishModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHolder> {
@@ -29,6 +32,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
     private final List<WishModel> list;
     private final Activity activity;
     FavouriteListClickListener wishlistClickInvoke;
+    HomeCusineAdapter cusineAdapter;
+
 
     public WishListAdapter(Activity activity, List<WishModel> list,FavouriteListClickListener wishlistClickInvoke) {
         this.list = list;
@@ -85,7 +90,29 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
 
             }
         });
+
+        LinearLayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false);
+        List<CusineModel> productList = new ArrayList<CusineModel>();
+
+        if (model.getCusineListModel() != null && model.getCusineListModel().getCusineModels().size() > 0) {
+            productList.clear();
+            productList.addAll(model.getCusineListModel().getCusineModels());
+        }
+
+        if (productList.size() > 0) {
+            cusineAdapter = new HomeCusineAdapter(activity, productList);
+            holder.rv_favourites.setLayoutManager(layoutManager);
+            holder.rv_favourites.setAdapter(cusineAdapter);
+
+            holder.rv_favourites.setVisibility(View.VISIBLE);
+        } else {
+            holder.rv_favourites.setVisibility(View.GONE);
+        }
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -96,6 +123,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         ImageView iv_product_image, iv_wishlist;
         TextView tv_total_rating, tv_rating_count,tv_sub_category_title,tv_distance,tv_category_name;
         CardView cd_wishlist_main;
+        RecyclerView rv_favourites;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +135,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             tv_sub_category_title = itemView.findViewById(R.id.tv_sub_category_title);
             tv_distance = itemView.findViewById(R.id.tv_distance);
             cd_wishlist_main = itemView.findViewById(R.id.cd_wishlist_main);
+            rv_favourites = itemView.findViewById(R.id.rv_favourites);
 
         }
     }}

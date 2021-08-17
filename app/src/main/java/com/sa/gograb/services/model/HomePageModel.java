@@ -9,11 +9,14 @@ public class HomePageModel {
     private final String TAG = "HomePageModel";
 
     private final String
-            HOME_CATEGORY                = "category",
-            TOP_CATEGORY                 = "top_near_rest",
-            SUB_CATEGORY                 = "popular_rest";
+            HOME_FILTER_CATEGORY                = "filters",
+            TOP_CATEGORY                        = "top_near_rest",
+            SUB_CATEGORY                        = "popular_rest";
 
 
+
+    HomeFilterCategoryListModel
+            homeFilterCategoryListModel   = null;
     HomeTopCategoryListModel
             top_near_rest          = null;
     HomeSubCategoryListModel
@@ -43,20 +46,25 @@ public class HomePageModel {
         this.popular_rest = popular_rest;
     }
 
+    public HomeFilterCategoryListModel getHomeFilterCategoryListModel() {
+        return homeFilterCategoryListModel;
+    }
 
-
+    public void setHomeFilterCategoryListModel(HomeFilterCategoryListModel homeFilterCategoryListModel) {
+        this.homeFilterCategoryListModel = homeFilterCategoryListModel;
+    }
 
     public boolean toObject(String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);
 
-           /* if(json.has(CATEGORY)) {
-                JSONArray array = json.getJSONArray(CATEGORY);
-                CategoryListModel listModelLocal = new CategoryListModel();
-                listModelLocal.setRESPONSE(CATEGORY);
-                if(listModelLocal.toObject(array)){this.categoryList = listModelLocal;}
-                else{this.categoryList = null;}
-            }*/
+            if(json.has(HOME_FILTER_CATEGORY)) {
+                JSONArray array = json.getJSONArray(HOME_FILTER_CATEGORY);
+                HomeFilterCategoryListModel listModelLocal = new HomeFilterCategoryListModel();
+                listModelLocal.setRESPONSE(HOME_FILTER_CATEGORY);
+                if(listModelLocal.toObject(array)){this.homeFilterCategoryListModel = listModelLocal;}
+                else{this.homeFilterCategoryListModel = null;}
+            }
             if(json.has(TOP_CATEGORY)) {
                 JSONArray array = json.getJSONArray(TOP_CATEGORY);
                 HomeTopCategoryListModel listModelLocal = new HomeTopCategoryListModel();
@@ -72,8 +80,6 @@ public class HomePageModel {
             }
 
 
-
-
             return true;
         }catch(Exception ex){
             Log.d(TAG, "Json Exception : " + ex);}
@@ -85,7 +91,7 @@ public class HomePageModel {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
-            //jsonMain.put(CATEGORY, categoryList!=null?new JSONArray(categoryList.toString(true)):null);
+            jsonMain.put(HOME_FILTER_CATEGORY, homeFilterCategoryListModel!=null?new JSONArray(homeFilterCategoryListModel.toString(true)):null);
             jsonMain.put(TOP_CATEGORY, top_near_rest!=null?new JSONArray(top_near_rest.toString(true)):null);
             jsonMain.put(SUB_CATEGORY, popular_rest!=null?new JSONArray(popular_rest.toString(true)):null);
             //jsonMain.put(PRICE, priceRangeModel!=null ? new JSONObject(priceRangeModel.toString()) : new JSONObject());

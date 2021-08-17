@@ -79,7 +79,7 @@
     <string name="all">All</string>
     <string name="server_fast">Serve Fast</string>
     <string name="mc_Donalds">McDonald’s</string>
-    <string name="kms">0.5 kms</string>
+    <string name="kms">kms</string>
     <string name="burger">Burger</string>
     <string name="north_indian">North Indian</string>
     <string name="apply">Apply</string>
@@ -201,6 +201,10 @@
     <string name="start_typing">Start Typing...</string>
     <string name="search_phrase_missing">Type something to search</string>
     <string name="no_search_found">No Search Found</string>
+    <string name="search_resturant">Search restaurants </string>
+    <string name="items">Items</string>
+    <string name="somethingWentWrong">Something went wrong !!</string>
+    <string name="remove_coupon">Remove Coupon</string>
 
 
 </resources>

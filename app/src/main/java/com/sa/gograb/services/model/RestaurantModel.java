@@ -20,6 +20,8 @@ public class RestaurantModel implements Serializable {
             INDEX                        = "index",
             SIZE                         = "size",
             SORT_BY                      = "sort_by",
+            FILTER                       = "filter",
+            SORT_BY_DESC                 = "sort_by description",
             NAME                         = "full_name",
             IMAGE                        = "image",
             RATING                       = "rating",
@@ -38,6 +40,8 @@ public class RestaurantModel implements Serializable {
             index              = null,
             size               = null,
             sort_by            = null,
+            filter             = null,
+            sort_by_desc       = null,
             name               = null,
             distance           = null,
             rating             = null,
@@ -119,6 +123,22 @@ public class RestaurantModel implements Serializable {
         this.sort_by = sort_by;
     }
 
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getSort_by_desc() {
+        return sort_by_desc;
+    }
+
+    public void setSort_by_desc(String sort_by_desc) {
+        this.sort_by_desc = sort_by_desc;
+    }
+
     public String getName() {
         return name;
     }
@@ -193,6 +213,8 @@ public class RestaurantModel implements Serializable {
             if (json.has(INDEX)) index = json.getString(INDEX);
             if (json.has(SIZE)) size = json.getString(SIZE);
             if (json.has(SORT_BY)) sort_by = json.getString(SORT_BY);
+            if (json.has(FILTER)) filter = json.getString(FILTER);
+            if (json.has(SORT_BY_DESC)) sort_by_desc = json.getString(SORT_BY_DESC);
             if (json.has(IMAGE)) image = json.getString(IMAGE);
             if (json.has(NAME)) name = json.getString(NAME);
             if (json.has(RATING)) rating = json.getString(RATING);
@@ -231,6 +253,8 @@ public class RestaurantModel implements Serializable {
             jsonMain.put(INDEX, index);
             jsonMain.put(SIZE, size);
             jsonMain.put(SORT_BY, sort_by);
+            jsonMain.put(FILTER, filter);
+            jsonMain.put(SORT_BY_DESC, sort_by_desc);
             jsonMain.put(IMAGE, image);
             jsonMain.put(NAME, name);
             jsonMain.put(RATING, rating);

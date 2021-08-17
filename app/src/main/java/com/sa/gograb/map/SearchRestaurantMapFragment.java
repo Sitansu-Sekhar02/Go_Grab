@@ -11,13 +11,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +33,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -50,7 +46,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -58,7 +53,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sa.gograb.R;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.menus.MenuListActivity;
-import com.sa.gograb.restaurant.RestaurantListActivity;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
 import com.sa.gograb.services.model.RestaurantListMainModel;
@@ -66,11 +60,9 @@ import com.sa.gograb.services.model.RestaurantListModel;
 import com.sa.gograb.services.model.RestaurantModel;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -130,6 +122,11 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
             window.setStatusBarColor(ContextCompat.getColor(activity, R.color.ColorStatusBar));
         }
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         googleplacesearch_cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +142,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
         mapFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.g_map);
         mapFrag.getMapAsync(this);
 
-        restaurantModel.setDistance(String.valueOf(50000));
+        restaurantModel.setDistance(String.valueOf(500));
 
         getRestaurantList();
 
@@ -155,7 +152,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
     private void getRestaurantList() {
         GlobalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getAllHomeSubCategoryList(context,restaurantModel, new ServerResponseInterface() {
+        servicesMethodsManager.getRestaurantList(context,restaurantModel, new ServerResponseInterface() {
             @SuppressLint("LongLogTag")
             @Override
             public void OnSuccessFromServer(Object arg0) {
@@ -174,8 +171,6 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
             @Override
             public void OnFailureFromServer(String msg) {
                 GlobalFunctions.hideProgress();
-
-
                 Log.d(TAG, "Failure : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
@@ -217,8 +212,8 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
                         }
                         LatLng latLong = new LatLng(latitude, longitude);
 
-                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_point)));
-//                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromBitmap(GlobalFunctions.getBitmapFromURL(mStoreLocationModel.getImage()))));
+                      //  Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_point)));
+                         Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLong).icon(BitmapDescriptorFactory.fromBitmap(GlobalFunctions.getBitmapFromURL(mStoreLocationModel.getImage()))));
                         markerMap.put(marker, i);
 
                         if (i==0){
@@ -402,78 +397,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        /*mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
-        }
-*/
-        /*//Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
 
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));LocationManager locationManager = (LocationManager)
-                getActivity().getSystemService(Context.LOCATION_SERVICE);
-        String provider = locationManager.getBestProvider(new Criteria(), true);
-        if (ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-       *//* Location locations = locationManager.getLastKnownLocation(provider);
-        List<String> providerList = locationManager.getAllProviders();
-        if (null != locations && null != providerList && providerList.size() > 0) {
-            double longitude = locations.getLongitude();
-            double latitude = locations.getLatitude();
-            Geocoder geocoder = new Geocoder(getActivity(),
-                    Locale.getDefault());
-            try {
-                List<Address> listAddresses = geocoder.getFromLocation(latitude,
-                        longitude, 1);
-                if (null != listAddresses && listAddresses.size() > 0) {
-                    String state = listAddresses.get(0).getAdminArea();
-                    String country = listAddresses.get(0).getCountryName();
-                    String subLocality = listAddresses.get(0).getSubLocality();
-                    markerOptions.title("" + latLng + "," + subLocality + "," + state
-                            + "," + country);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*//*
-
-        markerOptions.icon(bitmapDescriptorFromVector(activity, R.drawable.ic_location_in)).title("Your Location");
-        //dialog.cancel();
-        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
-
-        if (location != null)
-        {
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(),location.getLongitude()))      // Sets the center of the map to location user
-                    .zoom(16)                   // Sets the zoom
-                    .bearing(90)                // Sets the orientation of the camera to east
-                    .tilt(30)                   // Sets the tilt of the camera to 30 degrees
-                    .build();                   // Creates a CameraPosition from the builder
-
-            mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            mGoogleMap.setMyLocationEnabled(true);
-        }else {
-            //buildGoogleApiClient();
-            mGoogleMap.setMyLocationEnabled(true);
-        }
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
-                    this);
-        }*/
-
-       /* mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
-
-        //move map camera
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));*/
     }
 
     @Override
@@ -502,7 +426,6 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
             TextView tv_rating_count = alertView.findViewById(R.id.tv_rating_count);
             TextView tv_distance = alertView.findViewById(R.id.tv_distance);
             Button btn_view_menu = alertView.findViewById(R.id.btn_view_menu);
-
 
 
 

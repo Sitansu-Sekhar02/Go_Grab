@@ -1,6 +1,8 @@
 package com.sa.gograb.adapter;
 
 import android.app.Activity;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.gograb.AppController;
 import com.sa.gograb.R;
+import com.sa.gograb.adapter.interfaces.CartClickListener;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.services.model.TrendingMenuModel;
 import com.squareup.picasso.Picasso;
@@ -26,13 +29,18 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     private final List<TrendingMenuModel> list;
     private final Activity activity;
     String minimumQuantity = "0";
+    private CartClickListener listener;
+
+    String qty;
 
     GlobalFunctions globalFunctions;
 
-    public MenuListAdapter(Activity activity, List<TrendingMenuModel> list) {
+    public MenuListAdapter(Activity activity, List<TrendingMenuModel> list,CartClickListener listener) {
         this.list = list;
         this.activity = activity;
         globalFunctions = AppController.getInstance().getGlobalFunctions();
+        this.listener = listener;
+
 
     }
 
@@ -53,8 +61,17 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         if (GlobalFunctions.isNotNullValue(model.getMenu_type())) {
             holder.tv_menu_type.setText(model.getMenu_type());
         }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_currency.setText(model.getCurrency());
+        }
         if (GlobalFunctions.isNotNullValue(model.getPrice())) {
-            holder.unit_price_tv.setText(activity.getString(R.string.sar) +model.getPrice());
+            holder.unit_price_tv.setText(model.getPrice());
+            //holder.unit_price_tv.setPaintFlags( holder.unit_price_tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG );
+
+        }
+        if (GlobalFunctions.isNotNullValue(model.getOffer_price())) {
+            holder.tv_offer_price.setText(model.getOffer_price());
+            holder.unit_price_tv.setPaintFlags( holder.unit_price_tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG );
         }
 
         if (GlobalFunctions.isNotNullValue(model.getDescription())) {
@@ -75,11 +92,24 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
             Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.product_iv);
         }
 
+        if (GlobalFunctions.isNotNullValue(model.getCart_count())) {
+            holder.quantity_tv.setText(model.getCart_count());
+
+            holder.ll_add_item.setVisibility(View.VISIBLE);
+            holder.tv_add_item.setVisibility(View.GONE);
+        }else {
+            holder.ll_add_item.setVisibility(View.GONE);
+            holder.tv_add_item.setVisibility(View.VISIBLE);
+        }
+
         holder.tv_add_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.ll_add_item.setVisibility(View.VISIBLE);
                 holder.tv_add_item.setVisibility(View.GONE);
+
+                qty=holder.quantity_tv.getText().toString();
+                listener.OnCartInvoked( model,qty);
             }
         });
 
@@ -87,61 +117,46 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         holder.add_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantityCounter(holder.quantity_tv, holder.minus_iv, true, position, model);
+                quantityCounter(model, holder.quantity_tv, true);
+
             }
         });
 
         holder.minus_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.quantity_tv != null) {
-                    String val = holder.quantity_tv.getText().toString();
-                    int qty = Integer.parseInt(val == null && val.equalsIgnoreCase("") ? minimumQuantity : val);
-                    if (qty > Integer.parseInt(minimumQuantity)) {
-                        qty--;
-                        holder.quantity_tv.setEnabled(true);
-                        holder.quantity_tv.setClickable(true);
-                        quantityCounter(holder.quantity_tv, holder.minus_iv, false, position, model);
-                    } else if (qty == Integer.parseInt(minimumQuantity)) {
-                        //disable sub button...
-                        holder.quantity_tv.setEnabled(false);
-                        holder.quantity_tv.setClickable(false);
-                    }
-                }
+                quantityCounter(model, holder.quantity_tv, false);
 
             }
         });
 
 
-
-
-
     }
 
-    private void quantityCounter(TextView qty_ev, ImageView subIv, boolean isAddition, int position, TrendingMenuModel model) {
-        if (qty_ev != null) {
-            String val = qty_ev.getText().toString();
 
-           /* if (isAddition) {
-                if (val.equalsIgnoreCase(availableQuantity)) {
-                    globalFunctions.displayMessaage(activity, subIv, activity.getString(R.string.available_quantity_is) + " " + availableQuantity + ". " + activity.getString(R.string.no_more_quantity_is_available));
-                    return;
-                }
-            }*/
+    private void quantityCounter(TrendingMenuModel cartDetailModel,TextView qty_ev, boolean isAddition) {
+        String minimumQuantity = "0";
+        try {
+            if (qty_ev != null) {
+                String val = qty_ev.getText().toString().trim();
 
-            int qty = Integer.parseInt(val == null && val.equalsIgnoreCase("") ? minimumQuantity : val);
-            if (isAddition) {
-                qty = qty + 1;
-                //update quantity....send quantity as qty...
-                //listener.OnCartItemClickInvoke(position, qty, model);
-            } else {
-                if (qty > Integer.parseInt(minimumQuantity)) {
-                    qty--;
-                    //update quantity....send quantity as (-1)...
-                    /* int tempQty = -1;*/
-                   // listener.OnCartItemClickInvoke(position, qty, model);
+                int qty = Integer.parseInt(val == null && val.equalsIgnoreCase("") ? minimumQuantity : val);
+                if (isAddition) {
+                    qty = qty + 1;
+                } else {
+                    if (qty > Integer.parseInt(minimumQuantity)) {
+                        qty = qty - 1;
+                    }
                 }
+
+                if (qty!=0) {
+                    qty_ev.setText(qty + "");
+                }
+                listener.OnCartInvoked(cartDetailModel,qty+"");
+
             }
+        } catch (Exception e) {
+            GlobalFunctions.displayErrorDialog(activity, activity.getString(R.string.somethingWentWrong));
         }
     }
 
@@ -152,7 +167,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView product_iv,minus_iv,add_iv,iv_menu_food_type;
-        TextView tv_category_name,item_title_tv,unit_price_tv,product_description_tv,tv_menu_type,tv_add_item,quantity_tv;
+        TextView tv_category_name,item_title_tv,unit_price_tv,product_description_tv,tv_menu_type,tv_add_item,quantity_tv,tv_currency,tv_offer_price;
         LinearLayout ll_add_item;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,7 +181,9 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
             unit_price_tv = itemView.findViewById(R.id.unit_price_tv);
             product_description_tv = itemView.findViewById(R.id.product_description_tv);
             tv_menu_type = itemView.findViewById(R.id.tv_menu_type);
+            tv_currency = itemView.findViewById(R.id.tv_currency);
             tv_add_item = itemView.findViewById(R.id.tv_add_item);
+            tv_offer_price = itemView.findViewById(R.id.tv_offer_price);
             ll_add_item = itemView.findViewById(R.id.ll_add_item);
             quantity_tv = itemView.findViewById(R.id.quantity_tv);
 

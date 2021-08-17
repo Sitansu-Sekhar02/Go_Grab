@@ -139,11 +139,24 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
                 android:layout_below="@+id/ln_menu_details">
+                <com.vlonjatg.progressactivity.ProgressLinearLayout
+                    android:id="@+id/details_progressActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:emptyTitleTextColor="@color/red_color"
+                    app:errorContentTextColor="@color/app_fontColor"
+                    app:errorTitleTextColor="@color/app_fontColor"
+                    progressActivity:emptyBackgroundColor="@color/transparent"
+                    progressActivity:errorBackgroundColor="@color/transparent"
+                    progressActivity:loadingBackgroundColor="@color/transparent"
+                    progressActivity:loadingProgressBarColor="@color/red_color">
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cart_list_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                </com.vlonjatg.progressactivity.ProgressLinearLayout>
             </LinearLayout>
             <View
                 android:id="@+id/view_one"
@@ -184,11 +197,11 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:gravity="left"
-                    android:inputType="textMultiLine"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
                     android:lineSpacingMultiplier="1.2"
                     android:hint="@string/enter_instruction"
                     android:maxLines="6"
-                    android:minLines="4"
                     android:padding="@dimen/activity_gutter_margin_half_increased"
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/app_fontBlackColor"
@@ -238,7 +251,8 @@
                         android:background="@null"
                         android:gravity="left"
                         android:hint="@string/enter_coupon_code"
-                        android:inputType="textMultiLine"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
                         android:lineSpacingMultiplier="1.2"
                         android:minLines="4"
                         android:padding="@dimen/activity_gutter_margin_half_increased"
@@ -247,7 +261,7 @@
                         android:textColorHint="@color/app_fontColor" />
 
                     <com.sa.gograb.view.AppTextView_SubTitle
-                        android:id="@+id/tv_apply"
+                        android:id="@+id/tv_apply_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -256,6 +270,17 @@
                         android:textColor="@color/main_text"
                         android:textAppearance="@style/SmallMediumText"
                         android:text="@string/apply"/>
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:visibility="gone"
+                        android:id="@+id/tv_remove_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/colorAccent"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:text="@string/remove_coupon"/>
                 </RelativeLayout>
 
 
@@ -311,7 +336,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <com.sa.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
@@ -342,51 +367,6 @@
                         android:textColor="@color/semi_color" />
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-
-                    <com.sa.gograb.view.AppTextView_SubTitle
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="@string/packing_charges"
-                        android:textAllCaps="false"
-                        android:layout_marginLeft="@dimen/_4sdp"
-
-                        android:textAppearance="@style/SmallMediumText"
-                        android:textColor="@color/semi_color" />
-
-                    <com.sa.gograb.view.AppTextView_SubTitle
-                        android:id="@+id/packaging_charges_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="right"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:singleLine="false"
-                        android:text=""
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/SmallerText"
-                        android:textColor="@color/semi_color" />
-
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:background="@color/grey_lighter" />
-
-
                 <LinearLayout
                     android:id="@+id/discount_ll"
                     android:layout_width="match_parent"
@@ -425,6 +405,54 @@
 
                 </LinearLayout>
 
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_lighter" />
+
+                <LinearLayout
+                    android:id="@+id/ln_packaging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/packing_charges"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="@dimen/_4sdp"
+
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/packaging_charges_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+
                 <LinearLayout
                     android:id="@+id/discount_onBill_ll"
                     android:layout_width="match_parent"
@@ -456,7 +484,7 @@
                         android:singleLine="false"
                         android:text=""
                         android:textAllCaps="false"
-                        android:textAppearance="@style/SmallerText"
+                        android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/text_green" />
 
                 </LinearLayout>
@@ -492,7 +520,7 @@
                         android:singleLine="false"
                         android:text=""
                         android:textAllCaps="false"
-                        android:textAppearance="@style/SmallerText"
+                        android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
 
                 </LinearLayout>
@@ -526,13 +554,26 @@
                     android:textColor="@color/semi_color"
                     android:textAppearance="@style/SmallMediumText"
                     android:text="@string/total"/>
-                <com.sa.gograb.view.AppTextView_SubTitle
-                    android:id="@+id/tv_sar_price"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/SmallMediumText"
-                    android:textColor="@color/main_text"
-                    android:text="SAR 300"/>
+                    android:layout_height="wrap_content">
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/main_text"
+                        android:text="SAR"/>
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_sar_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/main_text"
+                        android:text="300"/>
+                </LinearLayout>
+
 
             </LinearLayout>
 

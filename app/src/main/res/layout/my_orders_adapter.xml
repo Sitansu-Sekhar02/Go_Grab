@@ -13,11 +13,12 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_menu_item"
+                android:id="@+id/iv_restaurant"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:scaleType="centerCrop"
@@ -33,6 +34,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -57,6 +59,7 @@
                     android:textColor="@color/main_text" />
             </RelativeLayout>
             <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/ln_rating_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,14 +123,29 @@
                         android:textColor="@color/semi_color" />
                 </LinearLayout>
             </LinearLayout>
+
             <ImageView
+                android:visibility="visible"
                 android:id="@+id/view_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/path_view"
                 android:layout_marginTop="@dimen/_15sdp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/order_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
             <com.sa.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_item_name"
+                android:visibility="gone"
                 android:layout_width="@dimen/_202sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -137,20 +155,36 @@
                 android:textAppearance="@style/SmallerText" />
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/ln_prepare_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal">
-
-                <com.sa.gograb.view.AppTextView_SubTitle
-                    android:id="@+id/tv_sar_total"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="SAR 300"
-                    android:textAppearance="@style/SmallMediumText"
-                    android:textColor="@color/semi_color" />
+                    android:orientation="horizontal">
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="SAR"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:text="300"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+                </LinearLayout>
+
+
 
                 <com.sa.gograb.view.AppTextView
                     android:id="@+id/tv_preparation_time"

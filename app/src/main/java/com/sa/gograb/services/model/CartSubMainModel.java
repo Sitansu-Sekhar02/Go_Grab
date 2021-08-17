@@ -6,24 +6,24 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CartMainModel implements Serializable {
+public class CartSubMainModel implements Serializable {
 
-    private final String TAG = "CartMainModel";
+    private final String TAG = "CartSubMainModel";
 
     private final String
-            STATUS                     = "status",
-            MESSAGE                    = "message",
-            RESPONSE                   = "response";
+//          STATUS                     = "status",
+            CART_COUNT                   = "cart_count",
+            RESPONSE                     = "cart";
 
     private String
             status                    = null;
-    String message = null;
+    String cartcount  = null;
 
 
-    CartSubMainModel
+    CartModel
             cartModel   = null;
 
-    public CartMainModel(){}
+    public CartSubMainModel(){}
 
     public String getStatus() {
         return status;
@@ -33,19 +33,19 @@ public class CartMainModel implements Serializable {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public String getCartcount() {
+        return cartcount;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCartcount(String cartcount) {
+        this.cartcount = cartcount;
     }
 
-    public CartSubMainModel getCartModel() {
+    public CartModel getCartModel() {
         return cartModel;
     }
 
-    public void setCartModel(CartSubMainModel cartModel) {
+    public void setCartModel(CartModel cartModel) {
         this.cartModel = cartModel;
     }
 
@@ -53,12 +53,12 @@ public class CartMainModel implements Serializable {
         try{
             JSONObject json = new JSONObject(jsonObjectString);
 
-            if(json.has(STATUS)){this.status = json.getString(STATUS);}
-            if(json.has(MESSAGE)){this.message = json.getString(MESSAGE);}
+//            if(json.has(STATUS)){this.status = json.getString(STATUS);}
+            if(json.has(CART_COUNT)){this.cartcount = json.getString(CART_COUNT);}
 
 
             if(json.has(RESPONSE)){
-                CartSubMainModel statusModel = new CartSubMainModel();
+                CartModel statusModel = new CartModel();
                 JSONObject jsonObject1 = new JSONObject();
                 jsonObject1 = json.getJSONObject(RESPONSE);
                 if(jsonObject1 != null){statusModel.toObject(jsonObject1.toString());}
@@ -77,8 +77,8 @@ public class CartMainModel implements Serializable {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
-            jsonMain.put(STATUS, status);
-            jsonMain.put(MESSAGE, message);
+//            jsonMain.put(STATUS, status);
+            jsonMain.put(CART_COUNT, cartcount);
             jsonMain.put(RESPONSE, cartModel != null ? new JSONObject(this.cartModel.toString()) : new JSONObject());
             returnString = jsonMain.toString();
         }

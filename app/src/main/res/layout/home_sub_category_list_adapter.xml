@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_restro_main"
-        android:layout_width="@dimen/_250sdp"
+        android:layout_width="@dimen/_240sdp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_6sdp"
         android:layout_marginRight="@dimen/_5sdp"
@@ -133,7 +133,7 @@
                 android:layout_below="@+id/rl_restaurant"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:gravity="center"
                 android:orientation="horizontal">

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -27,10 +28,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.mukesh.OtpView;
+import com.sa.gograb.MainActivity;
 import com.sa.gograb.R;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
+import com.sa.gograb.services.model.OrderListModel;
+import com.sa.gograb.services.model.OrderMainModel;
+import com.sa.gograb.services.model.OrderModel;
 import com.sa.gograb.services.model.RatingNFeedbackModel;
 import com.sa.gograb.services.model.StatusMainModel;
 import com.sa.gograb.services.model.StatusModel;
@@ -39,7 +44,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
 
-    private static final String TAG = "OrderConfirmationActivity";
+    private static final String TAG = "OrderConfirmationActivity",
+                                 BUNDLE_CONFIRM_ORDER = "OrderConfirmId";
+
     Context context;
     private static Activity activity;
     View mainView;
@@ -52,9 +59,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     static TextView toolbar_title;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
-    private TextView tv_feedback_title;
+    private TextView tv_feedback_title,tv_preparation_time,tv_order_no,tv_chat_with_restro;
     private  EditText et_feedback_comment;
     private CircleImageView iv_product_image;
+    private ImageView iv_call;
     private Button btn_redeemOffer;
     private Button btn_submit;
     public OtpView redeem_insert;
@@ -66,6 +74,13 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     RatingNFeedbackModel ratingNFeedbackModel;
 
+    public static Intent newInstance(Activity activity, String restaurant_id) {
+        Intent intent = new Intent(activity, OrderConfirmationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_CONFIRM_ORDER, restaurant_id);
+        intent.putExtras(bundle);
+        return intent;
+    }
 
 
     @Override
@@ -85,6 +100,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        if (MainActivity.header_tv.getText()!=null){
+
+            toolbar_title.setText(MainActivity.header_tv.getText());
+
+        }
+        tv_preparation_time = findViewById(R.id.tv_preparation_time);
+        tv_order_no = findViewById(R.id.tv_order_no);
+        iv_call = findViewById(R.id.iv_call);
+        tv_chat_with_restro = findViewById(R.id.tv_chat_with_restro);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -92,6 +117,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
+
+        if (getIntent().hasExtra(BUNDLE_CONFIRM_ORDER)) {
+            restaurant_id = getIntent().getStringExtra(BUNDLE_CONFIRM_ORDER);
+        } else {
+            restaurant_id = null;
+        }
+
+        mainView=toolbar;
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -103,11 +136,50 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             }
         }, 1500);
 
+        orderDetails();
+
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-        setTitle(getString(R.string.places_search_error), 0, 0);
+       // setTitle(getString(R.string.places_search_error), 0, 0);
 
+    }
+
+    private void orderDetails() {
+        GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getOrderList(context, new ServerResponseInterface() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                OrderMainModel orderMainModel = (OrderMainModel) arg0;
+                OrderListModel orderListModel=orderMainModel.getOrderListModel();
+
+               /* if (orderListModel.getOrderModels()!= null) {
+                    setOrderDetails(orderListModel);
+                }*/
+
+
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Review List");
     }
 
     private void userFeedbackPopup() {
@@ -207,7 +279,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     ratingNFeedbackModel.setComment(comment);
                     dialog.dismiss();
 
-                    //insertFeedback(activity, ratingNFeedbackModel);
+                    insertFeedback(activity, ratingNFeedbackModel);
 
                 }
             }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="4dp"
-    android:background="#F5F5F5"
+    android:background="@color/search_bg"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     app:contentInsetStart="0dp"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -60,9 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:background="@color/search_bg"
             android:padding="@dimen/_8sdp"
-            android:background="@color/BaseColor"
             android:src="@drawable/ic_search" />
 
         <ProgressBar

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/header_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_5sdp"
         android:layout_below="@+id/rl_menu_title"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:background="@color/white">
 
         <androidx.cardview.widget.CardView
@@ -33,14 +33,15 @@
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
-                    android:id="@+id/quantity_ll"
+                    android:id="@+id/ll_add_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/_4sdp"
                     android:background="@drawable/bg_button_color_accent_curved_filled"
                     android:gravity="center"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/minus_iv"
@@ -60,7 +61,7 @@
                         android:layout_marginLeft="@dimen/_12sdp"
                         android:layout_marginRight="@dimen/activity_gutter_margin_half"
                         android:gravity="center"
-                        android:text=""
+                        android:text="1"
                         android:textAllCaps="true"
                         android:textAppearance="@style/MediumText"
                         android:textColor="@color/white"
@@ -90,7 +91,7 @@
                     android:text="@string/add"
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/button_red"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
 
             </RelativeLayout>
@@ -102,8 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_8sdp"
             android:layout_toLeftOf="@+id/cd_add_cart"
             android:orientation="vertical">
 
@@ -150,55 +151,84 @@
                 android:textAppearance="@style/SmallMediumText"
                 android:textColor="@color/main_text" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+
             <com.sa.gograb.view.AppTextView_SubTitle
-                android:id="@+id/unit_price_tv"
+                android:id="@+id/tv_currency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="SAR 300"
+                android:text="SAR"
                 android:textAllCaps="false"
                 android:textAppearance="@style/SmallMediumText"
                 android:textColor="@color/semi_color" />
-
-
-            <com.sa.gograb.view.AppTextView_SubTitle
-                android:id="@+id/product_description_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:gravity="left"
-                android:maxLines="2"
-                android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy More"
-                android:textAllCaps="false"
-                android:textAppearance="@style/SmallMediumText"
-                android:textColor="@color/semi_color" />
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_gutter_margin_half"
-                android:visibility="gone">
-
-
-                <ImageView
-                    android:id="@+id/delete_iv"
-                    android:layout_width="@dimen/activity_gutter_margin_increased"
-                    android:layout_height="@dimen/activity_gutter_margin_increased"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/unit_price_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="@dimen/activity_gutter_margin_quarter" />
-
-            </RelativeLayout>
-
+                    android:singleLine="true"
+                    android:text="SAR"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_offer_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:singleLine="true"
+                    android:text=""
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
         </LinearLayout>
 
-    </RelativeLayout>
 
+
+        <com.sa.gograb.view.AppTextView_SubTitle
+            android:id="@+id/product_description_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:gravity="left"
+            android:maxLines="2"
+            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy More"
+            android:textAllCaps="false"
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/semi_color" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_gutter_margin_half"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/delete_iv"
+                android:layout_width="@dimen/activity_gutter_margin_increased"
+                android:layout_height="@dimen/activity_gutter_margin_increased"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:padding="@dimen/activity_gutter_margin_quarter" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
+
+
+    </RelativeLayout>

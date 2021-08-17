@@ -10,41 +10,31 @@ public class CartPostModel implements Serializable {
     private final String TAG = "CartPostModel";
 
     private final String
-            ID                     = "id",
-            PRODUCT_ID             = "product_id",
-            VARIATION_ID           = "variation_id",
+            REST_ID                = "restaurant_id",
+            MENU_ID                = "menu_id",
             QUANTITY               = "quantity";
 
     String
-            id                    = null,
-            productId             = null,
-            variationId           = null,
-            quantity              = null;
+            restaurant_id           = null,
+            menu_id                 = null,
+            quantity                = null;
 
     public CartPostModel(){}
 
-    public String getId() {
-        return id;
+    public String getRestaurant_id() {
+        return restaurant_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRestaurant_id(String restaurant_id) {
+        this.restaurant_id = restaurant_id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getMenu_id() {
+        return menu_id;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public String getVariationId() {
-        return variationId;
-    }
-
-    public void setVariationId(String variationId) {
-        this.variationId = variationId;
+    public void setMenu_id(String menu_id) {
+        this.menu_id = menu_id;
     }
 
     public String getQuantity() {
@@ -58,9 +48,8 @@ public class CartPostModel implements Serializable {
     public boolean toObject(String jsonObject){
         try{
             JSONObject json = new JSONObject(jsonObject);
-            if(json.has(ID)){this.id = json.getString(ID);}
-            if(json.has(PRODUCT_ID)){this.productId = json.getString(PRODUCT_ID);}
-            if(json.has(VARIATION_ID)){this.variationId = json.getString(VARIATION_ID);}
+            if(json.has(REST_ID)){this.restaurant_id = json.getString(REST_ID);}
+            if(json.has(MENU_ID)){this.menu_id = json.getString(MENU_ID);}
             if(json.has(QUANTITY)){this.quantity = json.getString(QUANTITY);}
 
             return true;
@@ -75,9 +64,8 @@ public class CartPostModel implements Serializable {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
-            jsonMain.put(ID, this.id);
-            jsonMain.put(PRODUCT_ID, this.productId);
-            jsonMain.put(VARIATION_ID, this.variationId);
+            jsonMain.put(REST_ID, this.restaurant_id);
+            jsonMain.put(MENU_ID, this.menu_id);
             jsonMain.put(QUANTITY, this.quantity);
 
             returnString = jsonMain.toString();

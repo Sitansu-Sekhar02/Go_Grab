@@ -2,6 +2,7 @@ package com.sa.gograb.services.model;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -16,7 +17,8 @@ public class WishModel implements Serializable {
             DISTANCE             = "distance",
             RATING               = "rating",
             RATING_COUNT         = "rating_count",
-            WISHLIST             = "wishlist";
+            WISHLIST             = "wishlist",
+            CUSINS               = "cusine";
 
 
 
@@ -30,6 +32,8 @@ public class WishModel implements Serializable {
             wishlist                = null;
 
 
+    CusineListModel
+            cusineListModel = null;
 
     public WishModel() {
     }
@@ -90,6 +94,14 @@ public class WishModel implements Serializable {
         this.wishlist = wishlist;
     }
 
+    public CusineListModel getCusineListModel() {
+        return cusineListModel;
+    }
+
+    public void setCusineListModel(CusineListModel cusineListModel) {
+        this.cusineListModel = cusineListModel;
+    }
+
     public boolean toObject(String jsonObject) {
         try {
             JSONObject json = new JSONObject(jsonObject);
@@ -101,6 +113,15 @@ public class WishModel implements Serializable {
             if (json.has(RATING_COUNT)) rating_count = json.getString(RATING_COUNT);
             if (json.has(WISHLIST)) wishlist = json.getString(WISHLIST);
 
+            if (json.has(CUSINS)) {
+                JSONArray array = json.getJSONArray(CUSINS);
+                CusineListModel listModelLocal = new CusineListModel();
+                if (listModelLocal.toObject(array)) {
+                    this.cusineListModel = listModelLocal;
+                } else {
+                    this.cusineListModel = null;
+                }
+            }
 
             return true;
         } catch (Exception ex) {
@@ -121,6 +142,7 @@ public class WishModel implements Serializable {
             jsonMain.put(RATING, rating);
             jsonMain.put(RATING_COUNT, rating_count);
             jsonMain.put(WISHLIST, wishlist);
+            jsonMain.put(CUSINS, cusineListModel != null ? new JSONArray(cusineListModel.toString(true)) : new JSONArray());
 
             returnString = jsonMain.toString();
         } catch (Exception ex) {
