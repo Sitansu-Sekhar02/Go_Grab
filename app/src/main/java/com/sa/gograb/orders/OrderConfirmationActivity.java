@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +70,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     String rating = "1";
     String restaurant_id=null;
+    OrderModel orderModel=null;
 
     RatingNFeedbackModel ratingNFeedbackModel;
 
@@ -97,7 +97,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         tool_bar_back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent=new Intent(activity,MainActivity.class);
+                startActivity(intent);
+                //onBackPressed();
             }
         });
         if (MainActivity.header_tv.getText()!=null){
@@ -141,7 +143,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-       // setTitle(getString(R.string.places_search_error), 0, 0);
+       //setTitle(getString(R.string.places_search_error), 0, 0);
 
     }
 
@@ -157,9 +159,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 OrderMainModel orderMainModel = (OrderMainModel) arg0;
                 OrderListModel orderListModel=orderMainModel.getOrderListModel();
 
-               /* if (orderListModel.getOrderModels()!= null) {
+                if (orderListModel.getOrderModels()!= null) {
                     setOrderDetails(orderListModel);
-                }*/
+                }
 
 
             }
@@ -179,7 +181,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 Log.d(TAG, "Error : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
-        }, "Review List");
+        }, "Order Details");
+    }
+
+    private void setOrderDetails(OrderListModel orderListModel) {
+        if (orderListModel!=null){
+
+
+        }
     }
 
     private void userFeedbackPopup() {
@@ -346,7 +355,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private void insertFeedback(Activity activity, RatingNFeedbackModel ratingNFeedbackModel) {
         globalFunctions.showProgress(activity, activity.getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.giveFeedback(context, ratingNFeedbackModel, new ServerResponseInterface() {
+        servicesMethodsManager.insertFeedback(context, ratingNFeedbackModel, new ServerResponseInterface() {
             @SuppressLint("LongLogTag")
             @Override
             public void OnSuccessFromServer(Object arg0) {
@@ -424,9 +433,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     public void onBackPressed () {
-
-        closeThisActivity();
-        super.onBackPressed();
+        Intent intent=new Intent(activity,MainActivity.class);
+        startActivity(intent);
+      //  closeThisActivity();
+        //super.onBackPressed();
     }
 
     public static void closeThisActivity () {

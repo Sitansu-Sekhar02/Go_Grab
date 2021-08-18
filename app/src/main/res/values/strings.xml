@@ -205,6 +205,7 @@
     <string name="items">Items</string>
     <string name="somethingWentWrong">Something went wrong !!</string>
     <string name="remove_coupon">Remove Coupon</string>
+    <string name="enter_valid_coupon">Please enter valid coupon</string>
 
 
 </resources>

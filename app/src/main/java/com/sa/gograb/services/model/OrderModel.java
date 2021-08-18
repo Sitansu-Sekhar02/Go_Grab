@@ -25,14 +25,17 @@ public class OrderModel implements Serializable {
                     SUB_TOTAL                    = "sub_total",
                     QTY                          = "quantity",
                     PAYMENT_TYPE                 = "payment_type",
+                    DISTANCE                      = "distance",
                     CREATED_ON                   = "created_on",
                     REST_ID                      = "restaurant_id",
                     REST_LATITUDE                = "rest_laltitude",
                     REST_LONGITUDE               = "rest_longitude",
                     REST_MBL_NO                  = "rest_mobile_number",
                     REST_PREP_TIME               = "rest_preparation_time",
+                    REST_NAME                    = "rest_full_name",
                     REST_LOGO                    = "rest_logo",
                     RATING_COUNT                 = "rating_count",
+                    CURRENCY                     = "currency",
                     RATING                       = "rating",
                     STATUS                       = "status",
                     STATUS_TITLE                 = "status_title",
@@ -47,7 +50,9 @@ public class OrderModel implements Serializable {
             grand_total          = null,
             created_on           = null,
             coupan_discount      = null,
+            distance             = null,
             order_id             = null,
+            rest_full_name       = null,
             vat                  = null,
             packing_charges      = null,
             sub_total            = null,
@@ -56,6 +61,7 @@ public class OrderModel implements Serializable {
             quantity             = null,
             payment_type         = null,
             restaurant_id        = null,
+            currency             = null,
             rest_laltitude       = null,
             rest_longitude       = null,
             rest_mobile_number   = null,
@@ -107,6 +113,21 @@ public class OrderModel implements Serializable {
         this.status = status;
     }
 
+    public String getRest_full_name() {
+        return rest_full_name;
+    }
+
+    public void setRest_full_name(String rest_full_name) {
+        this.rest_full_name = rest_full_name;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
 
     public String getOrder_id() {
         return order_id;
@@ -148,6 +169,14 @@ public class OrderModel implements Serializable {
 
     public void setGrand_total(String grand_total) {
         this.grand_total = grand_total;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getCoupan_discount() {
@@ -310,16 +339,24 @@ public class OrderModel implements Serializable {
             if (json.has(SIZE)) {
                 size = json.getString(SIZE);
 
+            } if (json.has(REST_NAME)) {
+                rest_full_name = json.getString(REST_NAME);
+
             }if (json.has(ORDER_ID)) {
                 order_id = json.getString(ORDER_ID);
             }if (json.has(GRAND_TOTAL)) {
                 grand_total = json.getString(GRAND_TOTAL);
+            }
+            if (json.has(DISTANCE)) {
+                distance = json.getString(DISTANCE);
             }if (json.has(COUPON_DIS)) {
                 coupan_discount = json.getString(COUPON_DIS);
             }if (json.has(VAT)) {
                 vat = json.getString(VAT);
             }if (json.has(STATUS_TITLE)) {
                 status_title = json.getString(STATUS_TITLE);
+            }if (json.has(CURRENCY)) {
+                currency = json.getString(CURRENCY);
             }if (json.has(PACKING_CHARGE)) {
                 packing_charges = json.getString(PACKING_CHARGE);
             }if (json.has(SUB_TOTAL)) {
@@ -379,10 +416,13 @@ public class OrderModel implements Serializable {
             jsonMain.put(INDEX, this.index);
             jsonMain.put(SIZE, this.size);
             jsonMain.put(ORDER_ID, this.order_id);
+            jsonMain.put(REST_NAME, this.rest_full_name);
             jsonMain.put(GRAND_TOTAL, grand_total);
             jsonMain.put(COUPON_DIS, coupan_discount);
+            jsonMain.put(DISTANCE, distance);
             jsonMain.put(VAT, vat);
             jsonMain.put(PACKING_CHARGE, packing_charges);
+            jsonMain.put(CURRENCY, currency);
             jsonMain.put(STATUS_TITLE, status_title);
             jsonMain.put(STATUS, status);
             jsonMain.put(SUB_TOTAL, sub_total);

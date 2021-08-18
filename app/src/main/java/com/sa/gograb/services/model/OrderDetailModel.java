@@ -100,7 +100,7 @@ public class OrderDetailModel implements Serializable {
     public boolean toObject(String jsonObject){
         try{
             JSONObject json = new JSONObject(jsonObject);
-            this.id = json.getString(ID);
+            if(json.has(ID))this.id = json.getString(ID);
             if(json.has(MENU_ID))this.menu_id = json.getString(MENU_ID);
             if(json.has(PRODUCT_ID))this.product_id = json.getString(PRODUCT_ID);
             if(json.has(NAME))this.name = json.getString(NAME);

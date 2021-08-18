@@ -27,6 +27,14 @@ public class OrderDetailListModel implements Serializable {
         this.orderDetailModels = orderDetailModels;
     }
 
+    public List<String> getNames(){
+        List<String> list = new ArrayList<String>();
+        for(int i =0 ;i<this.orderDetailModels.size(); i++){
+            list.add(orderDetailModels.get(i).getName() +" x "+orderDetailModels.get(i).getQuantity());
+        }
+        return list;
+    }
+
     public boolean toObject(String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);

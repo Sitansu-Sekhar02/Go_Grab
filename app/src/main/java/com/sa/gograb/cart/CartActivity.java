@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,26 +29,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sa.gograb.AppController;
 import com.sa.gograb.R;
 import com.sa.gograb.adapter.CartAdapter;
-import com.sa.gograb.adapter.interfaces.CartClickListener;
 import com.sa.gograb.adapter.interfaces.OnCartInvokeListener;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.global.GlobalVariables;
-import com.sa.gograb.menus.MenuListActivity;
 import com.sa.gograb.orders.OrderConfirmationActivity;
 import com.sa.gograb.restaurant.RestaurantListActivity;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
+import com.sa.gograb.services.model.AddInstructionModel;
 import com.sa.gograb.services.model.CartDetailModel;
 import com.sa.gograb.services.model.CartDetailsListModel;
 import com.sa.gograb.services.model.CartMainModel;
 import com.sa.gograb.services.model.CartModel;
 import com.sa.gograb.services.model.CartPostModel;
-import com.sa.gograb.services.model.CartSubMainModel;
-import com.sa.gograb.services.model.MenuCatModel;
+import com.sa.gograb.services.model.CouponCodePostModel;
 import com.sa.gograb.services.model.MenuModel;
 import com.sa.gograb.services.model.StatusMainModel;
 import com.sa.gograb.services.model.StatusModel;
-import com.sa.gograb.services.model.TrendingMenuModel;
 import com.squareup.picasso.Picasso;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
@@ -66,15 +66,17 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     GlobalFunctions globalFunctions = null;
     GlobalVariables globalVariables = null;
 
-    private TextView tv_checkout,tv_item_name,tv_ratings,tv_rating_count,tv_distance,tv_apply_coupon;
-    private TextView item_price_tv,packaging_charges_tv,sub_total_tv,discount_onBill_tv,vat_amount_tv,tv_sar_price,tv_currency;
+    private TextView tv_checkout, tv_item_name, tv_ratings, tv_rating_count, tv_distance, tv_apply_coupon, tv_remove_coupon;
+    private TextView item_price_tv, packaging_charges_tv, sub_total_tv, discount_onBill_tv, vat_amount_tv, tv_sar_price, tv_currency;
     private CircleImageView iv_menu_main;
-    private  static Button btn_view_restaurant;
-    private  static RelativeLayout rl_cart_main;
-    private  static LinearLayout ln_empty_cart;
-    private  static LinearLayout ln_packaging;
+    private EditText comments_etv, etv_apply_coupon;
+    private static Button btn_view_restaurant;
+    private static RelativeLayout rl_cart_main;
+    private static LinearLayout ln_empty_cart;
+    private static LinearLayout ln_packaging;
 
     static Toolbar toolbar;
+    String coupon_code;
     static ActionBar actionBar;
     static String mTitle;
     static int mResourceID;
@@ -83,7 +85,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     MenuModel menuModel = null;
-    String restaurant_id=null;
+    String restaurant_id = null;
 
 
     CartAdapter cartAdapter;
@@ -95,7 +97,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     public static Intent newInstance(Activity activity, MenuModel menuModel) {
         Intent intent = new Intent(activity, CartActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_MENU_MODEL,menuModel);
+        bundle.putSerializable(BUNDLE_MENU_MODEL, menuModel);
         intent.putExtras(bundle);
         return intent;
     }
@@ -128,7 +130,6 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         }*/
 
 
-
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         tool_bar_back_icon = (ImageView) toolbar.findViewById(R.id.toolbar_icon);
@@ -138,7 +139,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 onBackPressed();
             }
         });
-        mainView=toolbar;
+        mainView = toolbar;
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -157,13 +158,16 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         tv_rating_count = findViewById(R.id.tv_rating_count);
         tv_distance = findViewById(R.id.tv_distance);
         item_price_tv = findViewById(R.id.item_price_tv);
+        comments_etv = findViewById(R.id.comments_etv);
         packaging_charges_tv = findViewById(R.id.packaging_charges_tv);
         sub_total_tv = findViewById(R.id.sub_total_tv);
         discount_onBill_tv = findViewById(R.id.discount_onBill_tv);
         vat_amount_tv = findViewById(R.id.vat_amount_tv);
         tv_sar_price = findViewById(R.id.tv_sar_price);
+        etv_apply_coupon = findViewById(R.id.etv_apply_coupon);
         tv_currency = findViewById(R.id.tv_currency);
         tv_apply_coupon = findViewById(R.id.tv_apply_coupon);
+        tv_remove_coupon = findViewById(R.id.tv_remove_coupon);
         ln_empty_cart = findViewById(R.id.ln_empty_cart);
         rl_cart_main = findViewById(R.id.rl_cart_main);
         ln_packaging = findViewById(R.id.ln_packaging);
@@ -183,20 +187,171 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
             }
         });
+
+        tv_apply_coupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                coupon_code = etv_apply_coupon.getText().toString();
+                if (coupon_code.isEmpty()) {
+                    etv_apply_coupon.setError(getString(R.string.enter_valid_coupon));
+                    etv_apply_coupon.setFocusableInTouchMode(true);
+                    etv_apply_coupon.requestFocus();
+                } else {
+                    CouponCodePostModel couponCodePostModel = new CouponCodePostModel();
+                    couponCodePostModel.setCouponCode(coupon_code);
+                    applyCouponCode(couponCodePostModel);
+                }
+            }
+        });
+        tv_remove_coupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CouponCodePostModel couponCodePostModel = new CouponCodePostModel();
+                removeCouponCode(couponCodePostModel);
+            }
+        });
+
+        comments_etv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String comments = comments_etv.getText().toString().trim();
+                    AddInstructionModel addInstructionModel = new AddInstructionModel();
+                    addInstructionModel.setInstruction(comments);
+                    addInstruction(addInstructionModel);
+                    return true;
+                }
+                return false;
+            }
+        });
         btn_view_restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, RestaurantListActivity.class);
+                Intent intent = new Intent(activity, RestaurantListActivity.class);
                 startActivity(intent);
             }
         });
 
-         setSupportActionBar(toolbar);
-         actionBar = getSupportActionBar();
-
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
     }
 
+    private void removeCouponCode(CouponCodePostModel couponCodePostModel) {
+        GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getCouponCode(context, couponCodePostModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                validOutputAfterRemoveCoupon(arg0);
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Add coupon");
+    }
+
+    private void validOutputAfterRemoveCoupon(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+            if (statusMainModel.isStatus()) {
+                etv_apply_coupon.setText("");
+                tv_remove_coupon.setVisibility(View.GONE);
+                tv_apply_coupon.setVisibility(View.VISIBLE);
+
+            } else {
+
+                globalFunctions.displayMessaage(activity, mainView, statusMainModel.getMessage());
+
+            }
+        }
+    }
+
+    private void addInstruction(AddInstructionModel addInstructionModel) {
+        //GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.insertInstruction(context, addInstructionModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                // GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // GlobalFunctions.hideProgress();
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                // GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Add instruction");
+    }
+
+    private void applyCouponCode(CouponCodePostModel couponCodePostModel) {
+        GlobalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getCouponCode(context, couponCodePostModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                validOutputAfterApplyCoupon(arg0);
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Add coupon");
+    }
+
+    private void validOutputAfterApplyCoupon(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+            if (statusMainModel.isStatus()) {
+                tv_remove_coupon.setVisibility(View.VISIBLE);
+                tv_apply_coupon.setVisibility(View.GONE);
+
+            } else {
+
+                globalFunctions.displayMessaage(activity, mainView, statusMainModel.getMessage());
+
+            }
+        }
+
+    }
 
 
     private void getCartList() {
@@ -210,17 +365,17 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 CartMainModel cartMainModel = (CartMainModel) arg0;
                 CartModel cartModel = cartMainModel.getCartModel().getCartModel();
 
-                if (cartModel!=null &&  cartModel.getCartDetailsListModel()!=null){
-                    CartDetailsListModel cartDetailsListModel=cartModel.getCartDetailsListModel();
-                    if (cartDetailsListModel !=null){
+                if (cartModel != null && cartModel.getCartDetailsListModel() != null) {
+                    CartDetailsListModel cartDetailsListModel = cartModel.getCartDetailsListModel();
+                    if (cartDetailsListModel != null) {
                         setThisPage(cartDetailsListModel);
                     }
 
-                    if (cartModel !=null){
+                    if (cartModel != null) {
                         setcartDetails(cartModel);
                     }
 
-                }else {
+                } else {
                     ln_empty_cart.setVisibility(View.VISIBLE);
                     rl_cart_main.setVisibility(View.GONE);
                 }
@@ -228,14 +383,14 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
             @Override
             public void OnFailureFromServer(String msg) {
-                 GlobalFunctions.hideProgress();
+                GlobalFunctions.hideProgress();
                 Log.d(TAG, "Failure : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
 
             @Override
             public void OnError(String msg) {
-                 GlobalFunctions.hideProgress();
+                GlobalFunctions.hideProgress();
                 Log.d(TAG, "Error : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
@@ -243,19 +398,19 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     private void setcartDetails(CartModel cartModel) {
-        if (cartModel!=null && context !=null){
+        if (cartModel != null && context != null) {
 
             if (GlobalFunctions.isNotNullValue(cartModel.getPacking_charges())) {
-                if (cartModel.getPacking_charges().equalsIgnoreCase("") && cartModel.getPacking_charges().equalsIgnoreCase("0")){
+                if (cartModel.getPacking_charges().equalsIgnoreCase("") && cartModel.getPacking_charges().equalsIgnoreCase("0")) {
                     ln_packaging.setVisibility(View.GONE);
-                }else {
+                } else {
                     ln_packaging.setVisibility(View.VISIBLE);
                     packaging_charges_tv.setText(cartModel.getPacking_charges());
 
                 }
             }
-            if (GlobalFunctions.isNotNullValue(cartModel.getRestaurant_id())){
-                restaurant_id=cartModel.getRestaurant_id();
+            if (GlobalFunctions.isNotNullValue(cartModel.getRestaurant_id())) {
+                restaurant_id = cartModel.getRestaurant_id();
             }
 
 
@@ -271,7 +426,10 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             if (GlobalFunctions.isNotNullValue(cartModel.getGrand_total())) {
                 tv_sar_price.setText(cartModel.getGrand_total());
             }
-
+           /* if (GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
+                coupon_code=cartModel.getCoupon();
+            }
+*/
 
             if (GlobalFunctions.isNotNullValue(cartModel.getFull_name())) {
                 tv_item_name.setText(cartModel.getFull_name());
@@ -286,7 +444,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 tv_ratings.setText(cartModel.getRating());
             }
             if (GlobalFunctions.isNotNullValue(cartModel.getRating_count())) {
-                tv_rating_count.setText("("+cartModel.getRating_count()+"+)");
+                tv_rating_count.setText("(" + cartModel.getRating_count() + "+)");
             }
         }
     }
@@ -308,7 +466,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 showCartContent();
                 initCartRecyclerView();
             }
-        }else {
+        } else {
             ln_empty_cart.setVisibility(View.VISIBLE);
             rl_cart_main.setVisibility(View.GONE);
         }
@@ -317,7 +475,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     private void initCartRecyclerView() {
         cart_list_recyclerview.setLayoutManager(cart_linear);
         cart_list_recyclerview.setHasFixedSize(true);
-        cartAdapter = new CartAdapter(activity,cartDetailModels,this);
+        cartAdapter = new CartAdapter(activity, cartDetailModels, this);
         cart_list_recyclerview.setAdapter(cartAdapter);
 
     }
@@ -328,27 +486,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         }
     }
 
-    private void setCartPage(MenuModel menuModel) {
-        if (menuModel!=null && context !=null){
 
-            if (GlobalFunctions.isNotNullValue(menuModel.getName())) {
-                tv_item_name.setText(menuModel.getName());
-            }
-            if (GlobalFunctions.isNotNullValue(menuModel.getImage())) {
-                Picasso.with(context).load(menuModel.getImage()).placeholder(R.drawable.image).into(iv_menu_main);
-            }
-            if (GlobalFunctions.isNotNullValue(menuModel.getDistance())) {
-                tv_distance.setText(menuModel.getDistance());
-            }
-            if (GlobalFunctions.isNotNullValue(menuModel.getRating())) {
-                tv_ratings.setText(menuModel.getRating());
-            }
-            if (GlobalFunctions.isNotNullValue(menuModel.getRating_count())) {
-                tv_rating_count.setText("("+menuModel.getRating_count()+"+)");
-            }
-        }
-
-    }
     private void submitOrder() {
         //globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
@@ -383,13 +521,11 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     private void validOutputAfterOrderSubmit(Object arg0) {
         if (arg0 instanceof StatusMainModel) {
             StatusMainModel statusMainModel = (StatusMainModel) arg0;
-             StatusModel statusModel = statusMainModel.getStatusModel();
+            StatusModel statusModel = statusMainModel.getStatusModel();
             if (statusMainModel.isStatus()) {
-                Intent intent = OrderConfirmationActivity.newInstance( activity, restaurant_id);
-                activity.startActivity( intent );
+                Intent intent = OrderConfirmationActivity.newInstance(activity, restaurant_id);
+                activity.startActivity(intent);
 
-               // Intent intent=new Intent(activity, OrderConfirmationActivity.class);
-               // startActivity(intent);
             } else {
 
                 globalFunctions.displayMessaage(activity, mainView, statusMainModel.getMessage());
@@ -399,11 +535,11 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     @Override
-    public void onStop () {
+    public void onStop() {
         super.onStop();
     }
 
-    public static void setTitle (String title,int titleImageID, int backgroundResourceID){
+    public static void setTitle(String title, int titleImageID, int backgroundResourceID) {
         mTitle = title;
         if (backgroundResourceID != 0) {
             mResourceID = backgroundResourceID;
@@ -419,7 +555,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     @SuppressLint("LongLogTag")
-    private static void restoreToolbar () {
+    private static void restoreToolbar() {
         //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         Log.d(TAG, "Restore Tool Bar");
         if (actionBar != null) {
@@ -433,27 +569,28 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
     }
 
-    public void onBackPressed () {
+    public void onBackPressed() {
 
         closeThisActivity();
         super.onBackPressed();
     }
 
-    public static void closeThisActivity () {
+    public static void closeThisActivity() {
         if (activity != null) {
             activity.finish();
             //activity.overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
         }
     }
+
     @Override
-    public void onPause () {
+    public void onPause() {
         super.onPause();
         if (getFragmentManager().findFragmentByTag(TAG) != null)
             getFragmentManager().findFragmentByTag(TAG).setRetainInstance(true);
     }
 
     @Override
-    public void onStart () {
+    public void onStart() {
 
        /* if(hint != null) {
             hint.launchAutomaticHintForCall(activity.findViewById(R.id.action_call));
@@ -463,14 +600,14 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     @Override
-    public void onDestroy () {
+    public void onDestroy() {
         super.onDestroy();
     }
 
     @Override
     public void OnCartListListener(CartDetailModel cartDetailModel, String count) {
 
-        CartPostModel cartPostModel=new CartPostModel();
+        CartPostModel cartPostModel = new CartPostModel();
         cartPostModel.setRestaurant_id(restaurant_id);
         cartPostModel.setMenu_id(cartDetailModel.getMenu_id());
         cartPostModel.setQuantity(count);
@@ -508,11 +645,11 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             }
         }, "GetSubCatList");
     }
+
     private void validateInsertCartOutput(StatusModel model) {
         if (model != null) {
             GlobalFunctions.displayMessaage(activity, mainView, model.getMessage());
             getCartList();
-           // setCartPage(menuModel);
         }
     }
 }

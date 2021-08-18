@@ -1575,6 +1575,21 @@ public class GlobalFunctions {
         return result;
     }
 
+    public static String getStringFromList(List<String> list) {
+        String idList = "";
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (i == list.size() - 1) {
+                    idList += list.get(i);
+                } else {
+                    idList += list.get(i) + "," + " ";
+                }
+            }
+        }
+        return idList;
+    }
+
+
     public static List<HomeTopCategoryModel> getWishlist(List<HomeTopCategoryModel> list, boolean isAllow) {
         List<HomeTopCategoryModel> updatedList;
         updatedList=new ArrayList<>();

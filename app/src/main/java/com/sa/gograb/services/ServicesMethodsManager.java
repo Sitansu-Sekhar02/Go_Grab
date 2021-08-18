@@ -540,7 +540,14 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        }else if (obj instanceof InsertReviewModel) {
+        }else if (obj instanceof OrderDetailModel) {
+            OrderDetailModel model = new OrderDetailModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        } else if (obj instanceof InsertReviewModel) {
             InsertReviewModel model = new InsertReviewModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -554,7 +561,21 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof HomeTopCategoryListModel) {
+        } else if (obj instanceof AddInstructionModel) {
+            AddInstructionModel model = new AddInstructionModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }else if (obj instanceof AddInstructionModel) {
+            StatusMainModel model = new StatusMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }else if (obj instanceof HomeTopCategoryListModel) {
             HomeTopCategoryListModel model = new HomeTopCategoryListModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -659,16 +680,11 @@ public class ServicesMethodsManager {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
         } else if (obj instanceof CouponCodePostModel) {
-            StatusResponseModel model = new StatusResponseModel();
+            StatusMainModel model = new StatusMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
             } else {
-                CartMainModel addedPartsListModel = new CartMainModel();
-                if (addedPartsListModel.toObject(resp.toString())) {
-                    mUiCallBack.OnSuccessFromServer(addedPartsListModel);
-                } else {
-                    mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
-                }
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
         }  else if (obj instanceof UserAdsListModel) {
             UserAdsListModel model = new UserAdsListModel();
@@ -952,14 +968,10 @@ public class ServicesMethodsManager {
         String url = ServerConstants.URL_UpdateProfile;
         postData(context, profileModel, url, TAG);
     }
-    public void updateSubscriberInfo(Context context, ProfileModel profileModel, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String url = ServerConstants.URL_UpdateSubscriberProfile;
-        postData(context, profileModel, url, TAG);
-    }
 
 
-    public void giveFeedback(Context context, RatingNFeedbackModel ratingNFeedbackModel, ServerResponseInterface mCallInterface, String TAG) {
+
+    public void insertFeedback(Context context, RatingNFeedbackModel ratingNFeedbackModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String url = ServerConstants.URL_Feedback_n_rating;
         postData(context, ratingNFeedbackModel, url, TAG);
@@ -972,12 +984,6 @@ public class ServicesMethodsManager {
         getData(context, new ProfileMainModel(), url, query, TAG);
     }
 
-    public void getSubscriberProfile(Context context, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        String url = ServerConstants.URL_GetAccount;
-        getData(context, new ProfileMainModel(), url, query, TAG);
-    }
 
     public void sendPushNotificationID(Context context, PushNotificationModel pushNotificationModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
@@ -1116,6 +1122,12 @@ public class ServicesMethodsManager {
         postData(context, insertReviewModel, ServerConstants.URL_InsertReview, query, TAG);
     }
 
+    public void insertInstruction(Context context, AddInstructionModel addInstructionModel,ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+
+        postData(context, addInstructionModel, ServerConstants.URL_Update_instruction, query, TAG);
+    }
     public void getWishlistCategory(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
@@ -1213,9 +1225,10 @@ public class ServicesMethodsManager {
        // getData(context, new StatusMainModel(), ServerConstants.URL_CartToWishlist,query, TAG);
     }
 
-    public void addCouponCode(Context context, CouponCodePostModel couponCodePostModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void getCouponCode(Context context, CouponCodePostModel couponCodePostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        postData(context, couponCodePostModel, ServerConstants.URL_AddCouponCOde, TAG);
+        String query = null;
+        getData(context,couponCodePostModel, ServerConstants.URL_AddCouponCOde,query, TAG);
     }
 
     public void addUserAddress(Context context, UserAddressModel userAddressModel, ServerResponseInterface mCallInterface, String TAG) {

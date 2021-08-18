@@ -25,11 +25,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
 
-    public static final String TAG = "AllOrderAdapter";
+    public static final String TAG = "MyOrderAdapter";
 
     private final List<OrderModel> list;
     private final Activity activity;
-    OrderSubAdapter orderSubAdapter;
 
     public MyOrderAdapter(Activity activity, List<OrderModel> list) {
         this.list = list;
@@ -46,12 +45,23 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
         final OrderModel model = list.get(position);
 
-
+        if (GlobalFunctions.isNotNullValue(model.getRest_full_name())) {
+            holder.tv_item_title.setText(model.getRest_full_name());
+        }
         if (GlobalFunctions.isNotNullValue(model.getRest_logo())) {
             Picasso.with(activity).load(model.getRest_logo()).placeholder(R.drawable.image).into(holder.iv_restaurant);
         }
         if (GlobalFunctions.isNotNullValue(model.getRating())) {
             holder.tv_ratings.setText(model.getRating());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getDistance())) {
+            holder.tv_distance.setText(model.getDistance());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getGrand_total())) {
+            holder.tv_total_price.setText(model.getGrand_total());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_currency.setText(model.getCurrency());
         }
         if (GlobalFunctions.isNotNullValue(model.getRating_count())) {
             holder.tv_rating_count.setText("("+model.getRating_count()+")");
@@ -61,26 +71,19 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         }
 
 
-        LinearLayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false);
-        List<OrderDetailModel> productList = new ArrayList<OrderDetailModel>();
+        List<String> productList = new ArrayList<String>();
 
         if (model.getOrder_details() != null && model.getOrder_details().getOrderDetailModels().size() > 0) {
             productList.clear();
-            productList.addAll(model.getOrder_details().getOrderDetailModels());
+            productList.addAll(model.getOrder_details().getNames());
         }
 
         if (productList.size() > 0) {
-            orderSubAdapter = new OrderSubAdapter(activity, productList);
-            holder.order_rv.setLayoutManager(layoutManager);
-            holder.order_rv.setAdapter(orderSubAdapter);
-
-            holder.order_rv.setVisibility(View.VISIBLE);
+            holder.prolist_tv.setText(GlobalFunctions.getStringFromList(productList));
+            holder.prolist_tv.setVisibility(View.VISIBLE);
         } else {
-            holder.order_rv.setVisibility(View.GONE);
+            holder.prolist_tv.setVisibility(View.GONE);
         }
-
-
 
     }
 
@@ -91,7 +94,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView iv_restaurant;
-        TextView myTextView,tv_item_title,tv_order_date,tv_ratings,tv_rating_count,tv_distance,tv_item_name,tv_currency,tv_total_price;
+        TextView myTextView,tv_item_title,tv_order_date,tv_ratings,tv_rating_count,tv_distance,tv_item_name,tv_currency,tv_total_price,prolist_tv;
         RecyclerView order_rv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -107,6 +110,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             tv_currency = itemView.findViewById(R.id.tv_currency);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
             order_rv = itemView.findViewById(R.id.order_rv);
+            prolist_tv = itemView.findViewById(R.id.prolist_tv);
 
 
         }
