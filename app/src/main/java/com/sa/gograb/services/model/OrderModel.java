@@ -37,6 +37,8 @@ public class OrderModel implements Serializable {
                     RATING_COUNT                 = "rating_count",
                     CURRENCY                     = "currency",
                     RATING                       = "rating",
+                    SELECTED                       = "selected",
+
                     STATUS                       = "status",
                     STATUS_TITLE                 = "status_title",
                     COUNTS                       = "counts",
@@ -66,6 +68,7 @@ public class OrderModel implements Serializable {
             rest_longitude       = null,
             rest_mobile_number   = null,
             rest_preparation_time  = null,
+            selected              = "0",
             rest_logo              = null,
             rating_count           = null,
             rating                 = null,
@@ -185,6 +188,14 @@ public class OrderModel implements Serializable {
 
     public void setCoupan_discount(String coupan_discount) {
         this.coupan_discount = coupan_discount;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 
     public String getVat() {
@@ -386,6 +397,10 @@ public class OrderModel implements Serializable {
             }if (json.has(COUNTS)) {
                 counts = json.getString(COUNTS);
             }
+            if (json.has(SELECTED)) {
+                selected = json.getString(SELECTED);
+            }
+
             if (json.has(STATUS)) {
                 status =json.getString(STATUS);
             }
@@ -438,6 +453,7 @@ public class OrderModel implements Serializable {
             jsonMain.put(RATING, rating);
             jsonMain.put(RATING_COUNT, rating_count);
             jsonMain.put(COUNTS, counts);
+            jsonMain.put(SELECTED, selected);
             jsonMain.put(ORDER_DETAILS, order_details!=null?new JSONArray(order_details.toString(true)):null);
 
 

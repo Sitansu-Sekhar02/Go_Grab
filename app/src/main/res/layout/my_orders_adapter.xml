@@ -125,12 +125,13 @@
             </LinearLayout>
 
             <ImageView
-                android:visibility="visible"
                 android:id="@+id/view_one"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/path_view"
-                android:layout_marginTop="@dimen/_15sdp"/>
+                android:layout_height="@dimen/_4sdp"
+                android:layout_below="@+id/ln_recycler"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:src="@drawable/path_view" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -164,6 +165,7 @@
                 android:layout_below="@+id/tv_item_name"
                 android:orientation="horizontal">
                 <LinearLayout
+                    android:id="@+id/ln_currency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -185,6 +187,14 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
                 </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_expand_order"
+                    android:layout_toRightOf="@+id/ln_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_7sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:src="@drawable/ic_arrow_down"/>
 
 
 
@@ -198,6 +208,225 @@
                     android:textAppearance="@style/SmallMediumText"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:textColor="@color/icon_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_billing_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/ln_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_order_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/view_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_4sdp"
+                    android:layout_below="@+id/ln_recycler"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/path_view" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_path"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/vat_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/item_price"
+                            android:textAllCaps="false"
+
+                            android:textAppearance="@style/SmallMediumText"
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/item_price_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:singleLine="false"
+                            android:text=""
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallMediumText"
+                            android:textColor="@color/semi_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/discount_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/sub_total"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/sub_total_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:singleLine="false"
+                            android:text=""
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ln_packaging"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/packing_charges"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/packaging_charges_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:singleLine="false"
+                            android:text=""
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/vat"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView_SubTitle
+                            android:id="@+id/vat_amount_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:singleLine="false"
+                            android:text=""
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/discount_onBill_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <com.sa.gograb.view.AppTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/total"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                        <com.sa.gograb.view.AppTextView
+                            android:id="@+id/tv_grant_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:singleLine="false"
+                            android:text=""
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/SmallerText"
+                            android:textColor="@color/semi_color" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
             </RelativeLayout>
 

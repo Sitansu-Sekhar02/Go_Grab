@@ -186,6 +186,13 @@ public class ServicesMethodsManager {
             } else {
                     mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
+        }else if (obj instanceof CouponMainModel) {
+            CouponMainModel model = new CouponMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
         }else if (obj instanceof RegisterModel) {
             StatusProfileModel model = new StatusProfileModel();
             if (model.toObject(resp.toString())) {
@@ -1225,10 +1232,17 @@ public class ServicesMethodsManager {
        // getData(context, new StatusMainModel(), ServerConstants.URL_CartToWishlist,query, TAG);
     }
 
-    public void getCouponCode(Context context, CouponCodePostModel couponCodePostModel, ServerResponseInterface mCallInterface, String TAG) {
+    public void getCouponCode(Context context, String coupon_code , ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        getData(context,couponCodePostModel, ServerConstants.URL_AddCouponCOde,query, TAG);
+        query = query != null ? query + "&coupon_code=" + coupon_code: "coupon_code=" + coupon_code;
+        getData(context,new CouponMainModel(), ServerConstants.URL_AddCouponCOde,query, TAG);
+    }
+    public void removeCouponCode(Context context , ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+       // query = query != null ? query + "&coupon_code=" + coupon_code: "coupon_code=" + coupon_code;
+        getData(context,new CouponMainModel(), ServerConstants.URL_AddCouponCOde,query, TAG);
     }
 
     public void addUserAddress(Context context, UserAddressModel userAddressModel, ServerResponseInterface mCallInterface, String TAG) {

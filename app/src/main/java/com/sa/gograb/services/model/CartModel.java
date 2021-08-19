@@ -38,6 +38,7 @@ public class CartModel implements Serializable {
             OFFER_ID         = "offer_id",
             DISCOUNT_PRICE   = "discount_price",
             CURRENCY         = "currency",
+            INSTRUCTION         = "instruction",
             CART_DETAILS     = "cart_detail";
 
     String
@@ -61,6 +62,7 @@ public class CartModel implements Serializable {
             quantity         = null,
             image            = null,
             unitPrice        = null,
+            instruction        = null,
             subTotal         = null,
             totalPrice       = null,
             discount         = null,
@@ -184,6 +186,14 @@ public class CartModel implements Serializable {
 
     public void setEmptyCart(String emptyCart) {
         this.emptyCart = emptyCart;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
     }
 
     public String getBookingCount() {
@@ -391,6 +401,7 @@ public class CartModel implements Serializable {
             if (json.has(CART_COUNT)) cart_count = json.getString(CART_COUNT);
             if (json.has(GRAND_TOTAL)) grand_total = json.getString(GRAND_TOTAL);
             if (json.has(SHIPPING)) shipping = json.getString(SHIPPING);
+            if (json.has(INSTRUCTION)) instruction = json.getString(INSTRUCTION);
 
             if(json.has(CART_DETAILS)) {
                 JSONArray array = json.getJSONArray(CART_DETAILS);
@@ -435,6 +446,7 @@ public class CartModel implements Serializable {
             jsonMain.put(CART_COUNT, cart_count);
             jsonMain.put(PACKING_CHARGE, packing_charges);
             jsonMain.put(SHIPPING, shipping);
+            jsonMain.put(INSTRUCTION, instruction);
             jsonMain.put(CART_DETAILS, cartDetailsListModel!=null?new JSONArray(cartDetailsListModel.toString(true)):null);
 
             returnString = jsonMain.toString();

@@ -43,6 +43,8 @@ import com.sa.gograb.services.model.CartMainModel;
 import com.sa.gograb.services.model.CartModel;
 import com.sa.gograb.services.model.CartPostModel;
 import com.sa.gograb.services.model.CouponCodePostModel;
+import com.sa.gograb.services.model.CouponMainModel;
+import com.sa.gograb.services.model.CouponSubMainModel;
 import com.sa.gograb.services.model.MenuModel;
 import com.sa.gograb.services.model.StatusMainModel;
 import com.sa.gograb.services.model.StatusModel;
@@ -192,22 +194,20 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             @Override
             public void onClick(View v) {
                 coupon_code = etv_apply_coupon.getText().toString();
+                //Log.e("coupn_code",""+coupon_code);
                 if (coupon_code.isEmpty()) {
                     etv_apply_coupon.setError(getString(R.string.enter_valid_coupon));
                     etv_apply_coupon.setFocusableInTouchMode(true);
                     etv_apply_coupon.requestFocus();
                 } else {
-                    CouponCodePostModel couponCodePostModel = new CouponCodePostModel();
-                    couponCodePostModel.setCouponCode(coupon_code);
-                    applyCouponCode(couponCodePostModel);
+                    applyCouponCode(coupon_code);
                 }
             }
         });
         tv_remove_coupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CouponCodePostModel couponCodePostModel = new CouponCodePostModel();
-                removeCouponCode(couponCodePostModel);
+                removeCouponCode();
             }
         });
 
@@ -215,14 +215,40 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String comments = comments_etv.getText().toString().trim();
-                    AddInstructionModel addInstructionModel = new AddInstructionModel();
-                    addInstructionModel.setInstruction(comments);
-                    addInstruction(addInstructionModel);
+                    if (GlobalFunctions.isKeyboardOpen(activity)){
+                        GlobalFunctions.closeKeyboard(activity);
+                    }
+                    if (comments.length()>0) {
+                        AddInstructionModel addInstructionModel = new AddInstructionModel();
+                        addInstructionModel.setInstruction(comments);
+                        addInstruction(addInstructionModel);
+                    }
                     return true;
                 }
                 return false;
             }
         });
+
+        comments_etv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                String comments = comments_etv.getText().toString().trim();
+                if (GlobalFunctions.isKeyboardOpen(activity)){
+                    GlobalFunctions.closeKeyboard(activity);
+                }
+                if (comments.length()>0) {
+                    AddInstructionModel addInstructionModel = new AddInstructionModel();
+                    addInstructionModel.setInstruction(comments);
+                    addInstruction(addInstructionModel);
+                }
+            }
+        });
+
+
+
+
+
         btn_view_restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,10 +262,10 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
     }
 
-    private void removeCouponCode(CouponCodePostModel couponCodePostModel) {
+    private void removeCouponCode() {
         GlobalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getCouponCode(context, couponCodePostModel, new ServerResponseInterface() {
+        servicesMethodsManager.removeCouponCode(context, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 GlobalFunctions.hideProgress();
@@ -265,19 +291,28 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     private void validOutputAfterRemoveCoupon(Object arg0) {
-        if (arg0 instanceof StatusMainModel) {
-            StatusMainModel statusMainModel = (StatusMainModel) arg0;
-            StatusModel statusModel = statusMainModel.getStatusModel();
-            if (statusMainModel.isStatus()) {
+        if (arg0 instanceof CouponMainModel) {
+            CouponMainModel couponMainModel = (CouponMainModel) arg0;
+            CouponSubMainModel couponSubMainModel = couponMainModel.getCouponSubMainModel();
+            CartModel cartModel = couponSubMainModel.getCartModel();
+            GlobalFunctions.displayMessaage(activity,mainView,couponSubMainModel.getMessage());
+
+            if (cartModel != null) {
+                setcartDetails(cartModel);
+            }
+
+            if (cartModel!=null && GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
+                tv_remove_coupon.setVisibility(View.VISIBLE);
+                tv_apply_coupon.setVisibility(View.GONE);
+
+            } else {
+
                 etv_apply_coupon.setText("");
                 tv_remove_coupon.setVisibility(View.GONE);
                 tv_apply_coupon.setVisibility(View.VISIBLE);
 
-            } else {
-
-                globalFunctions.displayMessaage(activity, mainView, statusMainModel.getMessage());
-
             }
+
         }
     }
 
@@ -308,10 +343,10 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         }, "Add instruction");
     }
 
-    private void applyCouponCode(CouponCodePostModel couponCodePostModel) {
+    private void applyCouponCode(String couponCode) {
         GlobalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getCouponCode(context, couponCodePostModel, new ServerResponseInterface() {
+        servicesMethodsManager.getCouponCode(context, couponCode, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 GlobalFunctions.hideProgress();
@@ -337,16 +372,24 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     private void validOutputAfterApplyCoupon(Object arg0) {
-        if (arg0 instanceof StatusMainModel) {
-            StatusMainModel statusMainModel = (StatusMainModel) arg0;
-            StatusModel statusModel = statusMainModel.getStatusModel();
-            if (statusMainModel.isStatus()) {
+        if (arg0 instanceof CouponMainModel) {
+            CouponMainModel couponMainModel = (CouponMainModel) arg0;
+            CouponSubMainModel couponSubMainModel = couponMainModel.getCouponSubMainModel();
+            CartModel cartModel = couponSubMainModel.getCartModel();
+            GlobalFunctions.displayMessaage(activity,mainView,couponSubMainModel.getMessage());
+
+            if (cartModel != null) {
+                setcartDetails(cartModel);
+            }
+
+            if (cartModel!=null && GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
                 tv_remove_coupon.setVisibility(View.VISIBLE);
                 tv_apply_coupon.setVisibility(View.GONE);
 
             } else {
 
-                globalFunctions.displayMessaage(activity, mainView, statusMainModel.getMessage());
+                tv_remove_coupon.setVisibility(View.GONE);
+                tv_apply_coupon.setVisibility(View.VISIBLE);
 
             }
         }
@@ -426,10 +469,9 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             if (GlobalFunctions.isNotNullValue(cartModel.getGrand_total())) {
                 tv_sar_price.setText(cartModel.getGrand_total());
             }
-           /* if (GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
-                coupon_code=cartModel.getCoupon();
+            if (GlobalFunctions.isNotNullValue(cartModel.getInstruction())) {
+                comments_etv.setText(cartModel.getInstruction());
             }
-*/
 
             if (GlobalFunctions.isNotNullValue(cartModel.getFull_name())) {
                 tv_item_name.setText(cartModel.getFull_name());
