@@ -41,7 +41,7 @@ public class RegisterModel implements Serializable {
             lastName              = null,
             companyName           = null,
             uid                   = null,
-            deviceType            = "1",
+            deviceType            = "2",
             systemInfo            = null,
             loginToken            = null,
             gender                = null,

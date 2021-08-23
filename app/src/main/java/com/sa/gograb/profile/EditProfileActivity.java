@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -94,6 +97,9 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
     ProfileModel profileModel = null;
     String selected_country_code = "";
 
+    String
+            selectedGender = "0";
+    private LayoutInflater layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +146,13 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
         btn_save =findViewById( R.id.btn_save );
         profile_image = ( CircleImageView ) findViewById( R.id.iv_profile_image);
 
+
+        etv_gender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGenderDialog(activity);
+            }
+        });
 
       /*  country_code_picker.setCountryForPhoneCode(+91);
         country_code_picker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
@@ -204,6 +217,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
 
 
     }
+
     private void setThisPage(ProfileModel profileModel) {
 
         if (profileModel != null) {
@@ -231,7 +245,13 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
                 etv_vehicle.setText(profileModel.getVehicle_number());
             }
             if (GlobalFunctions.isNotNullValue(profileModel.getGender())) {
-                etv_gender.setText(profileModel.getGender());
+                if (profileModel.getGender().equalsIgnoreCase("1")){
+                    etv_gender.setText(activity.getString(R.string.male));
+
+                }else{
+                    etv_gender.setText(activity.getString(R.string.female));
+
+                }
             }
         }
     }
@@ -276,6 +296,61 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
 
             }
         }
+    }
+    private void openGenderDialog(final Context context) {
+
+        final android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(activity);
+        final View alertView = layoutInflater.inflate(R.layout.gender_custom_dialog, null, false);
+        alertDialog.setView(alertView);
+        alertDialog.setCancelable(true);
+        // alertDialog.setIcon(R.drawable.app_icon);
+        final android.app.AlertDialog dialog = alertDialog.create();
+
+        TextView back_tv, none_tv,male_tv, female_tv;
+
+        back_tv = (TextView) alertView.findViewById(R.id.back_tv);
+        male_tv = (TextView) alertView.findViewById(R.id.male_tv);
+        female_tv = (TextView) alertView.findViewById(R.id.female_tv);
+        none_tv = (TextView) alertView.findViewById(R.id.none_tv);
+
+
+        back_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        none_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedGender = globalVariables.GENDER_NONE;
+                etv_gender.setHint(getString(R.string.gender_optional));
+                etv_gender.setText("");
+                dialog.dismiss();
+            }
+        });
+
+        male_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedGender = globalVariables.GENDER_MALE;
+                etv_gender.setText(getString(R.string.male));
+                dialog.dismiss();
+            }
+        });
+
+        female_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedGender = globalVariables.GENDER_FEMALE;
+                etv_gender.setText(getString(R.string.female));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 
     private void updateProfile(Context context, ProfileModel profileModel) {

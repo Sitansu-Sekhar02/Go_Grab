@@ -582,7 +582,7 @@ public class GlobalVariables {
 
     public static String CITY_LIST_DEFAULT_CITY_ID = "1";
 
-    public static String DEVICE_TYPE = "1";
+    public static String DEVICE_TYPE = "2";
     public static final int REQUEST_MAIN_PICK_UP_LOCATION_CODE     = 231;
 
     public static final String  ADDRESS_TYPE_HOME        = "Home";
@@ -621,9 +621,9 @@ public class GlobalVariables {
     public static final String FROM_LOGIN                   = "1";
     public static final String FROM_REGISTERATON            = "2";
 
-    public static final String  GENDER_NONE      = "None";
-    public static final String  GENDER_MALE      = "Male";
-    public static final String  GENDER_FEMALE    = "Female";
+    public static final String  GENDER_NONE      = "0";
+    public static final String  GENDER_MALE      = "1";
+    public static final String  GENDER_FEMALE    = "2";
 
 
     public static String SHARED_PREFERENCE_KEY                  =  "Yin-Therapist-Android-IMCRINOX@2019";

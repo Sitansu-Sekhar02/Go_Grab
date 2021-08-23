@@ -322,7 +322,7 @@
 
             </RelativeLayout>
             <com.sa.gograb.view.AppTextView_SubTitle
-                android:id="@+id/tv_view_more"
+                android:id="@+id/tv_view_allOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_main_all_orders"
@@ -336,7 +336,7 @@
                 android:id="@+id/tv_logout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_48sdp"
-                android:layout_below="@+id/tv_view_more"
+                android:layout_below="@+id/tv_view_allOrders"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_8sdp"
@@ -348,7 +348,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/icon_color"
                 android:textAppearance="@style/SmallMediumSizeText"/>
-
 
         </RelativeLayout>
 

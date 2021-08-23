@@ -77,6 +77,7 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
     View mainView;
 
     String restaurant_id=null;
+    String menu_id=null;
     int index=0;
     int size=100;
 
@@ -376,6 +377,11 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
                 tv_currency.setText(cartModel.getCurrency());
 
             }
+            if (GlobalFunctions.isNotNullValue(cartModel.getRestaurant_id())){
+                menu_id=cartModel.getRestaurant_id();
+
+            }
+
 
         }else {
             rl_view_cart.setVisibility(View.GONE);

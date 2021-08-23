@@ -11,7 +11,7 @@ public class ChangePasswordModel implements Serializable {
     private final String TAG = "ChangePasswordModel";
     private final String
             CURRENT_PASSWORD = "old_password",
-            NEW_PASSWORD     = "new_password",
+            NEW_PASSWORD     = "password",
             CONFIRM_PASSWORD = "confirm_new_password",
             MOBILE_NUMBER    = "mobile_number";
 

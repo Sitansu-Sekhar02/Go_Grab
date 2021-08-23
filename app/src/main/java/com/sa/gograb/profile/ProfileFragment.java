@@ -42,6 +42,7 @@ import com.sa.gograb.services.model.OrderListMainModel;
 import com.sa.gograb.services.model.OrderListModel;
 import com.sa.gograb.services.model.OrderMainModel;
 import com.sa.gograb.services.model.OrderModel;
+import com.sa.gograb.services.model.ProfileMainModel;
 import com.sa.gograb.services.model.ProfileModel;
 import com.sa.gograb.services.model.StatusModel;
 import com.sa.gograb.services.model.TrendingMenuListModel;
@@ -61,7 +62,7 @@ import static com.sa.gograb.MainActivity.mainContext;
 public class ProfileFragment extends Fragment {
 
 
-    public static String TAG = "ProfileActivity";
+    public static String TAG = "ProfileFragment";
     public static final String BUNDLE_MAIN_NOTIFICATION_MODEL = "BundleMainModelNotificationModel";
     Context context;
     Activity activity;
@@ -69,7 +70,7 @@ public class ProfileFragment extends Fragment {
     private static int SPLASH_TIME_OUT = 2000;
     int count = 0;
 
-    private TextView tv_edit_profile;
+    private TextView tv_edit_profile,tv_view_allOrders;
     private TextView tv_logout,tv_user_name,etv_mobile_no,etv_country_code,tv_order_date,tv_item_title,tv_ratings,tv_rating_count,tv_distance;
     private RelativeLayout rl_favorite_main,rl_setting_main;
     private CircleImageView iv_profile,iv_restaurant;
@@ -107,6 +108,7 @@ public class ProfileFragment extends Fragment {
         tv_ratings = view.findViewById(R.id.tv_ratings);
         tv_rating_count = view.findViewById(R.id.tv_rating_count);
         tv_distance = view.findViewById(R.id.tv_distance);
+        tv_view_allOrders = view.findViewById(R.id.tv_view_allOrders);
 
 
 
@@ -143,8 +145,14 @@ public class ProfileFragment extends Fragment {
         rl_setting_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, ChangePasswordActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(activity, ChangePasswordActivity.class);
+//                startActivity(intent);
+            }
+        });
+        tv_view_allOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -156,7 +164,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //set Profile Details
+        //get Profile
        // getProfile();
 
         return view;
@@ -260,6 +268,37 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getProfile() {
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getProfile(context, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                Log.d(TAG, "Response : " + arg0.toString());
+                // globalFunctions.hideProgress();
+                if (arg0 instanceof ProfileMainModel) {
+                    ProfileMainModel profileMainModel=(ProfileMainModel) arg0;
+                    ProfileModel profileModel = profileMainModel.getProfileModel();
+                    GlobalFunctions.setProfile(context, profileModel);
+                    setProfile();
+                }
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Error : " + msg);
+            }
+        }, "Get Profile");
+    }
+
+    private void setProfile() {
         ProfileModel profileModel = globalFunctions.getProfile( mainContext );
         if (profileModel != null && mainContext != null) {
             try {

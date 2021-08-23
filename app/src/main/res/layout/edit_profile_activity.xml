@@ -121,7 +121,7 @@
                     android:padding="@dimen/_15sdp"
                     android:singleLine="true"
                     android:textAppearance="@style/SmallestSizeText"
-                    android:textColor="@color/border_color"
+                    android:textColor="@color/app_fontBlackColor"
                     android:textColorHint="@color/border_color" />
 
                 <com.sa.gograb.view.AppTextView_SubTitle

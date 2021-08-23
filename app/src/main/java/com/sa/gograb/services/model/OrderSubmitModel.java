@@ -16,27 +16,27 @@ public class OrderSubmitModel implements Serializable {
 
     private final String
             CITY                         = "city",
-            APARTMENT                    = "apartment",
+            ORDER_FROM                   = "order_from",
             RESIDENCE_TYPE               = "residence_type",
             SERVICE                      = "service",
             PLAN_LIST                    = "cars",
             ADDRESS                      = "address";
 
-    GlobalVariables.CAR_SERVICE_TYPE carServiceType = GlobalVariables.CAR_SERVICE_TYPE.SINGLE_CAR;
 
+    String order_from = "2";
 
-
-    public GlobalVariables.CAR_SERVICE_TYPE getCarServiceType() {
-        return carServiceType;
+    public String getOrder_from() {
+        return order_from;
     }
 
-    public void setCarServiceType(GlobalVariables.CAR_SERVICE_TYPE carServiceType) {
-        this.carServiceType = carServiceType;
+    public void setOrder_from(String order_from) {
+        this.order_from = order_from;
     }
 
     public boolean toObject(String jsonObject){
         try{
             JSONObject json = new JSONObject(jsonObject);
+            if(json.has(ORDER_FROM)){this.order_from = json.getString(ORDER_FROM);}
 
 
 
@@ -61,6 +61,8 @@ public class OrderSubmitModel implements Serializable {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
+            jsonMain.put(ORDER_FROM, order_from);
+
 //            jsonMain.put(CITY, this.cityModel != null? new JSONObject(this.cityModel.toString()) : new JSONObject());
 //            jsonMain.put(RESIDENCE_TYPE, this.residenceModel != null? new JSONObject(this.residenceModel.toString()) : new JSONObject());
 //           // jsonMain.put(APARTMENT, this.apartmentModel != null? new JSONObject(this.apartmentModel.toString()) : new JSONObject());

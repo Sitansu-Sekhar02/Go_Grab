@@ -39,6 +39,7 @@ import com.sa.gograb.MainActivity;
 import com.sa.gograb.R;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.global.GlobalVariables;
+import com.sa.gograb.profile.ChangePasswordActivity;
 import com.sa.gograb.registration.RegistrationActivity;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
@@ -59,6 +60,7 @@ public class OtpActivity extends AppCompatActivity {
 
 
     public static final String BUNDLE_OTP_ACTIVITY_REGISTER_MODEL = "BundleOtpActivityRegisterModel";
+    public static final String BUNDLE_OTP_ACTIVITY_LOGIN_MODEL = "BundleOtpActivityLoginModel";
     public static final String BUNDLE_OTP_ACTIVITY_PHN_NUMBER = "BundleOtpActivityPhoneNumber";
     public static final String BUNDLE_OTP_ACTIVITY_PAGE_TYPE = "BundleOtpActivityPageType";
 
@@ -86,6 +88,7 @@ public class OtpActivity extends AppCompatActivity {
 
     Button btn_verify;
     RegisterModel registerModel = null;
+    LoginModel loginModel = null;
     String phoneNumber = "";
     String pageType = null;
     String forgotPassword = "";
@@ -107,7 +110,15 @@ public class OtpActivity extends AppCompatActivity {
         intent.putExtras(args);
         return intent;
     }
-
+    public static Intent newInstance(Context context, LoginModel model, String phoneNumber, String pageType) {
+        Intent intent = new Intent(context, OtpActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable(BUNDLE_OTP_ACTIVITY_LOGIN_MODEL, model);
+        args.putString(BUNDLE_OTP_ACTIVITY_PHN_NUMBER, phoneNumber);
+        args.putString(BUNDLE_OTP_ACTIVITY_PAGE_TYPE, pageType);
+        intent.putExtras(args);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +164,12 @@ public class OtpActivity extends AppCompatActivity {
             registerModel = (RegisterModel) getIntent().getSerializableExtra(BUNDLE_OTP_ACTIVITY_REGISTER_MODEL);
         } else {
             registerModel = null;
+        }
+
+        if (getIntent().hasExtra(BUNDLE_OTP_ACTIVITY_LOGIN_MODEL)) {
+            loginModel = (LoginModel) getIntent().getSerializableExtra(BUNDLE_OTP_ACTIVITY_LOGIN_MODEL);
+        } else {
+            loginModel = null;
         }
 
         if (getIntent().hasExtra(BUNDLE_OTP_ACTIVITY_PHN_NUMBER)) {
@@ -222,10 +239,9 @@ public class OtpActivity extends AppCompatActivity {
                 } else {
                     openMaxAttemptOtpDialog(context, true);
                 }
-
                 //once got client firebase id...add setup firebase and comment below lines...
                 //below lines for static otp...any otp it will take...
-              /*  if (pageType != null) {
+                /*if (pageType != null) {
                     if (pageType.equalsIgnoreCase(globalVariables.PAGE_FROM_REGISTRATION)) {
 //
                         Intent intent = RegistrationActivity.newInstance(context, registerModel);
@@ -242,9 +258,9 @@ public class OtpActivity extends AppCompatActivity {
                     } else if (pageType.equalsIgnoreCase(globalVariables.PAGE_TYPE_FORGOT_PASSWORD)) {
                         // go to forgotPassword activity and pass number
                         // phoneNumberWithoutCountryCode
-                        if (registerModel != null) {
-//                            Intent intent = ResetPasswordActivity.newInstance(context, registerModel);
-//                            startActivity(intent);
+                        if (loginModel != null) {
+                            Intent intent = ChangePasswordActivity.newInstance(context, loginModel);
+                            startActivity(intent);
                         }
                     }
                 }*/
