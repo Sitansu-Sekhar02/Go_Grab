@@ -46,12 +46,16 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
 
     BUNDLE_POPULAR_CATEGORY = "PopularCategoryList",
             BUNDLE_PREPARE_TIME = "PrepareTime",
+            BUNDLE_HOME_CATEGORY_NAME = "HomeCategoryName",
+            BUNDLE_HOME_CATEGORY_NAME_FROM_MODEL = "HomeCategoryNameFromModel",
             BUNDLE_POPULAR_RESTAURANT_NEAREST = "PopularNearestRestro";
     Context context;
     private static Activity activity;
     View mainView;
 
     String sort = null;
+    String title = null;
+    String category_title = null;
     int index = 0;
     int size = 100;
     HomeFilterCategoryModel homeFilterCategoryModel = null;
@@ -79,27 +83,23 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
     RecyclerView sub_category_recyclerview;
     SwipeRefreshLayout swipe_container;
 
-   /* VendorListAdapter vendorListAdapter;
-    List<VendorStoreModel> vendorStoreModels = new ArrayList<>();
-    LinearLayoutManager storelistLinear;
-    ProgressLinearLayout reviewprogressActivity;
-    RecyclerView vendor_store_list_recyclerview;
-    SwipeRefreshLayout review_swipe_container;*/
 
     RestaurantModel restaurantModel = new RestaurantModel();
 
-    public static Intent newInstance(Activity activity, String sort) {
+    public static Intent newInstance(Activity activity, String sort, String title) {
         Intent intent = new Intent(activity, RestaurantListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_POPULAR_CATEGORY, sort);
+        bundle.putString(BUNDLE_HOME_CATEGORY_NAME, title);
         intent.putExtras(bundle);
         return intent;
     }
 
-    public static Intent newInstance(Activity activity, HomeFilterCategoryModel homeFilterCategoryModel) {
+    public static Intent newInstance(Activity activity, HomeFilterCategoryModel homeFilterCategoryModel, String title) {
         Intent intent = new Intent(activity, RestaurantListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_PREPARE_TIME, homeFilterCategoryModel);
+        bundle.putSerializable(BUNDLE_HOME_CATEGORY_NAME_FROM_MODEL, title);
         intent.putExtras(bundle);
         return intent;
     }
@@ -149,12 +149,24 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
         if (getIntent().hasExtra(BUNDLE_POPULAR_CATEGORY)) {
 
             sort = (String) getIntent().getStringExtra(BUNDLE_POPULAR_CATEGORY);
-            prepare_time=(String) getIntent().getStringExtra(BUNDLE_POPULAR_CATEGORY);
+            prepare_time = (String) getIntent().getStringExtra(BUNDLE_POPULAR_CATEGORY);
         } else {
             sort = null;
-            prepare_time=null;
+            prepare_time = null;
         }
 
+        if (getIntent().hasExtra(BUNDLE_HOME_CATEGORY_NAME)) {
+
+            title = (String) getIntent().getStringExtra(BUNDLE_HOME_CATEGORY_NAME);
+        } else {
+            title = null;
+        }
+        if (getIntent().hasExtra(BUNDLE_HOME_CATEGORY_NAME_FROM_MODEL)) {
+
+            category_title = (String) getIntent().getStringExtra(BUNDLE_HOME_CATEGORY_NAME_FROM_MODEL);
+        } else {
+            category_title = null;
+        }
         if (getIntent().hasExtra(BUNDLE_PREPARE_TIME)) {
 
             homeFilterCategoryModel = (HomeFilterCategoryModel) getIntent().getSerializableExtra(BUNDLE_PREPARE_TIME);
@@ -197,7 +209,15 @@ public class RestaurantListActivity extends AppCompatActivity implements WishLis
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-        setTitle(getString(R.string.restaurant_near_you), 0, 0);
+        if (title!=null){
+            toolbar_title.setText(title);
+
+        }
+        if (category_title!=null){
+            toolbar_title.setText(category_title);
+
+        }
+        //setTitle(getString(R.string.restaurant_near_you), 0, 0);
 
     }
 

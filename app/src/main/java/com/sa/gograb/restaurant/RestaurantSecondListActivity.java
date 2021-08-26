@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.sa.gograb.MainActivity;
 import com.sa.gograb.R;
 import com.sa.gograb.adapter.RestaurantListAdapter;
 import com.sa.gograb.adapter.RestaurantSecondListAdapter;
@@ -308,7 +309,9 @@ public class RestaurantSecondListActivity extends AppCompatActivity implements W
     public void onBackPressed () {
 
         closeThisActivity();
-        super.onBackPressed();
+        Intent intent=new Intent(activity, MainActivity.class);
+        startActivity(intent);
+        //super.onBackPressed();
     }
 
     public static void closeThisActivity () {

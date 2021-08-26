@@ -257,7 +257,7 @@
                         android:minLines="4"
                         android:padding="@dimen/activity_gutter_margin_half_increased"
                         android:textAppearance="@style/SmallMediumText"
-                        android:textColor="@color/app_fontBlackColor"
+                        android:textColor="@color/red_color"
                         android:textColorHint="@color/app_fontColor" />
 
                     <com.sa.gograb.view.AppTextView_SubTitle
@@ -405,6 +405,40 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_gutter_margin_half"
+                    android:orientation="horizontal">
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/vat"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.gograb.view.AppTextView_SubTitle
+                        android:id="@+id/vat_amount_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
 
 
 
@@ -467,7 +501,7 @@
                         android:layout_weight="1"
                         android:gravity="left"
                         android:layout_marginLeft="@dimen/_4sdp"
-                        android:text="@string/coupon"
+                        android:text="@string/Discount"
                         android:textAllCaps="false"
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
@@ -490,40 +524,6 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_gutter_margin_half"
-                    android:orientation="horizontal">
-
-                    <com.sa.gograb.view.AppTextView_SubTitle
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="@string/vat"
-                        android:layout_marginLeft="@dimen/_4sdp"
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/SmallMediumText"
-                        android:textColor="@color/semi_color" />
-
-                    <com.sa.gograb.view.AppTextView_SubTitle
-                        android:id="@+id/vat_amount_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="right"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:singleLine="false"
-                        android:text=""
-                        android:textAllCaps="false"
-                        android:textAppearance="@style/SmallMediumText"
-                        android:textColor="@color/semi_color" />
-
-                </LinearLayout>
 
 
             </LinearLayout>

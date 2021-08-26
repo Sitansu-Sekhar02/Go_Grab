@@ -120,6 +120,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
     ProgressLinearLayout home_sub_category_progress;
     RecyclerView home_sub_category_recyclerview;
 
+    int selectedCatAdapterPosition=0,selectedSubCatAdapterPosition=0;
+
 
     @Nullable
     @Override
@@ -186,7 +188,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             @Override
             public void onClick(View v) {
 
-                Intent intent = RestaurantListActivity.newInstance( activity, "1" );
+                Intent intent = RestaurantListActivity.newInstance( activity, "1","" );
                 activity.startActivity( intent );
 
             }
@@ -195,7 +197,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         view_all_sub_category_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = RestaurantListActivity.newInstance( activity, "2" );
+                Intent intent = RestaurantListActivity.newInstance( activity, "2","" );
                 activity.startActivity( intent );
             }
         });
@@ -269,12 +271,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                // showFilterCatContent();
                 subFilterCatInitRecycler();
             }
-          /*  if (homeFilterCategoryModels.size() <= 0) {
-                showFilterCatEmptyPage();
 
-            } else {
-
-            }*/
         }
     }
 
@@ -325,6 +322,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         home_top_category_recyclerview.setHasFixedSize(true);
         topCategoryListAdapter = new HomeTopCategoryListAdapter(activity, homeTopCategoryModels,this);
         home_top_category_recyclerview.setAdapter(topCategoryListAdapter);
+
+        home_top_category_recyclerview.getLayoutManager().scrollToPosition(selectedCatAdapterPosition);
     }
 
     private void subFilterCatInitRecycler() {
@@ -339,6 +338,9 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         home_sub_category_recyclerview.setHasFixedSize(true);
         homeSubCategoryListAdapter = new HomeSubCategoryListAdapter(activity, homeSubCategoryModels,this);
         home_sub_category_recyclerview.setAdapter(homeSubCategoryListAdapter);
+
+
+        home_sub_category_recyclerview.getLayoutManager().scrollToPosition(selectedSubCatAdapterPosition);
     }
 
     private void showFilterCatContent() {
@@ -566,6 +568,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         if (GlobalFunctions.isNotNullValue(model.getId())){
             restaurant_id=model.getId();
         }
+        this.selectedCatAdapterPosition=position;
         checkWishlist(restaurant_id);
 
     }
@@ -575,10 +578,11 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         if (GlobalFunctions.isNotNullValue(homeSubCategoryModel.getId())){
             restaurant_id= homeSubCategoryModel.getId();
         }
+        this.selectedSubCatAdapterPosition=position;
         checkWishlist(restaurant_id);
     }
 
-    private void checkWishlist( String restaurant_id) {
+    private void checkWishlist( String restaurant_id ) {
         // globalFunctions.showProgress(activity, activity.getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getCheckWishList(context,restaurant_id, new ServerResponseInterface() {
@@ -589,8 +593,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                 Log.d(TAG, "Response : " + arg0.toString());
                 //StatusModel model = (StatusModel) arg0;
                 validateOutputAfterWishList(arg0);
-                homeSubCategoryData();
-               // homeSubSectionListData();
+
+
             }
 
             @SuppressLint("LongLogTag")
@@ -611,7 +615,7 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         }, "Register_User");
     }
 
-    private void validateOutputAfterWishList( Object arg0) {
+    private void validateOutputAfterWishList(Object arg0) {
         if (arg0 instanceof StatusMainModel) {
             StatusMainModel statusMainModel = (StatusMainModel) arg0;
             StatusModel statusModel = statusMainModel.getStatusModel();
@@ -619,7 +623,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             if (statusMainModel.isStatusLogin()) {
                 if (isWishlisted){
                     //not wishlist icon
-
                     //iv_favourite.setImageResource(R.drawable.ic_favourite_grey);
                     isWishlisted=false;
 
@@ -629,6 +632,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                     //iv_favourite.setImageResource(R.drawable.ic_favourite_grey);
 
                 }
+
+                homeSubCategoryData();
 
             }
         }

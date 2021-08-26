@@ -5,7 +5,7 @@
     xmlns:progressActivity="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginBottom="@dimen/_48sdp"
+    android:layout_marginBottom="@dimen/_40sdp"
     android:layout_height="match_parent">
 
     <LinearLayout

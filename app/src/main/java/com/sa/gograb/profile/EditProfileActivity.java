@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView;
 import com.hbb20.CountryCodePicker;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -82,11 +83,12 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
     static int titleResourseID;
     static TextView toolbar_title;
     static ImageView toolbar_logo, tool_bar_back_icon;
-    TextView name_tv, therapist_tv,tv_edit,tv_vehicle;
-    EditText etv_full_name, etv_mobile_no, mobile_etv, email_etv, etv_vehicle,etv_gender;
+    TextView name_tv, therapist_tv,tv_edit,tv_vehicle,tv_gender;
+    EditText etv_full_name, etv_mobile_no, mobile_etv, email_etv, etv_vehicle;
     ImageView iv_edit;
     Button btn_save;
-    CircleImageView profile_image;
+    //CircleImageView profile_image;
+    NameInitialsCircleImageView profile_image;
     private CountryCodePicker country_code_picker;
 
     List<String> profileImageList;
@@ -109,6 +111,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
         context = this;
         activity = this;
         mainWindow = getWindow();
+        this.layoutInflater = activity.getLayoutInflater();
 
         globalFunctions = AppController.getInstance().getGlobalFunctions();
         globalVariables = AppController.getInstance().getGlobalVariables();
@@ -141,13 +144,13 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
         email_etv =  findViewById( R.id.email_etv );
         tv_vehicle = findViewById( R.id.tv_vehicle );
         etv_vehicle = findViewById( R.id.etv_vehicle );
-        etv_gender = findViewById( R.id.etv_gender );
+        tv_gender = findViewById( R.id.tv_gender );
         iv_edit = findViewById( R.id.iv_edit );
         btn_save =findViewById( R.id.btn_save );
-        profile_image = ( CircleImageView ) findViewById( R.id.iv_profile_image);
+        profile_image = findViewById( R.id.iv_profile_image);
 
 
-        etv_gender.setOnClickListener(new View.OnClickListener() {
+        tv_gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGenderDialog(activity);
@@ -199,7 +202,6 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
             setThisPage(profileModel);
         }
 
-
         downloadProfileImageList = new ArrayList<>();
         uriProfileImageList = new ArrayList<>();
         profileImageList = new ArrayList<>();
@@ -210,19 +212,25 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
 
 
 
-
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         setTitle(getString(R.string.edit_profile), 0, 0);
-
 
     }
 
     private void setThisPage(ProfileModel profileModel) {
 
         if (profileModel != null) {
-            if (GlobalFunctions.isNotNullValue(profileModel.getProfileImg())) {
-                Picasso.with(context).load(profileModel.getProfileImg()).placeholder(R.drawable.image_grp).into(profile_image);
+            if (GlobalFunctions.isNotNullValue(profileModel.getProfileImg()) && GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
+                String firstLetter= String.valueOf(profileModel.getFullname().charAt(0));
+                NameInitialsCircleImageView.ImageInfo imageInfo = new NameInitialsCircleImageView.ImageInfo
+                        .Builder(firstLetter)
+                        .setTextColor(android.R.color.primary_text_dark)
+                        .setImageUrl(profileModel.getImage())
+                        .setCircleBackgroundColorRes(android.R.color.black)
+                        .build();
+                profile_image.setImageInfo(imageInfo);
+              //  Picasso.with(context).load(profileModel.getProfileImg()).placeholder(R.drawable.lazy_load).into(profile_image);
 
             }
             if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
@@ -246,10 +254,10 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
             }
             if (GlobalFunctions.isNotNullValue(profileModel.getGender())) {
                 if (profileModel.getGender().equalsIgnoreCase("1")){
-                    etv_gender.setText(activity.getString(R.string.male));
+                    tv_gender.setText(activity.getString(R.string.male));
 
                 }else{
-                    etv_gender.setText(activity.getString(R.string.female));
+                    tv_gender.setText(activity.getString(R.string.female));
 
                 }
             }
@@ -260,7 +268,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
         if (etv_full_name != null || email_etv != null  ) {
             String
                     fullName = etv_full_name.getText().toString().trim(),
-                    gender = etv_gender.getText().toString().trim(),
+                    gender = tv_gender.getText().toString().trim(),
                     vehicle_no = etv_vehicle.getText().toString().trim(),
                     email = email_etv.getText().toString().trim();
 
@@ -285,8 +293,8 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
 
                 profileModel.setFullname( fullName );
                 profileModel.setEmail( email );
-                profileModel.setVehicle_number( vehicle_no );
-                profileModel.setGender( gender );
+                profileModel.setVehicle_number( vehicle_no);
+                profileModel.setGender( selectedGender );
                 if (profileImageList.size()>0){
                     uploadImage(GlobalVariables.UPLOAD_PROFILE_PHOTO_PATH_CODE);
 
@@ -325,8 +333,8 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
             @Override
             public void onClick(View view) {
                 selectedGender = globalVariables.GENDER_NONE;
-                etv_gender.setHint(getString(R.string.gender_optional));
-                etv_gender.setText("");
+                tv_gender.setHint(getString(R.string.gender_optional));
+                tv_gender.setText("");
                 dialog.dismiss();
             }
         });
@@ -335,7 +343,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
             @Override
             public void onClick(View view) {
                 selectedGender = globalVariables.GENDER_MALE;
-                etv_gender.setText(getString(R.string.male));
+                tv_gender.setText(getString(R.string.male));
                 dialog.dismiss();
             }
         });
@@ -344,7 +352,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
             @Override
             public void onClick(View view) {
                 selectedGender = globalVariables.GENDER_FEMALE;
-                etv_gender.setText(getString(R.string.female));
+                tv_gender.setText(getString(R.string.female));
                 dialog.dismiss();
             }
         });

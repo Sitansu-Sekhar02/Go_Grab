@@ -695,7 +695,7 @@ public class ServicesMethodsManager {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
         } else if (obj instanceof CouponCodePostModel) {
-            StatusMainModel model = new StatusMainModel();
+            CouponMainModel model = new CouponMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
             } else {
@@ -758,7 +758,7 @@ public class ServicesMethodsManager {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
         } else if (obj instanceof OrderSubmitModel) {
-            StatusMainModel statusModel = new StatusMainModel();
+            OrderSubmitMainModel statusModel = new OrderSubmitMainModel();
             if (statusModel.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(statusModel);
             } else {
@@ -771,7 +771,14 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof SearchModel) {
+        } else if (obj instanceof OrderDetailSecondMainModel) {
+            OrderDetailSecondMainModel statusModel = new OrderDetailSecondMainModel();
+            if (statusModel.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(statusModel);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }else if (obj instanceof SearchModel) {
             SearchMainModel model = new SearchMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -1246,18 +1253,18 @@ public class ServicesMethodsManager {
         // getData(context, new StatusMainModel(), ServerConstants.URL_CartToWishlist,query, TAG);
     }
 
-    public void getCouponCode(Context context, String coupon_code, ServerResponseInterface mCallInterface, String TAG) {
+    public void getCouponCode(Context context, CouponCodePostModel couponMainModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        query = query != null ? query + "&coupon_code=" + coupon_code : "coupon_code=" + coupon_code;
-        getData(context, new CouponMainModel(), ServerConstants.URL_AddCouponCOde, query, TAG);
+      //  query = query != null ? query + "&coupon_code=" + coupon_code : "coupon_code=" + coupon_code;
+        postData(context, couponMainModel, ServerConstants.URL_AddCouponCOde, query, TAG);
     }
 
-    public void removeCouponCode(Context context, ServerResponseInterface mCallInterface, String TAG) {
+    public void removeCouponCode(Context context,ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
         // query = query != null ? query + "&coupon_code=" + coupon_code: "coupon_code=" + coupon_code;
-        getData(context, new CouponMainModel(), ServerConstants.URL_AddCouponCOde, query, TAG);
+        postData(context, new CouponCodePostModel(), ServerConstants.URL_AddCouponCOde, query, TAG);
     }
 
     public void addUserAddress(Context context, UserAddressModel userAddressModel, ServerResponseInterface mCallInterface, String TAG) {
@@ -1302,6 +1309,10 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
         postData(context, model, ServerConstants.URL_Search, null, TAG);
     }
+    public void searchOnMap(Context context,SearchModel model, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        postData(context, model, ServerConstants.URL_Search, null, TAG);
+    }
 
     public void getWalletHistoryList(Context context, OrderPostModel orderPostModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
@@ -1316,8 +1327,8 @@ public class ServicesMethodsManager {
     public void getOrderDetails(Context context, String orderId, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        //query = query != null ? query + "&order_id=" + orderId : "order_id=" + orderId;
-        getData(context, new OrderDetailsMainModel(), ServerConstants.URL_GetOrderList, query, TAG);
+        query = query != null ? query + "&order_id=" + orderId : "order_id=" + orderId;
+        getData(context, new OrderDetailSecondMainModel(), ServerConstants.URL_OrderDetails, query, TAG);
     }
 
 

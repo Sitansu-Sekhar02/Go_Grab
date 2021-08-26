@@ -37,6 +37,7 @@ public class OrderModel implements Serializable {
                     RATING_COUNT                 = "rating_count",
                     CURRENCY                     = "currency",
                     RATING                       = "rating",
+                    REST_COUNTRY_CODE            = "rest_country_code",
                     SELECTED                       = "selected",
 
                     STATUS                       = "status",
@@ -62,6 +63,7 @@ public class OrderModel implements Serializable {
             status               = null,
             quantity             = null,
             payment_type         = null,
+            rest_country_code    = null,
             restaurant_id        = null,
             currency             = null,
             rest_laltitude       = null,
@@ -157,6 +159,13 @@ public class OrderModel implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getRest_country_code() {
+        return rest_country_code;
+    }
+
+    public void setRest_country_code(String rest_country_code) {
+        this.rest_country_code = rest_country_code;
+    }
 
     public OrderDetailListModel getOrder_details() {
         return order_details;
@@ -364,6 +373,8 @@ public class OrderModel implements Serializable {
                 coupan_discount = json.getString(COUPON_DIS);
             }if (json.has(VAT)) {
                 vat = json.getString(VAT);
+            }if (json.has(REST_COUNTRY_CODE)) {
+                rest_country_code = json.getString(REST_COUNTRY_CODE);
             }if (json.has(STATUS_TITLE)) {
                 status_title = json.getString(STATUS_TITLE);
             }if (json.has(CURRENCY)) {
@@ -438,6 +449,7 @@ public class OrderModel implements Serializable {
             jsonMain.put(VAT, vat);
             jsonMain.put(PACKING_CHARGE, packing_charges);
             jsonMain.put(CURRENCY, currency);
+            jsonMain.put(REST_COUNTRY_CODE, rest_country_code);
             jsonMain.put(STATUS_TITLE, status_title);
             jsonMain.put(STATUS, status);
             jsonMain.put(SUB_TOTAL, sub_total);

@@ -39,12 +39,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView
                             android:id="@+id/iv_profile"
                             android:layout_width="@dimen/_60sdp"
                             android:scaleType="centerCrop"
-                            android:layout_height="@dimen/_60sdp"
-                            android:src="@drawable/image_grp"/>
+                            app:textSize="@dimen/_20sdp"
+                            app:circleBackgroundColor="@color/colorAccent"
+                            android:layout_height="@dimen/_60sdp" />
 
 
                 </RelativeLayout>
@@ -61,7 +62,7 @@
                             android:id="@+id/tv_user_name"
                             android:layout_width="@dimen/_120sdp"
                             android:layout_height="wrap_content"
-                            android:text="Sitansu Sekhar"
+                            android:text=""
                             android:textAppearance="@style/MediumSizeText"
                             android:textColor="@color/main_text" />
                         <com.sa.gograb.view.AppTextView_SubTitle
@@ -89,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="+971"
+                            android:text=""
                             android:textAppearance="@style/SmallMediumText"
                             android:textColor="@color/main_text" />
 
@@ -100,10 +101,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:gravity="center"
-                            android:text=" 8928 389 121"
+                            android:text=""
                             android:textAppearance="@style/SmallMediumText"
                             android:textColor="@color/main_text" />
-
 
                     </LinearLayout>
 

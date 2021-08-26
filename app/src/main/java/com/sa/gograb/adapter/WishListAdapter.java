@@ -66,13 +66,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         if (GlobalFunctions.isNotNullValue(model.getRating_count())) {
             holder.tv_rating_count.setText("("+model.getRating_count()+"+)");
         }
-        /*if (GlobalFunctions.isNotNullValue(model.getDistance())) {
-            holder.tv_category_name.setText(model.getDistance());
-        }*/
 
 
         if (GlobalFunctions.isNotNullValue(model.getImage() )) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.app_icon).into(holder.iv_product_image);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.iv_product_image);
         }
         holder.iv_wishlist.setOnClickListener(new View.OnClickListener() {
             @Override

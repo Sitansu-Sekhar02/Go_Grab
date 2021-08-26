@@ -63,6 +63,7 @@ public class ServerConstants {
     public static final String URL_Session_Type_Timings = BASE_URL + "session_type_timings.php";
     public static final String URL_CityDetails          = BASE_URL + "city_apartment_list.php";
     public static final String URL_SubmitOrder          = SERVER_URL + "order_submit.php";
+    public static final String URL_OrderDetails          = SERVER_URL + "order_detail.php";
     public static final String URL_Request              = BASE_URL + "request_fo_booking.php";
 
     public static final String URL_GetNotifications     = BASE_URL + "get_notifications.php";

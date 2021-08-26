@@ -34,7 +34,7 @@ public class CartModel implements Serializable {
             VAT              = "vat",
             PACKING_CHARGE   = "packing_charges",
             CART_COUNT       = "cart_count",
-            COUPON           = "coupon_code",
+            COUPON           = "coupan_code",
             OFFER_ID         = "offer_id",
             DISCOUNT_PRICE   = "discount_price",
             CURRENCY         = "currency",
@@ -56,7 +56,7 @@ public class CartModel implements Serializable {
             cityId           = null,
             type             = null,
             wallet           = null,
-            coupon           = null,
+            coupon_code       = null,
             productId        = null,
             productTitle     = null,
             quantity         = null,
@@ -244,12 +244,12 @@ public class CartModel implements Serializable {
         this.wallet = wallet;
     }
 
-    public String getCoupon() {
-        return coupon;
+    public String getCoupon_code() {
+        return coupon_code;
     }
 
-    public void setCoupon(String coupon) {
-        this.coupon = coupon;
+    public void setCoupon_code(String coupon_code) {
+        this.coupon_code = coupon_code;
     }
 
     public String getSubTotal() {
@@ -378,7 +378,7 @@ public class CartModel implements Serializable {
 
             if (json.has(ID)) id = json.getString(ID);
             if (json.has(WALLET)) wallet = json.getString(WALLET);
-            if (json.has(COUPON)) coupon = json.getString(COUPON);
+            if (json.has(COUPON)) coupon_code = json.getString(COUPON);
             if (json.has(SUB_TOTAL)) subTotal = json.getString(SUB_TOTAL);
             if (json.has(QUANTITY)) quantity = json.getString(QUANTITY);
             if (json.has(IMAGE)) image = json.getString(IMAGE);
@@ -423,7 +423,7 @@ public class CartModel implements Serializable {
         try {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(WALLET, wallet);
-            jsonMain.put(COUPON, coupon);
+            jsonMain.put(COUPON, coupon_code);
             jsonMain.put(SUB_TOTAL, subTotal);
             jsonMain.put(PRODUCT_DISCOUNT, productDiscount);
             jsonMain.put(PRODUCT_TITLE, productTitle);

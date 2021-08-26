@@ -53,7 +53,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             holder.tv_item_title.setText(model.getRest_full_name());
         }
         if (GlobalFunctions.isNotNullValue(model.getRest_logo())) {
-            Picasso.with(activity).load(model.getRest_logo()).placeholder(R.drawable.image).into(holder.iv_restaurant);
+            Picasso.with(activity).load(model.getRest_logo()).placeholder(R.drawable.lazy_load).into(holder.iv_restaurant);
         }
         if (GlobalFunctions.isNotNullValue(model.getRating())) {
             holder.tv_ratings.setText(model.getRating());
@@ -151,6 +151,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     @Override
     public int getItemCount() {
         return list.size();
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

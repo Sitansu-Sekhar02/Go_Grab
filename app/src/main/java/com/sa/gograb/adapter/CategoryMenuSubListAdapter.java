@@ -85,7 +85,7 @@ public class CategoryMenuSubListAdapter extends RecyclerView.Adapter<CategoryMen
             }
         }
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.product_iv);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.product_iv);
         }
 
 

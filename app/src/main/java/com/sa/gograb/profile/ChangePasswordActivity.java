@@ -154,9 +154,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
                 //profileModel= GlobalFunctions.getProfile(activity);
 
-                changePasswordModel.setNewPassword( changePassword );
+                changePasswordModel.setNewPassword(globalFunctions.md5(changePassword ));
                 if (loginModel!=null && loginModel.getMobile_number()!=null)
-                changePasswordModel.setMobileNumber( loginModel.getMobile_number() );
+                changePasswordModel.setMobileNumber( loginModel.getMobile_number());
 
                 updatePassword(context, changePasswordModel);
 

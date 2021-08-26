@@ -29,6 +29,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     private final List<HomeFilterCategoryModel> list;
     private final Activity activity;
     String prepare_time= String.valueOf(10);
+    String title=null;
     public HomeCategoryAdapter(Activity activity, List<HomeFilterCategoryModel> list) {
         this.list = list;
         this.activity = activity;
@@ -51,7 +52,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         }
 
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.iv_home_filter_category);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.iv_home_filter_category);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -60,28 +61,33 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
                 if (model.getType()!=null && model.getId()!=null){
 
                     if (model.getType().equalsIgnoreCase("1")){
-
                         Intent intent = new Intent(activity, RestaurantListActivity.class);
                         activity.startActivity(intent);
 
                     }else if (model.getType().equalsIgnoreCase("2")){
                         if (model.getPreparation()!=null){
-                            Intent intent = RestaurantListActivity.newInstance( activity, prepare_time);
+                            title=model.getTitle();
+
+                            Intent intent = RestaurantListActivity.newInstance( activity, prepare_time,title);
                             activity.startActivity( intent );
                         }
 
                     }else if (model.getType().equalsIgnoreCase("3")){
+                        title=model.getTitle();
 
-                        Intent intent = RestaurantListActivity.newInstance( activity, "1");
+                        Intent intent = RestaurantListActivity.newInstance( activity, "1",title);
                         activity.startActivity( intent );
 
                     }else if (model.getType().equalsIgnoreCase("4")){
-                        Intent intent = RestaurantListActivity.newInstance( activity, "2");
+                        title=model.getTitle();
+
+                        Intent intent = RestaurantListActivity.newInstance( activity, "2",title);
                         activity.startActivity( intent );
 
                     }else if (model.getType().equalsIgnoreCase("5")){
+                        title=model.getTitle();
 
-                        Intent intent = RestaurantListActivity.newInstance( activity, model);
+                        Intent intent = RestaurantListActivity.newInstance( activity, model,title);
                         activity.startActivity( intent );
                     }
                 }

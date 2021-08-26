@@ -42,10 +42,13 @@ import com.sa.gograb.services.model.CartDetailsListModel;
 import com.sa.gograb.services.model.CartMainModel;
 import com.sa.gograb.services.model.CartModel;
 import com.sa.gograb.services.model.CartPostModel;
+import com.sa.gograb.services.model.ChangePasswordModel;
 import com.sa.gograb.services.model.CouponCodePostModel;
 import com.sa.gograb.services.model.CouponMainModel;
 import com.sa.gograb.services.model.CouponSubMainModel;
 import com.sa.gograb.services.model.MenuModel;
+import com.sa.gograb.services.model.OrderSubmitMainModel;
+import com.sa.gograb.services.model.OrderSubmitSubModel;
 import com.sa.gograb.services.model.StatusMainModel;
 import com.sa.gograb.services.model.StatusModel;
 import com.squareup.picasso.Picasso;
@@ -75,7 +78,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     private static Button btn_view_restaurant;
     private static RelativeLayout rl_cart_main;
     private static LinearLayout ln_empty_cart;
-    private static LinearLayout ln_packaging;
+    private static LinearLayout ln_packaging,discount_onBill_ll;
 
     static Toolbar toolbar;
     String coupon_code;
@@ -88,7 +91,8 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
     MenuModel menuModel = null;
     String restaurant_id = null;
-
+    String order_id = null;
+    CouponCodePostModel couponCodePostModel;
 
     CartAdapter cartAdapter;
     List<CartDetailModel> cartDetailModels = new ArrayList<>();
@@ -173,6 +177,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         ln_empty_cart = findViewById(R.id.ln_empty_cart);
         rl_cart_main = findViewById(R.id.rl_cart_main);
         ln_packaging = findViewById(R.id.ln_packaging);
+        discount_onBill_ll = findViewById(R.id.discount_onBill_ll);
         details_progressActivity = findViewById(R.id.details_progressActivity);
 
         cart_list_recyclerview = findViewById(R.id.cart_list_recyclerview);
@@ -180,7 +185,6 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
 
 
         getCartList();
-        //setCartPage(menuModel);
 
         tv_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +204,15 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                     etv_apply_coupon.setFocusableInTouchMode(true);
                     etv_apply_coupon.requestFocus();
                 } else {
-                    applyCouponCode(coupon_code);
+                    if (couponCodePostModel == null) {
+                        couponCodePostModel = new CouponCodePostModel();
+                    }
+                    //profileModel= GlobalFunctions.getProfile(activity);
+
+                    couponCodePostModel.setCouponCode(coupon_code);
+                    //  couponCodePostModel.getCouponCode(coupon_code);
+
+                    applyCouponCode(couponCodePostModel);
                 }
             }
         });
@@ -215,10 +227,10 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String comments = comments_etv.getText().toString().trim();
-                    if (GlobalFunctions.isKeyboardOpen(activity)){
+                    if (GlobalFunctions.isKeyboardOpen(activity)) {
                         GlobalFunctions.closeKeyboard(activity);
                     }
-                    if (comments.length()>0) {
+                    if (comments.length() > 0) {
                         AddInstructionModel addInstructionModel = new AddInstructionModel();
                         addInstructionModel.setInstruction(comments);
                         addInstruction(addInstructionModel);
@@ -234,19 +246,16 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             public void onFocusChange(View v, boolean hasFocus) {
 
                 String comments = comments_etv.getText().toString().trim();
-                if (GlobalFunctions.isKeyboardOpen(activity)){
+                if (GlobalFunctions.isKeyboardOpen(activity)) {
                     GlobalFunctions.closeKeyboard(activity);
                 }
-                if (comments.length()>0) {
+                if (comments.length() > 0) {
                     AddInstructionModel addInstructionModel = new AddInstructionModel();
                     addInstructionModel.setInstruction(comments);
                     addInstruction(addInstructionModel);
                 }
             }
         });
-
-
-
 
 
         btn_view_restaurant.setOnClickListener(new View.OnClickListener() {
@@ -295,13 +304,15 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             CouponMainModel couponMainModel = (CouponMainModel) arg0;
             CouponSubMainModel couponSubMainModel = couponMainModel.getCouponSubMainModel();
             CartModel cartModel = couponSubMainModel.getCartModel();
-            GlobalFunctions.displayMessaage(activity,mainView,couponSubMainModel.getMessage());
+            GlobalFunctions.displayMessaage(activity, mainView, couponSubMainModel.getMessage());
 
             if (cartModel != null) {
                 setcartDetails(cartModel);
+                discount_onBill_tv.setText("");
+
             }
 
-            if (cartModel!=null && GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
+            if (cartModel != null && GlobalFunctions.isNotNullValue(cartModel.getCoupon_code())) {
                 tv_remove_coupon.setVisibility(View.VISIBLE);
                 tv_apply_coupon.setVisibility(View.GONE);
 
@@ -343,10 +354,10 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         }, "Add instruction");
     }
 
-    private void applyCouponCode(String couponCode) {
+    private void applyCouponCode(CouponCodePostModel couponCodePostModel) {
         GlobalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getCouponCode(context, couponCode, new ServerResponseInterface() {
+        servicesMethodsManager.getCouponCode(context, couponCodePostModel, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 GlobalFunctions.hideProgress();
@@ -376,13 +387,14 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             CouponMainModel couponMainModel = (CouponMainModel) arg0;
             CouponSubMainModel couponSubMainModel = couponMainModel.getCouponSubMainModel();
             CartModel cartModel = couponSubMainModel.getCartModel();
-            GlobalFunctions.displayMessaage(activity,mainView,couponSubMainModel.getMessage());
+            GlobalFunctions.displayMessaage(activity, mainView, couponSubMainModel.getMessage());
 
             if (cartModel != null) {
                 setcartDetails(cartModel);
             }
 
-            if (cartModel!=null && GlobalFunctions.isNotNullValue(cartModel.getCoupon())) {
+            if (cartModel != null && GlobalFunctions.isNotNullValue(cartModel.getCoupon_code())) {
+
                 tv_remove_coupon.setVisibility(View.VISIBLE);
                 tv_apply_coupon.setVisibility(View.GONE);
 
@@ -444,18 +456,16 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
         if (cartModel != null && context != null) {
 
             if (GlobalFunctions.isNotNullValue(cartModel.getPacking_charges())) {
-                if (cartModel.getPacking_charges().equalsIgnoreCase("") && cartModel.getPacking_charges().equalsIgnoreCase("0")) {
-                    ln_packaging.setVisibility(View.GONE);
-                } else {
-                    ln_packaging.setVisibility(View.VISIBLE);
-                    packaging_charges_tv.setText(cartModel.getPacking_charges());
+                //ln_packaging.setVisibility(View.GONE);
+                packaging_charges_tv.setText(cartModel.getPacking_charges());
 
-                }
+            }else {
+              //  ln_packaging.setVisibility(View.VISIBLE);
+               // packaging_charges_tv.setText(cartModel.getPacking_charges());
             }
             if (GlobalFunctions.isNotNullValue(cartModel.getRestaurant_id())) {
                 restaurant_id = cartModel.getRestaurant_id();
             }
-
 
             if (GlobalFunctions.isNotNullValue(cartModel.getVat())) {
                 vat_amount_tv.setText(cartModel.getVat());
@@ -469,6 +479,15 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             if (GlobalFunctions.isNotNullValue(cartModel.getGrand_total())) {
                 tv_sar_price.setText(cartModel.getGrand_total());
             }
+            if (GlobalFunctions.isNotNullValue(cartModel.getDiscount_price())) {
+              //  discount_onBill_ll.setVisibility(View.GONE);
+                discount_onBill_tv.setText(" - " + cartModel.getDiscount_price());
+
+            }else {
+             //   discount_onBill_ll.setVisibility(View.VISIBLE);
+              //  discount_onBill_tv.setText(" - " + cartModel.getDiscount_price());
+            }
+
             if (GlobalFunctions.isNotNullValue(cartModel.getInstruction())) {
                 comments_etv.setText(cartModel.getInstruction());
             }
@@ -477,7 +496,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 tv_item_name.setText(cartModel.getFull_name());
             }
             if (GlobalFunctions.isNotNullValue(cartModel.getImage())) {
-                Picasso.with(context).load(cartModel.getImage()).placeholder(R.drawable.image).into(iv_menu_main);
+                Picasso.with(context).load(cartModel.getImage()).placeholder(R.drawable.lazy_load).into(iv_menu_main);
             }
             if (GlobalFunctions.isNotNullValue(cartModel.getDistance())) {
                 tv_distance.setText(cartModel.getDistance());
@@ -499,6 +518,7 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
                 synchronized (cartAdapter) {
                     cartAdapter.notifyDataSetChanged();
                 }
+
             }
             if (cartDetailModels.size() <= 0) {
                 ln_empty_cart.setVisibility(View.VISIBLE);
@@ -561,11 +581,13 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     }
 
     private void validOutputAfterOrderSubmit(Object arg0) {
-        if (arg0 instanceof StatusMainModel) {
-            StatusMainModel statusMainModel = (StatusMainModel) arg0;
-            StatusModel statusModel = statusMainModel.getStatusModel();
+        if (arg0 instanceof OrderSubmitMainModel) {
+            OrderSubmitMainModel statusMainModel = (OrderSubmitMainModel) arg0;
+            OrderSubmitSubModel orderSubmitSubModel=statusMainModel.getOrderSubmitSubModel();
+            //StatusModel statusModel = statusMainModel.getStatusModel();
+            order_id=orderSubmitSubModel.getExtra();
             if (statusMainModel.isStatus()) {
-                Intent intent = OrderConfirmationActivity.newInstance(activity, restaurant_id);
+                Intent intent = OrderConfirmationActivity.newInstance(activity, restaurant_id,order_id);
                 activity.startActivity(intent);
 
             } else {

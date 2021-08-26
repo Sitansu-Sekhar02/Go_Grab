@@ -288,7 +288,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 registerModel.setEmailId(email);
                 registerModel.setCountryCode(countryCode);
                 registerModel.setGender(selectedGender);
-                registerModel.setPassword(choosePassword);
+                registerModel.setPassword(globalFunctions.md5(choosePassword));
 
                 registerUser(context, registerModel);
 

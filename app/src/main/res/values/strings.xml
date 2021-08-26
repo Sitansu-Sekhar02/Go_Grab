@@ -206,6 +206,8 @@
     <string name="somethingWentWrong">Something went wrong !!</string>
     <string name="remove_coupon">Remove Coupon</string>
     <string name="enter_valid_coupon">Please enter valid coupon</string>
+    <string name="Discount">Discount</string>
+    <string name="add_location">Add your location</string>
 
 
 </resources>

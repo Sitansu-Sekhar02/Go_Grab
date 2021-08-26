@@ -123,6 +123,7 @@
                             android:id="@+id/tv_order_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
                             android:gravity="center"
                             android:text="#516"
                             android:textAppearance="@style/SmallMediumText"
@@ -131,6 +132,7 @@
                     </LinearLayout>
                     <com.sa.gograb.view.AppTextView_SubTitle
                         android:id="@+id/tv_chat_with_restro"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/chat_with_restaurant"

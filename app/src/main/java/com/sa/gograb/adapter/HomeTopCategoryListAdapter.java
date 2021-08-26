@@ -71,7 +71,7 @@ public class HomeTopCategoryListAdapter extends RecyclerView.Adapter<HomeTopCate
 
 
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.iv_category_icon);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.iv_category_icon);
         }
         if (GlobalFunctions.isNotNullValue(model.getWishlist())){
             if (model.getWishlist().equalsIgnoreCase("0")){

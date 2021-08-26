@@ -221,5 +221,9 @@ dependencies {
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
     implementation 'com.github.prabhat1707:EasyWayLocation:2.2'
+
+    //if you want to use Picasso for loading images with first letter
+    implementation 'io.github.informramiz:nameinitialscircleimageview:1.6'
+
 }
 apply plugin: 'com.google.gms.google-services'

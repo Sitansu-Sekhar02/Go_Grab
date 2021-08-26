@@ -32,8 +32,10 @@ import com.sa.gograb.R;
 import com.sa.gograb.adapter.AutoCompletionAdapter;
 import com.sa.gograb.global.GlobalFunctions;
 import com.sa.gograb.global.GlobalVariables;
+import com.sa.gograb.restaurant.RestaurantListActivity;
 import com.sa.gograb.services.ServerResponseInterface;
 import com.sa.gograb.services.ServicesMethodsManager;
+import com.sa.gograb.services.model.RestaurantModel;
 import com.sa.gograb.services.model.SearchMainModel;
 import com.sa.gograb.services.model.SearchModel;
 import com.sa.gograb.services.model.SearchResponseListModel;
@@ -43,7 +45,9 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
     public static final String TAG = "SearchActivity";
-    public static final String BUNDLE_SEARCH_RESPONSE_MODEL = "Bundle_Search_Response_Model";
+    public static final String
+            BUNDLE_SEARCH_RESPONSE_MODEL = "Bundle_Search_Response_Model",
+            BUNDLE_SEARCH_TYPE = "BundleSearchType";
 
     Context context;
     static Activity activity;
@@ -64,9 +68,21 @@ public class SearchActivity extends AppCompatActivity {
     String phrase_display = null;
    /* Toolbar toolbar;
     ActionBar actionBar;*/
+   String type = "1";
+
 
     GlobalFunctions globalFunctions;
     GlobalVariables globalVariables;
+
+    public static Intent newInstance(Activity activity, String type) {
+        Intent intent = new Intent(activity, SearchActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_SEARCH_TYPE, type);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +121,14 @@ public class SearchActivity extends AppCompatActivity {
             window.setStatusBarColor(ContextCompat.getColor(activity, R.color.black_trans));
         }
 
+        if (getIntent().hasExtra(BUNDLE_SEARCH_TYPE)) {
+
+            type = (String) getIntent().getStringExtra(BUNDLE_SEARCH_TYPE);
+        } else {
+            type =null;
+        }
+
+
         layoutManager = new LinearLayoutManager(context);
         autoCompletionAdapter = new AutoCompletionAdapter(context, autoSuggesstionsList);
         //searchBox_actv.setAdapter(autoCompletionAdapter);
@@ -124,6 +148,9 @@ public class SearchActivity extends AppCompatActivity {
                     phrase_display = s.toString().trim();
                     // model.setTitle(s.toString().trim());
                     model.setSearch(s.toString().trim());
+                    if (GlobalFunctions.isNotNullValue(type)){
+                        model.setType(type);
+                    }
                     loadSearch(context, model);
                 }
             }
@@ -149,6 +176,9 @@ public class SearchActivity extends AppCompatActivity {
                 if (!txt.isEmpty()) {
                     SearchModel model = new SearchModel();
                     model.setSearch(txt);
+                    if (GlobalFunctions.isNotNullValue(type)){
+                        model.setType(type);
+                    }
                     loadSearch(context, model);
                 } else {
                     globalFunctions.displayMessaage(activity, mainView, getString(R.string.search_phrase_missing));
@@ -165,6 +195,9 @@ public class SearchActivity extends AppCompatActivity {
                     SearchModel model = new SearchModel();
                     phrase_display = searchBox_actv.getText().toString().trim();
                     model.setSearch(searchBox_actv.getText().toString().trim());
+                    if (GlobalFunctions.isNotNullValue(type)){
+                        model.setType(type);
+                    }
                     loadSearch(context, model);
                     return true;
                 } else {

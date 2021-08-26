@@ -95,7 +95,6 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
     private static TextView tv_preparation_time,tv_ratings,tv_rating_count,tv_distance,tv_view_cart,tv_sub_total,tv_currency,tv_item_count;
 
 
-
     GlobalFunctions globalFunctions = null;
     GlobalVariables globalVariables = null;
 
@@ -105,7 +104,6 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
     HomeTopCategoryModel homeTopCategoryModel = null;
     WishModel wishModel = null;
     FragmentManager mainActivityFM = null;
-
 
     //Menu Trending  category
     MenuListAdapter menuListAdapter;
@@ -382,7 +380,6 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
 
             }
 
-
         }else {
             rl_view_cart.setVisibility(View.GONE);
         }
@@ -507,7 +504,7 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
                 tv_item_name.setText(menuModel.getName());
             }
             if (GlobalFunctions.isNotNullValue(menuModel.getImage())) {
-                Picasso.with(context).load(menuModel.getImage()).placeholder(R.drawable.image).into(iv_menu_item);
+                Picasso.with(context).load(menuModel.getImage()).placeholder(R.drawable.lazy_load).into(iv_menu_item);
             }
             if (GlobalFunctions.isNotNullValue(menuModel.getDistance())) {
                 tv_distance.setText(menuModel.getDistance());
@@ -651,11 +648,11 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
                     Log.d(TAG, "Error : " + msg);
                 }
             }
-        }, "GetSubCatList");
+        }, "insert cart");
     }
     private void validateInsertCartOutput(StatusModel model) {
         if (model != null) {
-            GlobalFunctions.displayMessaage(activity, mainView, model.getMessage());
+          //  GlobalFunctions.displayMessaage(activity, mainView, model.getMessage());
             getCart();
             getMenuList();
         }

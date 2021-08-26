@@ -71,7 +71,7 @@ public class HomeSubCategoryListAdapter extends RecyclerView.Adapter<HomeSubCate
 
 
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.iv_sub_category);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.iv_sub_category);
         }
 
         if (GlobalFunctions.isNotNullValue(model.getWishlist())){

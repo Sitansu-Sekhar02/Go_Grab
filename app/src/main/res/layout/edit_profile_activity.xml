@@ -36,11 +36,13 @@
                     android:layout_width="@dimen/_112sdp"
                     android:layout_height="@dimen/_112sdp"
                     android:layout_centerInParent="true">
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView
                         android:id="@+id/iv_profile_image"
                         android:background="@drawable/image_grp"
                         android:layout_width="match_parent"
+                        app:textSize="@dimen/_20sdp"
                         android:layout_height="match_parent"
+                        app:circleBackgroundColor="@color/colorAccent"
                         android:layout_centerInParent="true" />
 
                     <ImageView
@@ -121,7 +123,7 @@
                     android:padding="@dimen/_15sdp"
                     android:singleLine="true"
                     android:textAppearance="@style/SmallestSizeText"
-                    android:textColor="@color/app_fontBlackColor"
+                    android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
                 <com.sa.gograb.view.AppTextView_SubTitle
@@ -216,8 +218,8 @@
                     android:textColor="@color/semi_color" />
 
 
-                <com.sa.gograb.view.AppEditTextView
-                    android:id="@+id/etv_gender"
+                <com.sa.gograb.view.AppTextView_SubTitle
+                    android:id="@+id/tv_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

@@ -11,10 +11,12 @@ public class SearchModel implements Serializable {
     private final String TAG = "SearchModel";
 
     private final String
-            SEARCH        = "search";
+            SEARCH        = "search",
+            TYPE           = "type";
 
     String
-            search    = null;
+            search    = null,
+            type       =null;
 
 
     public SearchModel(){}
@@ -27,10 +29,19 @@ public class SearchModel implements Serializable {
         this.search = search;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public boolean toObject(String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);
             if(json.has(SEARCH))search = json.getString(SEARCH);
+            if(json.has(TYPE))type = json.getString(TYPE);
 
             return true;
         }catch(Exception ex){
@@ -44,6 +55,7 @@ public class SearchModel implements Serializable {
         try{
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(SEARCH, search);
+            jsonMain.put(TYPE, type);
 
             returnString = jsonMain.toString();
         }

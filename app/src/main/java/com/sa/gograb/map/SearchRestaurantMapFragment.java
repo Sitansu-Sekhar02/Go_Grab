@@ -452,7 +452,7 @@ public class SearchRestaurantMapFragment extends Fragment implements OnMapReadyC
             }
 
             if (GlobalFunctions.isNotNullValue(mStoreLocationModel.getImage())) {
-                Picasso.with(activity).load(mStoreLocationModel.getImage()).placeholder(R.drawable.app_icon).into(iv_product_image);
+                Picasso.with(activity).load(mStoreLocationModel.getImage()).placeholder(R.drawable.lazy_load).into(iv_product_image);
             }
 
             btn_view_menu.setOnClickListener(new View.OnClickListener() {

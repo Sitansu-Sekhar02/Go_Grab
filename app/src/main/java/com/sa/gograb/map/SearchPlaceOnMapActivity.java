@@ -70,6 +70,7 @@ import com.sa.gograb.extra.DirectionFinder;
 import com.sa.gograb.extra.DirectionFinderListener;
 import com.sa.gograb.extra.Route;
 import com.sa.gograb.global.GlobalVariables;
+import com.sa.gograb.restaurant.RestaurantListActivity;
 import com.sa.gograb.search.SearchActivity;
 import com.sa.gograb.services.model.SearchModel;
 import com.sa.gograb.services.model.SearchResponseModel;
@@ -98,10 +99,7 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
 
-    private LatLng mOrigin;
-    private LatLng mDestination;
-    private Polyline mPolyline;
-    ArrayList<LatLng> mMarkerPoints;
+
     Double lat,lng;
     Double latitude,longitude;
 
@@ -201,7 +199,8 @@ public class SearchPlaceOnMapActivity extends AppCompatActivity  implements OnMa
         tv_destination_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, SearchActivity.class);
+                Intent intent = SearchActivity.newInstance( activity,"1");
+               // Intent intent = new Intent(activity, SearchActivity.class);
                 startActivityForResult(intent, GlobalVariables.REQUEST_CODE_FOR_SEARCH);
                /* List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
                 Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fieldList).build(activity);

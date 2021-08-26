@@ -93,12 +93,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     GlobalFunctions globalFunctions;
     GlobalVariables globalVariables;
-    public static RelativeLayout cart_notification_layout;
 
     View mainView;
-
-    NavigationView navigationView;
-    View navigationHeaderView;
 
     private LayoutInflater layoutInflater;
 
@@ -354,7 +350,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                         if (mGoogleApiClient == null) {
                             buildGoogleApiClient();
                         }
-
                     }
                 } else {
                     Toast.makeText(this, "permission denied",

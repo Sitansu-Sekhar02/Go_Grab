@@ -89,7 +89,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         }
 
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
-            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.image).into(holder.product_iv);
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.lazy_load).into(holder.product_iv);
         }
 
         if (GlobalFunctions.isNotNullValue(model.getCart_count())) {

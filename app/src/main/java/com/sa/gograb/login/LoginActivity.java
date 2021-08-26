@@ -303,7 +303,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginModel loginModel = new LoginModel();
                 loginModel.setMobile_number(mobileNo);
                 loginModel.setCountryCode(selected_country_code);
-                loginModel.setPassword(password);
+                loginModel.setPassword(globalFunctions.md5(password));
 
                 loginUser(context, loginModel);
 
