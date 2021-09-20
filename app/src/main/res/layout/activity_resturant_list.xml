@@ -29,7 +29,7 @@
         android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sub_category_recyclerview"
+        android:id="@+id/resturant_list_rr"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

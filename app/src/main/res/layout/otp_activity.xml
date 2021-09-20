@@ -33,7 +33,7 @@
                     android:layout_marginTop="@dimen/_30sdp"
                     android:orientation="vertical">
 
-                    <com.sa.gograb.view.AppTextView
+                    <com.sauthi.gograb.view.AppTextView
                         android:layout_width="@dimen/_181sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_16sdp"
@@ -43,7 +43,7 @@
                         android:textAppearance="@style/LargeText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sa.gograb.view.AppTextView_SubTitle
+                    <com.sauthi.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_16sdp"
@@ -87,7 +87,7 @@
                     </LinearLayout>
 
 
-                    <com.sa.gograb.view.AppButton
+                    <com.sauthi.gograb.view.AppButton
                         android:id="@+id/btn_verify_otp"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_48sdp"
@@ -115,7 +115,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <com.sa.gograb.view.AppTextView_SubTitle
+                            <com.sauthi.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/resend_code_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                                 android:textAppearance="@style/SmallMediumSizeText"
                                 android:textColor="@color/semi_color" />
 
-                            <com.sa.gograb.view.AppTextView_SubTitle
+                            <com.sauthi.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/otp_timer_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                         android:layout_marginTop="@dimen/_100sdp"
                         android:layout_marginBottom="@dimen/_5sdp">
 
-                            <com.sa.gograb.view.AppTextView_SubTitle
+                            <com.sauthi.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_login_wihPassword"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

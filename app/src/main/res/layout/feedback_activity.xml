@@ -36,7 +36,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/image_grp" />
 
-                    <com.sa.gograb.view.AppTextView
+                    <com.sauthi.gograb.view.AppTextView
                         android:id="@+id/tv_product_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
 
                 </LinearLayout>
 
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:visibility="visible"
                     android:textStyle="bold"/>
 
-                <com.sa.gograb.view.AppEditTextView
+                <com.sauthi.gograb.view.AppEditTextView
                     android:id="@+id/etv_Comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/app_fontBlackColor"/>
 
-                <com.sa.gograb.view.AppButton
+                <com.sauthi.gograb.view.AppButton
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_48sdp"

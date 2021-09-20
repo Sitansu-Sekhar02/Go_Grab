@@ -30,7 +30,7 @@
 
 
 
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_filter_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:src="@drawable/ic_seravefast" />
             </RelativeLayout>
 
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

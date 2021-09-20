@@ -66,7 +66,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.sa.gograb.view.AppTextView_SubTitle
+                        <com.sauthi.gograb.view.AppTextView_SubTitle
                             android:id="@+id/tv_current_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                             android:textAppearance="@style/SmallMediumText" />
 
 
-                        <com.sa.gograb.view.AppTextView_SubTitle
+                        <com.sauthi.gograb.view.AppTextView_SubTitle
                             android:id="@+id/tv_destination_location"
                             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                             android:layout_width="match_parent"

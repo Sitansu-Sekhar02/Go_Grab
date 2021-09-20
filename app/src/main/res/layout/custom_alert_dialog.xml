@@ -30,7 +30,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/app_icon" />
 
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:id="@+id/alert_dialog_message_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:textColor="@color/app_fontColor_hint_light"
                 android:textStyle="normal" />
 
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:id="@+id/alert_dialog_positive_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

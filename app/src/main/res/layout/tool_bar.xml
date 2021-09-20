@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:id="@+id/toolbar_title"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="wrap_content"

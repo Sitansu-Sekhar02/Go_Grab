@@ -51,7 +51,7 @@
                             android:gravity="center"
                             android:padding="@dimen/_5sdp">
 
-                            <com.sa.gograb.view.AppTextView
+                            <com.sauthi.gograb.view.AppTextView
                                 android:id="@+id/tv_total_rating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:src="@drawable/ic_star" />
 
-                            <com.sa.gograb.view.AppTextView
+                            <com.sauthi.gograb.view.AppTextView
                                 android:id="@+id/tv_rating_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:layout_marginTop="@dimen/_7sdp"
                 android:orientation="vertical">
 
-                <com.sa.gograb.view.AppTextView
+                <com.sauthi.gograb.view.AppTextView
                     android:id="@+id/tv_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/main_text" />
 
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     android:drawableLeft="@drawable/ic_path_location"
                     android:drawablePadding="@dimen/_8sdp"
-                    android:text="@string/kms"
+                    android:text=""
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
             </LinearLayout>

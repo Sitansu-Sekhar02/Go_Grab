@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
     useLibrary 'org.apache.http.legacy'
 
 
     defaultConfig {
-        applicationId "com.sa.gograb"
-        minSdkVersion 19
-        targetSdkVersion 30
+        applicationId "com.sauthi.gograb"
+        minSdkVersion 20
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -224,6 +224,7 @@ dependencies {
 
     //if you want to use Picasso for loading images with first letter
     implementation 'io.github.informramiz:nameinitialscircleimageview:1.6'
+    implementation "androidx.core:core-ktx:1.6.0"
 
 }
 apply plugin: 'com.google.gms.google-services'

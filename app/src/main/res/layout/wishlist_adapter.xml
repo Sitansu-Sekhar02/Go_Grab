@@ -52,7 +52,7 @@
                             android:gravity="center"
                             android:padding="@dimen/_5sdp">
 
-                            <com.sa.gograb.view.AppTextView_SubTitle
+                            <com.sauthi.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_total_rating"
 
                                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:src="@drawable/ic_star" />
 
-                            <com.sa.gograb.view.AppTextView_SubTitle
+                            <com.sauthi.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_rating_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 android:layout_marginTop="@dimen/_7sdp"
                 android:orientation="vertical">
 
-                <com.sa.gograb.view.AppTextView
+                <com.sauthi.gograb.view.AppTextView
                     android:id="@+id/tv_sub_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/main_text" />
 
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:visibility="gone"
                     android:id="@+id/tv_cusine_name"
                     android:layout_width="wrap_content"

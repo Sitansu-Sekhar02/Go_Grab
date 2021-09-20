@@ -12,11 +12,11 @@
         android:padding="@dimen/_8sdp"
         android:orientation="horizontal">
 
-        <com.sa.gograb.view.AppTextView_SubTitle
+        <com.sauthi.gograb.view.AppTextView_SubTitle
             android:id="@+id/tv_cusine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/burger"
+            android:text=""
             android:textAllCaps="true"
             android:gravity="center"
             android:textAppearance="@style/SmallerSizeText"

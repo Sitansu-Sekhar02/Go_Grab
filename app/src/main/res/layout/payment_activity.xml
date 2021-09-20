@@ -24,7 +24,7 @@
             android:layout_marginTop="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_8sdp">
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_payment_method"
@@ -44,13 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp">
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/SmallMediumText"
                 android:textColor="@color/semi_color"
                 android:text="@string/credit_Debit_card"/>
-            <com.sa.gograb.view.AppTextView_SubTitle
+            <com.sauthi.gograb.view.AppTextView_SubTitle
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/SmallMediumText"
@@ -73,7 +73,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerInParent="true"
                     android:src="@drawable/visa_iv"/>
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/iv_card_image"
@@ -101,7 +101,7 @@
                 android:layout_marginBottom="@dimen/_20sdp"
 
                 android:layout_below="@+id/rl_card_add">
-                <com.sa.gograb.view.AppEditTextView
+                <com.sauthi.gograb.view.AppEditTextView
                     android:id="@+id/etv_apply_coupon"
                     android:layout_width="@dimen/_116sdp"
                     android:layout_height="@dimen/_45sdp"
@@ -118,7 +118,7 @@
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/app_fontBlackColor"
                     android:textColorHint="@color/app_fontColor" />
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_checkout"
                     android:layout_width="@dimen/_150sdp"
                     android:layout_height="@dimen/_45sdp"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp">
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/SmallMediumText"
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_margin="@dimen/_8sdp">
-                <com.sa.gograb.view.AppTextView
+                <com.sauthi.gograb.view.AppTextView
                     android:id="@+id/gender_tv"
                     android:layout_width="@dimen/_235sdp"
                     android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp">
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/SmallMediumText"
@@ -223,7 +223,7 @@
                 android:gravity="center"
                 android:layout_margin="@dimen/_8sdp">
 
-                <com.sa.gograb.view.AppTextView_SubTitle
+                <com.sauthi.gograb.view.AppTextView_SubTitle
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/SmallMediumText"
@@ -241,7 +241,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
-        <com.sa.gograb.view.AppButton
+        <com.sauthi.gograb.view.AppButton
             android:id="@+id/btn_login"
             android:layout_below="@+id/rl_cash_delivery_main"
             android:layout_width="match_parent"

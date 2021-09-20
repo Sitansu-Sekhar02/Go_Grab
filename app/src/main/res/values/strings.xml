@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Go&amp;Grab</string>
+    <string name="app_name">Grab&amp;Go</string>
     <string name="loading">Loading...</string>
     <string name="splash_text">Food is just a click away</string>
 
     <!--Google API Keys-->
-    <string name="GoogleAPIKey">AIzaSyAoZxkqzaoC2ZiyK1K7GypTMYO41M_svWk</string>
+    <string name="GoogleAPIKey">AIzaSyDPXn5_pPHwthkHa3m9-kIiwVnCOQq7rzI</string>
 
     <string name="location">Location</string>
 
@@ -35,7 +35,7 @@
     <string name="full_name">Full Name</string>
     <string name="enter_full_name">Enter full name</string>
     <string name="email_id">Email ID</string>
-    <string name="enter_emailId">Enter email ID (Optional)</string>
+    <string name="enter_emailId">Enter email ID</string>
     <string name="vehicle_no">Vehicle number</string>
     <string name="enter_vehicle_no">Enter your car/bike number(Optional)</string>
     <string name="choose_password">Choose password</string>

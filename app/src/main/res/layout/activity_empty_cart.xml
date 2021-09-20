@@ -19,13 +19,13 @@
             android:layout_width="@dimen/_156sdp"
             android:layout_height="@dimen/_156sdp"
             android:src="@drawable/ic_emprty_cart"/>
-        <com.sa.gograb.view.AppTextView_Title
+        <com.sauthi.gograb.view.AppTextView_Title
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/MediumSizeText"
             android:text="@string/emprty_cart"
             android:textColor="@color/main_text"/>
-        <com.sa.gograb.view.AppTextView_SubTitle
+        <com.sauthi.gograb.view.AppTextView_SubTitle
             android:layout_width="@dimen/_194sdp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/SmallMediumText"
@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
             android:textColor="@color/semi_color"/>
-        <com.sa.gograb.view.AppButton
+        <com.sauthi.gograb.view.AppButton
             android:id="@+id/btn_view_restaurant"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
