@@ -521,8 +521,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             }
         });
 
-      //  dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-       // dialog.show();
     }
 
     private void setImageView(int position, ImageView rating_iv1, ImageView rating_iv2, ImageView rating_iv3, ImageView rating_iv4, ImageView rating_iv5) {

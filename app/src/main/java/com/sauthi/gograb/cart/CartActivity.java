@@ -489,6 +489,11 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             if (GlobalFunctions.isNotNullValue(cartModel.getInstruction())) {
                 comments_etv.setText(cartModel.getInstruction());
             }
+            if (GlobalFunctions.isNotNullValue(cartModel.getCoupon_code())) {
+                etv_apply_coupon.setText(cartModel.getCoupon_code());
+                tv_apply_coupon.setVisibility(View.GONE);
+                tv_remove_coupon.setVisibility(View.VISIBLE);
+            }
 
             if (GlobalFunctions.isNotNullValue(cartModel.getFull_name())) {
                 tv_item_name.setText(cartModel.getFull_name());

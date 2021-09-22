@@ -1907,7 +1907,6 @@ public class GlobalFunctions {
                         }else if (type.equalsIgnoreCase("2")){
                             idList += subCategoryModel.getPreTime();
                         }
-//                        idList += subCategoryModel.getId();
                     }
                 } else {
                     if (type.equalsIgnoreCase("0")){

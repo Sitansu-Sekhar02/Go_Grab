@@ -86,6 +86,18 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         if (GlobalFunctions.isNotNullValue(model.getGrand_total())) {
             holder.tv_grant_total.setText(model.getGrand_total());
         }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_subtotal_currency.setText(model.getCurrency());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_packaging_currency.setText(model.getCurrency());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_vat_currency.setText(model.getCurrency());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_total_currency.setText(model.getCurrency());
+        }
         holder.tv_reorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +179,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         ImageView iv_expand_order;
         TextView myTextView,tv_item_title,tv_order_date,tv_ratings,tv_rating_count,tv_distance,tv_item_name,tv_currency,tv_total_price,prolist_tv,sub_total_tv,packaging_charges_tv,vat_amount_tv,tv_grant_total,tv_reorder;
         RecyclerView order_rv,rv_order_details;
+        TextView tv_subtotal_currency,tv_packaging_currency,tv_vat_currency,tv_total_currency;
         RelativeLayout rl_billing_main;
         LinearLayout ln_currency;
 
@@ -192,6 +205,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             rl_billing_main = itemView.findViewById(R.id.rl_billing_main);
             ln_currency = itemView.findViewById(R.id.ln_currency);
             tv_reorder = itemView.findViewById(R.id.tv_reorder);
+            tv_subtotal_currency = itemView.findViewById(R.id.tv_subtotal_currency);
+            tv_packaging_currency = itemView.findViewById(R.id.tv_packaging_currency);
+            tv_vat_currency = itemView.findViewById(R.id.tv_vat_currency);
+            tv_total_currency = itemView.findViewById(R.id.tv_total_currency);
 
 
         }

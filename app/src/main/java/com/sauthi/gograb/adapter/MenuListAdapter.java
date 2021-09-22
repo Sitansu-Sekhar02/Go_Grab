@@ -129,9 +129,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
             }
         });
 
-
     }
-
 
     private void quantityCounter(TrendingMenuModel cartDetailModel,TextView qty_ev, boolean isAddition) {
         String minimumQuantity = "0";

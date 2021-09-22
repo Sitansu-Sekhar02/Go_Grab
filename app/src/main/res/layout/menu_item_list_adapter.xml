@@ -145,7 +145,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="left"
                 android:maxLines="1"
-                android:text="Indian Daal Fry"
+                android:text=""
                 android:textAllCaps="false"
                 android:textAppearance="@style/SmallMediumText"
                 android:textColor="@color/main_text" />
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
-                    android:text="SAR"
+                    android:text=""
                     android:textAllCaps="false"
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
@@ -171,7 +171,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:singleLine="true"
-                    android:text="300"
+                    android:text=""
                     android:textAllCaps="false"
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
@@ -200,7 +200,7 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="left"
                 android:maxLines="2"
-                android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy More"
+                android:text=""
                 android:textAllCaps="false"
                 android:textAppearance="@style/SmallMediumText"
                 android:textColor="@color/semi_color" />

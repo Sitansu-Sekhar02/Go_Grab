@@ -34,8 +34,7 @@
                         android:id="@+id/iv_sub_category"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image" />
+                        android:scaleType="centerCrop" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -56,7 +55,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                android:text="4.5"
+                                android:text=""
                                 android:textAppearance="@style/SmallestText"
                                 android:textColor="@color/main_text" />
 
@@ -72,7 +71,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:layout_marginRight="@dimen/_5sdp"
-                                android:text="(15+)"
+                                android:text=""
                                 android:gravity="center"
                                 android:textAppearance="@style/SmallestText"
                                 android:textColor="@color/semi_color" />

@@ -294,7 +294,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 registerUser(context, registerModel);
 
-
             }
         }
     }
@@ -307,7 +306,6 @@ public class RegistrationActivity extends AppCompatActivity {
             public void OnSuccessFromServer(Object arg0) {
                 globalFunctions.hideProgress();
                 Log.d(TAG, "Response : " + arg0.toString());
-                //StatusModel model = (StatusModel) arg0;
                 validateOutputAfterRegistration(arg0);
             }
 
