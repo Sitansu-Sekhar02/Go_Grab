@@ -24,7 +24,7 @@
             android:padding="@dimen/activity_gutter_margin_quarter"
             android:src="@drawable/iv_back" />
 
-        <com.sauthi.gograb.view.AppTextView
+        <com.user.gograb.view.AppTextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <com.sauthi.gograb.view.AppTextView
+        <com.user.gograb.view.AppTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/_4sdp"
@@ -26,7 +26,7 @@
             android:textAppearance="@style/MediumText"
             android:textColor="@color/colorPrimary" />
 
-        <com.sauthi.gograb.view.AppTextView
+        <com.user.gograb.view.AppTextView
             android:id="@+id/search_fragment_no_result_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

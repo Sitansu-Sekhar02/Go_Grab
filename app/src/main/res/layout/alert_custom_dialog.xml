@@ -21,7 +21,7 @@
             android:padding="@dimen/activity_gutter_margin_half"
             android:src="@drawable/app_icon" />
 
-        <com.sauthi.gograb.view.AppTextView_Title
+        <com.user.gograb.view.AppTextView_Title
             android:id="@+id/alert_custom_dialog_title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/alert_custom_dialog_description_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:orientation="horizontal"
         android:weightSum="9">
 
-        <com.sauthi.gograb.view.AppButton
+        <com.user.gograb.view.AppButton
             android:id="@+id/alert_custom_dialog_neutralButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:textAppearance="@style/SmallMediumText"
             android:textColor="@color/ColorPrimary" />
 
-        <com.sauthi.gograb.view.AppButton
+        <com.user.gograb.view.AppButton
             android:id="@+id/alert_custom_dialog_cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:textAppearance="@style/SmallMediumText"
             android:textColor="@color/ColorPrimary" />
 
-        <com.sauthi.gograb.view.AppButton
+        <com.user.gograb.view.AppButton
             android:id="@+id/alert_custom_dialog_okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="2dp">
 
-    <com.sauthi.gograb.view.AppTextView
+    <com.user.gograb.view.AppTextView
         android:id="@+id/orders_list_row_item_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:textAppearance="@style/MediumText"
         android:textColor="@color/app_fontColor" />
 
-    <com.sauthi.gograb.view.AppTextView
+    <com.user.gograb.view.AppTextView
         android:id="@+id/orders_list_row_item_message_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

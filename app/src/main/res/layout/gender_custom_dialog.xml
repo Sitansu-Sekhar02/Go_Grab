@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/back_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/activity_gutter_margin_half"
         android:background="@color/border_color" />
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/none_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:background="@color/app_primary" />
 
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/male_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         android:layout_gravity="center"
         android:background="@color/border_color" />
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/female_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

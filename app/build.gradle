@@ -8,7 +8,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.sauthi.gograb"
+        applicationId "com.user.gograb"
         minSdkVersion 20
         targetSdkVersion 31
         versionCode 1

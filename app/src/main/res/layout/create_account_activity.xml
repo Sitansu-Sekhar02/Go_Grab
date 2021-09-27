@@ -37,7 +37,7 @@
                         android:layout_marginRight="@dimen/activity_gutter_margin_half"
                         android:orientation="vertical">
 
-                        <com.sauthi.gograb.view.AppTextView
+                        <com.user.gograb.view.AppTextView
                             android:layout_width="@dimen/_208sdp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_16sdp"
@@ -47,7 +47,7 @@
                             android:textAppearance="@style/LargeText"
                             android:textColor="@color/semi_color" />
 
-                        <com.sauthi.gograb.view.AppTextView_SubTitle
+                        <com.user.gograb.view.AppTextView_SubTitle
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/activity_gutter_margin"
@@ -76,7 +76,7 @@
                                 app:ccp_contentColor="@color/semi_color"
                                 app:ccp_textSize="@dimen/_12sdp" />
 
-                            <com.sauthi.gograb.view.AppEditTextView
+                            <com.user.gograb.view.AppEditTextView
                                 android:id="@+id/phone_number_etv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                                 android:textColor="@color/app_fontBlackColor" />
                         </LinearLayout>
 
-                        <com.sauthi.gograb.view.AppButton
+                        <com.user.gograb.view.AppButton
                             android:id="@+id/btn_continue"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_48sdp"

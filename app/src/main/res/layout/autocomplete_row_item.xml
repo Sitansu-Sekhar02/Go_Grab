@@ -27,7 +27,7 @@
             android:layout_toLeftOf="@+id/search_iv"
             android:orientation="vertical">
 
-            <com.sauthi.gograb.view.AppTextView
+            <com.user.gograb.view.AppTextView
                 android:id="@+id/autoCompleteLabel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

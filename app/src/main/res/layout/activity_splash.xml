@@ -14,7 +14,7 @@
         android:background="@drawable/app_icon" />
 
 
-    <com.sauthi.gograb.view.AppTextView_SubTitle
+    <com.user.gograb.view.AppTextView_SubTitle
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

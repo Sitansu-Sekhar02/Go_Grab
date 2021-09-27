@@ -22,7 +22,7 @@
         app:cardElevation="3dp"
         app:cardPreventCornerOverlap="false"
         tools:ignore="MissingConstraints">
-        <com.sauthi.gograb.view.AppTextView_SubTitle
+        <com.user.gograb.view.AppTextView_SubTitle
             android:id="@+id/search_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

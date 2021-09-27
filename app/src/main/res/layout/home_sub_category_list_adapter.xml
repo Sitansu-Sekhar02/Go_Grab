@@ -50,7 +50,7 @@
                             android:gravity="center"
                             android:padding="@dimen/_5sdp">
 
-                            <com.sauthi.gograb.view.AppTextView_SubTitle
+                            <com.user.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_total_rating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:src="@drawable/ic_star" />
 
-                            <com.sauthi.gograb.view.AppTextView_SubTitle
+                            <com.user.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_rating_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:layout_marginTop="@dimen/_7sdp"
                 android:orientation="horizontal">
 
-                <com.sauthi.gograb.view.AppTextView
+                <com.user.gograb.view.AppTextView
                     android:id="@+id/tv_category_title"
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/main_text" />
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_cusine_one"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                     android:textAppearance="@style/SmallerSizeText"
                     android:textColor="@color/semi_color" />
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_cusine_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                     android:textAppearance="@style/SmallerSizeText"
                     android:textColor="@color/semi_color" />
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_cusine_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

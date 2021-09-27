@@ -24,7 +24,7 @@
             android:layout_weight="4.5"
             android:src="@drawable/iv_back" />
 
-        <com.sauthi.gograb.view.AppTextView
+        <com.user.gograb.view.AppTextView
 
             android:id="@+id/toolbar_title"
             android:layout_width="match_parent"

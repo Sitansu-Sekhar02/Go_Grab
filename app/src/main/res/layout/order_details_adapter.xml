@@ -11,14 +11,14 @@
         android:layout_marginBottom="@dimen/_5sdp"
         android:orientation="horizontal">
 
-        <com.sauthi.gograb.view.AppTextView_SubTitle
+        <com.user.gograb.view.AppTextView_SubTitle
             android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/ln_currency"
             android:layout_marginRight="@dimen/_25sdp"
             android:gravity="start"
-            android:text="SAR"
+            android:text=""
             android:textAppearance="@style/SmallerText"
             android:textColor="@color/semi_color" />
 
@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:orientation="horizontal">
 
-            <com.sauthi.gograb.view.AppTextView_SubTitle
+            <com.user.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,13 +38,13 @@
                 android:textAppearance="@style/SmallerText"
                 android:textColor="@color/semi_color" />
 
-            <com.sauthi.gograb.view.AppTextView_SubTitle
+            <com.user.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:gravity="center"
-                android:text="300"
+                android:text=""
                 android:textAppearance="@style/SmallerText"
                 android:textColor="@color/semi_color" />
         </LinearLayout>

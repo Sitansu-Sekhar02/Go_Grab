@@ -55,7 +55,7 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:orientation="vertical">
 
-                    <com.sauthi.gograb.view.AppTextView
+                    <com.user.gograb.view.AppTextView
                         android:id="@+id/tv_item_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content">
 
 
-                            <com.sauthi.gograb.view.AppTextView_SubTitle
+                            <com.user.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_ratings"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_star" />
 
-                            <com.sauthi.gograb.view.AppTextView_SubTitle
+                            <com.user.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_rating_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                            <com.sauthi.gograb.view.AppTextView_SubTitle
+                            <com.user.gograb.view.AppTextView_SubTitle
                                 android:id="@+id/tv_distance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 android:layout_margin="@dimen/_8sdp"
                 android:orientation="vertical">
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -186,7 +186,7 @@
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
 
-                <com.sauthi.gograb.view.AppEditTextView
+                <com.user.gograb.view.AppEditTextView
                     android:id="@+id/comments_etv"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_48sdp"
@@ -221,7 +221,7 @@
                 android:layout_margin="@dimen/_8sdp"
                 android:orientation="vertical">
 
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -243,7 +243,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled">
 
-                    <com.sauthi.gograb.view.AppEditTextView
+                    <com.user.gograb.view.AppEditTextView
                         android:id="@+id/etv_apply_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_48sdp"
@@ -260,7 +260,7 @@
                         android:textColor="@color/red_color"
                         android:textColorHint="@color/app_fontColor" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/tv_apply_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                         android:textColor="@color/main_text"
                         android:textAppearance="@style/SmallMediumText"
                         android:text="@string/apply"/>
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:visibility="gone"
                         android:id="@+id/tv_remove_coupon"
                         android:layout_width="wrap_content"
@@ -302,7 +302,7 @@
                     android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
                     android:orientation="horizontal">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -315,7 +315,7 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/main_text" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -338,7 +338,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -351,7 +351,7 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/item_price_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -375,7 +375,7 @@
                     android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
                     android:orientation="horizontal">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -388,7 +388,7 @@
 
                         android:textColor="@color/semi_color" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/sub_total_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -411,7 +411,7 @@
                     android:layout_marginBottom="@dimen/activity_gutter_margin_half"
                     android:orientation="horizontal">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -423,7 +423,7 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/vat_amount_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -456,7 +456,7 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -469,7 +469,7 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/packaging_charges_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -494,7 +494,7 @@
                     android:layout_marginBottom="@dimen/activity_gutter_margin_half_increased"
                     android:orientation="horizontal">
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -506,7 +506,7 @@
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/discount_onBill_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -547,7 +547,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/_14sdp"
                 android:orientation="vertical">
-                <com.sauthi.gograb.view.AppTextView_SubTitle
+                <com.user.gograb.view.AppTextView_SubTitle
                     android:id="@+id/tv_item_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -557,14 +557,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/tv_currency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/main_text"
                         android:text=""/>
-                    <com.sauthi.gograb.view.AppTextView_SubTitle
+                    <com.user.gograb.view.AppTextView_SubTitle
                         android:id="@+id/tv_sar_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -577,7 +577,7 @@
 
             </LinearLayout>
 
-            <com.sauthi.gograb.view.AppTextView_SubTitle
+            <com.user.gograb.view.AppTextView_SubTitle
                 android:id="@+id/tv_checkout"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_40sdp"
@@ -609,13 +609,13 @@
             android:layout_width="@dimen/_156sdp"
             android:layout_height="@dimen/_156sdp"
             android:src="@drawable/ic_emprty_cart"/>
-        <com.sauthi.gograb.view.AppTextView
+        <com.user.gograb.view.AppTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/MediumSizeText"
             android:text="@string/emprty_cart"
             android:textColor="@color/main_text"/>
-        <com.sauthi.gograb.view.AppTextView_SubTitle
+        <com.user.gograb.view.AppTextView_SubTitle
             android:layout_width="@dimen/_194sdp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/SmallMediumText"
@@ -623,7 +623,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
             android:textColor="@color/semi_color"/>
-        <com.sauthi.gograb.view.AppButton
+        <com.user.gograb.view.AppButton
             android:id="@+id/btn_view_restaurant"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
