@@ -208,6 +208,7 @@
     <string name="enter_valid_coupon">Please enter valid coupon</string>
     <string name="Discount">Discount</string>
     <string name="add_location">Add your location</string>
+    <string name="current_location">Current location</string>
 
 
 </resources>

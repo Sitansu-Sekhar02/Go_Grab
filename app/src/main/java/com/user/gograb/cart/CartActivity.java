@@ -26,6 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
 import com.user.gograb.AppController;
 import com.user.gograb.R;
 import com.user.gograb.adapter.CartAdapter;
@@ -37,6 +39,7 @@ import com.user.gograb.restaurant.RestaurantListActivity;
 import com.user.gograb.services.ServerResponseInterface;
 import com.user.gograb.services.ServicesMethodsManager;
 import com.user.gograb.services.model.AddInstructionModel;
+import com.user.gograb.services.model.AddressModel;
 import com.user.gograb.services.model.CartDetailModel;
 import com.user.gograb.services.model.CartDetailsListModel;
 import com.user.gograb.services.model.CartMainModel;
@@ -98,6 +101,15 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
     LinearLayoutManager cart_linear;
     ProgressLinearLayout details_progressActivity;
     RecyclerView cart_list_recyclerview;
+
+
+    Double distance;
+    Double restaurant_lat=null;
+    Double restaurant_long=null;
+    Double user_lat;
+    Double user_long;
+    LatLng latlng_user,latlng_restro;
+
 
     public static Intent newInstance(Activity activity, MenuModel menuModel) {
         Intent intent = new Intent(activity, CartActivity.class);
@@ -498,12 +510,38 @@ public class CartActivity extends AppCompatActivity implements OnCartInvokeListe
             if (GlobalFunctions.isNotNullValue(cartModel.getImage())) {
                 Picasso.with(context).load(cartModel.getImage()).placeholder(R.drawable.lazy_load).into(iv_menu_main);
             }
-            if (GlobalFunctions.isNotNullValue(cartModel.getDistance())) {
-                tv_distance.setText(cartModel.getDistance());
+
+            if (cartModel.getLatitude()!=null && cartModel.getLongitude()!=null) {
+                restaurant_lat= Double.valueOf(cartModel.getLatitude());
+                restaurant_long= Double.valueOf(cartModel.getLongitude());
+
             }
+
+            AddressModel addressModel=GlobalFunctions.getAddress(activity);
+            if (addressModel!=null && addressModel.getLatitude()!=null && addressModel.getLongitude()!=null ){
+                user_lat= Double.valueOf(addressModel.getLatitude());
+                user_long= Double.valueOf(addressModel.getLongitude());
+                 latlng_user = new LatLng(user_lat, user_long);
+                 latlng_restro = new LatLng(restaurant_lat, restaurant_long);
+                distance = SphericalUtil.computeDistanceBetween(latlng_user, latlng_restro);
+
+            }
+
+
+
+            if (distance!=null) {
+                String total_distance= String.format("%.2f", distance / 1000);
+
+                tv_distance.setText(total_distance+" "+activity.getString(R.string.kms));
+
+            }
+           /* if (GlobalFunctions.isNotNullValue(cartModel.getDistance())) {
+                tv_distance.setText(cartModel.getDistance());
+            }*/
             if (GlobalFunctions.isNotNullValue(cartModel.getRating())) {
                 tv_ratings.setText(cartModel.getRating());
             }
+
             if (GlobalFunctions.isNotNullValue(cartModel.getRating_count())) {
                 tv_rating_count.setText("(" + cartModel.getRating_count() + "+)");
             }

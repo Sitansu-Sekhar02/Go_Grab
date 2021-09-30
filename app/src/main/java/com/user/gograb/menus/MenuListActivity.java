@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
 import com.user.gograb.AppController;
 import com.user.gograb.R;
 import com.user.gograb.adapter.CategoryMenuListAdapter;
@@ -33,6 +35,7 @@ import com.user.gograb.global.GlobalFunctions;
 import com.user.gograb.global.GlobalVariables;
 import com.user.gograb.services.ServerResponseInterface;
 import com.user.gograb.services.ServicesMethodsManager;
+import com.user.gograb.services.model.AddressModel;
 import com.user.gograb.services.model.CartMainModel;
 import com.user.gograb.services.model.CartModel;
 import com.user.gograb.services.model.CartPostModel;
@@ -123,6 +126,13 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
     List<CusineModel> cusineModels = new ArrayList<>();
     RecyclerView rl_menu_cusines;
     LinearLayoutManager cusineLinear;
+
+    Double distance;
+    Double restaurant_lat=null;
+    Double restaurant_long=null;
+    Double user_lat;
+    Double user_long;
+    LatLng latlng_user,latlng_restro;
 
 
     public static Intent newInstance(Activity activity, RestaurantModel restaurantModel) {
@@ -532,16 +542,42 @@ public class MenuListActivity extends AppCompatActivity implements CartClickList
             if (GlobalFunctions.isNotNullValue(menuModel.getImage())) {
                 Picasso.with(context).load(menuModel.getImage()).placeholder(R.drawable.lazy_load).into(iv_menu_item);
             }
-            if (GlobalFunctions.isNotNullValue(menuModel.getDistance())) {
-               /* activity.runOnUiThread(new Runnable() {
+
+            if (menuModel.getLatitude()!=null && menuModel.getLongitude()!=null) {
+                restaurant_lat= Double.valueOf(menuModel.getLatitude());
+                restaurant_long= Double.valueOf(menuModel.getLongitude());
+
+            }
+
+            AddressModel addressModel=GlobalFunctions.getAddress(activity);
+            if (addressModel!=null && addressModel.getLatitude()!=null && addressModel.getLongitude()!=null ){
+                user_lat= Double.valueOf(addressModel.getLatitude());
+                user_long= Double.valueOf(addressModel.getLongitude());
+                 latlng_user = new LatLng(user_lat, user_long);
+                 latlng_restro = new LatLng(restaurant_lat, restaurant_long);
+                distance = SphericalUtil.computeDistanceBetween(latlng_user, latlng_restro);
+
+            }
+
+
+
+            if (distance!=null) {
+                String total_distance= String.format("%.2f", distance / 1000);
+
+                tv_distance.setText(total_distance+" "+activity.getString(R.string.kms));
+
+            }
+
+            /*if (GlobalFunctions.isNotNullValue(menuModel.getDistance())) {
+               *//* activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                          tv_distance.setText(GlobalFunctions.getDistanceFromAddress(activity,menuModel.getLatitude(),menuModel.getLongitude()));
                     }
-                });*/
+                });*//*
 
                 tv_distance.setText(menuModel.getDistance());
-            }
+            }*/
             if (GlobalFunctions.isNotNullValue(menuModel.getPreparation_time())) {
                 tv_preparation_time.setText(menuModel.getPreparation_time() + " " + activity.getString(R.string.mins));
             }

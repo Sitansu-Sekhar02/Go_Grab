@@ -225,6 +225,10 @@ dependencies {
     //if you want to use Picasso for loading images with first letter
     implementation 'io.github.informramiz:nameinitialscircleimageview:1.6'
     implementation "androidx.core:core-ktx:1.6.0"
+    implementation "com.google.maps.android:android-maps-utils:0.4+"
+
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

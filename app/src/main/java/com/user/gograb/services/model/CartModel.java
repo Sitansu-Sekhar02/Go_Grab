@@ -38,7 +38,9 @@ public class CartModel implements Serializable {
             OFFER_ID         = "offer_id",
             DISCOUNT_PRICE   = "discount_price",
             CURRENCY         = "currency",
-            INSTRUCTION         = "instruction",
+            INSTRUCTION      = "instruction",
+            LATITUDE         = "latitude",
+            LONGITUDE        = "longitude",
             CART_DETAILS     = "cart_detail";
 
     String
@@ -76,7 +78,9 @@ public class CartModel implements Serializable {
             cart_count       = null,
             packing_charges  = null,
             grand_total      = null,
-            currency         = null;
+            latitude         = null,
+            longitude        = null,
+            currency       = null;
 
     CartDetailsListModel
             cartDetailsListModel  = null;
@@ -356,6 +360,22 @@ public class CartModel implements Serializable {
         this.vatPerc = vatPerc;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public String getShipping() {
         return shipping;
     }
@@ -402,6 +422,9 @@ public class CartModel implements Serializable {
             if (json.has(GRAND_TOTAL)) grand_total = json.getString(GRAND_TOTAL);
             if (json.has(SHIPPING)) shipping = json.getString(SHIPPING);
             if (json.has(INSTRUCTION)) instruction = json.getString(INSTRUCTION);
+            if (json.has(LATITUDE)) latitude = json.getString(LATITUDE);
+            if (json.has(LONGITUDE)) longitude = json.getString(LONGITUDE);
+
 
             if(json.has(CART_DETAILS)) {
                 JSONArray array = json.getJSONArray(CART_DETAILS);
@@ -447,6 +470,8 @@ public class CartModel implements Serializable {
             jsonMain.put(PACKING_CHARGE, packing_charges);
             jsonMain.put(SHIPPING, shipping);
             jsonMain.put(INSTRUCTION, instruction);
+            jsonMain.put(LATITUDE, latitude);
+            jsonMain.put(LONGITUDE, longitude);
             jsonMain.put(CART_DETAILS, cartDetailsListModel!=null?new JSONArray(cartDetailsListModel.toString(true)):null);
 
             returnString = jsonMain.toString();

@@ -35,7 +35,7 @@
                 android:singleLine="true"
                 android:drawableLeft="@drawable/ic_location_pin"
                 android:drawablePadding="@dimen/_5sdp"
-                android:text="@string/add_location"
+                android:text="@string/current_location"
                 android:textAllCaps="false"
                 android:textAppearance="@style/MediumText"
                 android:textColor="@color/semi_color"
