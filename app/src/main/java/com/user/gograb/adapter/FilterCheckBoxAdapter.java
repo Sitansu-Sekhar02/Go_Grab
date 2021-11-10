@@ -92,6 +92,16 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
                     }else {
                         model.setSelected("0");
                     }
+/*
+
+                    if (GlobalFunctions.isNotNullValue(model.getSelected()) && model.getSelected().equalsIgnoreCase("1")) {
+                        model.setSelected("0");
+                    }else {
+                        model.setSelected("1");
+                    }
+*/
+
+                    //notifyDataSetChanged();
                 }
             });
         }

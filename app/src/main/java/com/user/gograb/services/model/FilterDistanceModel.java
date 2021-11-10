@@ -19,7 +19,7 @@ public class FilterDistanceModel implements Serializable {
             id               = null,
             name             = null,
             preTime          = null,
-            selected         = null,
+            selected         = "0",
             distance         = null;
 
 

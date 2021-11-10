@@ -15,7 +15,7 @@ public class RatingNFeedbackModel implements Serializable {
 
     private final String
                     RESTAURANT_ID               = "restaurant_id",
-                    ORDER_ID                   = "order_id",
+                    ORDER_ID                    = "order_id",
                     RATING                      ="rating",
                     COMMENT                     ="comment";
 
