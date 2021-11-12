@@ -235,7 +235,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
 
     }
 
-
     private void homePageApi(final Context context) {
        // globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
@@ -266,7 +265,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                     HomeSubCategoryListModel subSection1CatListModel = homePageModel.getPopular_rest();
                     setUpSubSectionCatPage(subSection1CatListModel);
                 }
-
             }
 
             @Override
@@ -281,7 +279,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
             public void OnError(String msg) {
                 //globalFunctions.hideProgress();
                 globalFunctions.displayMessaage(activity, mainView, msg);
-
                 Log.d(TAG, "Error : " + msg);
             }
 
@@ -369,7 +366,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         home_sub_category_recyclerview.setHasFixedSize(true);
         homeSubCategoryListAdapter = new HomeSubCategoryListAdapter(activity, homeSubCategoryModels, this);
         home_sub_category_recyclerview.setAdapter(homeSubCategoryListAdapter);
-
 
         home_sub_category_recyclerview.getLayoutManager().scrollToPosition(selectedSubCatAdapterPosition);
     }
@@ -614,12 +610,12 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
         if (arg0 instanceof StatusMainModel) {
             StatusMainModel statusMainModel = (StatusMainModel) arg0;
             StatusModel statusModel = statusMainModel.getStatusModel();
-            if (!statusMainModel.isStatusLogin()) {
+            if (statusMainModel.isStatusLogin()) {
+                homePageApi(context);
                 globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
 
             } else {
                 globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
-                homePageApi(context);
 
             }
         }
@@ -842,7 +838,6 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                 //StatusModel model = (StatusModel) arg0;
                 validateOutputAfterWishList(arg0);
 
-
             }
 
             @SuppressLint("LongLogTag")
@@ -878,11 +873,8 @@ public class HomeFragment extends Fragment implements OnWishlistClickInvoke {
                     //wishlist icon
                     isWishlisted = true;
                     //iv_favourite.setImageResource(R.drawable.ic_favourite_grey);
-
                 }
-
                 homePageApi(context);
-
             }
         }
     }

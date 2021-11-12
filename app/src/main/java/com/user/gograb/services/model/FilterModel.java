@@ -21,8 +21,8 @@ public class FilterModel {
             filterCusinesListModel           =null,
             filterPrepareListModel           =null;
 
-String title  = null;
-String type   = null;
+        String title  = null;
+        String type   = null;
 
 
 

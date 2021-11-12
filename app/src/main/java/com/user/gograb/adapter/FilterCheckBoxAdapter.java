@@ -83,7 +83,6 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
                 }
             }
 
-
             holder.filter_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,14 +92,12 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
                         model.setSelected("0");
                     }
 /*
-
                     if (GlobalFunctions.isNotNullValue(model.getSelected()) && model.getSelected().equalsIgnoreCase("1")) {
                         model.setSelected("0");
                     }else {
                         model.setSelected("1");
                     }
 */
-
                     //notifyDataSetChanged();
                 }
             });
@@ -114,6 +111,7 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox filter_check;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -121,3 +119,4 @@ public class FilterCheckBoxAdapter extends  RecyclerView.Adapter<FilterCheckBoxA
         }
     }
 }
+

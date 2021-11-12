@@ -40,6 +40,7 @@ import com.user.gograb.MainActivity;
 import com.user.gograb.R;
 import com.user.gograb.global.GlobalFunctions;
 import com.user.gograb.global.GlobalVariables;
+import com.user.gograb.profile.ChangePasswordActivity;
 import com.user.gograb.registration.RegistrationActivity;
 import com.user.gograb.services.ServerResponseInterface;
 import com.user.gograb.services.ServicesMethodsManager;
@@ -431,10 +432,10 @@ public class OtpActivity extends AppCompatActivity {
                                     } else if (pageType.equalsIgnoreCase(globalVariables.PAGE_TYPE_FORGOT_PASSWORD)) {
                                         // go to forgotPassword activity and pass number
                                         // phoneNumberWithoutCountryCode
-                                       /* if (registerModel != null) {
-                                            Intent intent = ResetPasswordActivity.newInstance(context, registerModel);
+                                        if (loginModel != null) {
+                                            Intent intent = ChangePasswordActivity.newInstance(context, loginModel);
                                             startActivity(intent);
-                                        }*/
+                                        }
                                     }
                                 }
                             } else {

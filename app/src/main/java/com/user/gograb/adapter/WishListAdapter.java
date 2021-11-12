@@ -108,8 +108,6 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
     }
 
 
-
-
     @Override
     public int getItemCount() {
         return list.size();

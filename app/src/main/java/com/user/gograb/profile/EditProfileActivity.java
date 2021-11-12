@@ -217,7 +217,28 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
     private void setThisPage(ProfileModel profileModel) {
 
         if (profileModel != null) {
-            if (GlobalFunctions.isNotNullValue(profileModel.getProfileImg()) && GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
+
+            if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
+                etv_full_name.setText(profileModel.getFullname());
+            }
+
+            try {
+                if (profileModel.getProfileImg() != null || !profileModel.getProfileImg().equals("null") || !profileModel.getProfileImg().equalsIgnoreCase("")) {
+
+                    String firstLetter = String.valueOf(profileModel.getFullname().charAt(0));
+                    NameInitialsCircleImageView.ImageInfo imageInfo = new NameInitialsCircleImageView.ImageInfo
+                            .Builder(firstLetter)
+                            .setTextColor(android.R.color.primary_text_dark)
+                            .setImageUrl(profileModel.getImage())
+                            .setCircleBackgroundColorRes(android.R.color.black)
+                            .build();
+                    profile_image.setImageInfo(imageInfo);
+
+                    // Picasso.with(mainContext).load(profileModel.getProfileImg()).placeholder(R.drawable.lazy_load).into(iv_profile);
+                }
+            } catch (Exception e) {
+            }
+           /* if (GlobalFunctions.isNotNullValue(profileModel.getProfileImg()) && GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
                 String firstLetter= String.valueOf(profileModel.getFullname().charAt(0));
                 NameInitialsCircleImageView.ImageInfo imageInfo = new NameInitialsCircleImageView.ImageInfo
                         .Builder(firstLetter)
@@ -226,12 +247,9 @@ public class EditProfileActivity extends AppCompatActivity implements UploadList
                         .setCircleBackgroundColorRes(android.R.color.black)
                         .build();
                 profile_image.setImageInfo(imageInfo);
-              //  Picasso.with(context).load(profileModel.getProfileImg()).placeholder(R.drawable.lazy_load).into(profile_image);
+                //  Picasso.with(context).load(profileModel.getProfileImg()).placeholder(R.drawable.lazy_load).into(profile_image);
 
-            }
-            if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
-                etv_full_name.setText(profileModel.getFullname());
-            }
+            }*/
             if (GlobalFunctions.isNotNullValue(profileModel.getPhone())) {
                 String Mobile_no = profileModel.getPhone();
                 if (GlobalFunctions.isNotNullValue(profileModel.getCountry_code())) {

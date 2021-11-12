@@ -75,7 +75,6 @@ public class FilterTitleAdapter extends  RecyclerView.Adapter<FilterTitleAdapter
                 holder.tv_filter_title.setTextColor(activity.getResources().getColor(R.color.semi_color));
 
             }
-
         }
 
     }

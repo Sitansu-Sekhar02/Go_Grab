@@ -64,7 +64,7 @@
             android:layout_weight="3"
             android:background="@color/transparent"
             android:padding="@dimen/activity_gutter_margin_half"
-            android:text="neutral"
+            android:text="@string/neutral"
             android:textAppearance="@style/SmallMediumText"
             android:textColor="@color/ColorPrimary" />
 
@@ -75,7 +75,7 @@
             android:layout_weight="3"
             android:background="@color/transparent"
             android:padding="10dp"
-            android:text="cancel"
+            android:text="@string/cancel"
             android:textAppearance="@style/SmallMediumText"
             android:textColor="@color/ColorPrimary" />
 
@@ -86,7 +86,7 @@
             android:layout_weight="3"
             android:background="@color/transparent"
             android:padding="@dimen/activity_gutter_margin_half"
-            android:text="Yes"
+            android:text="@string/yes"
             android:textAppearance="@style/SmallMediumText"
             android:textColor="@color/ColorPrimary" />
     </LinearLayout>
